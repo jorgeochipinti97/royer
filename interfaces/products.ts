@@ -18,4 +18,4 @@ export interface IProduct {
 }
 
 export type ISize = 'XS'|'S'|'M'|'L'|'XL'|'XXL'|'XXXL';
-export type IType = 'shirts'|'t-shirt'|'jacket'|'pants'|'hoodies'|'hats'|'mate'|'yerba'|'alfajores'|'wine'|'short'|'socks'|'wallet'|'purse';
+export type IType = 'shirts'|'t-shirt'|'football shirt'|'jacket'|'pants'|'hoodies'|'hats'|'mate'|'yerba'|'alfajores'|'wine'|'short'|'socks'|'wallet'|'purse';
