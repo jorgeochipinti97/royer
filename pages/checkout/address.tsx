@@ -233,9 +233,14 @@ export async function getServerSideProps() {
     const paises: string[] = []
 
     const countries_ = () => {
-        data.forEach((e: { name: { common: any; }; }) => {
-            paises.push(e.name.common)
-        });
+        try{
+
+            data.forEach((e: { name: { common: any; }; }) => {
+                paises.push(e.name.common)
+            });
+        }catch(err){
+            alert(err)
+        }
     }
     countries_()
 
