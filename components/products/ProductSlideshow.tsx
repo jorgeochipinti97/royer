@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { FC } from 'react';
 import { Slide } from 'react-slideshow-image';
 
@@ -14,16 +15,13 @@ export const ProductSlideshow: FC<Props> = ({ images }) => {
         easing="ease"
         duration={ 7000 }
         indicators
+        
     >
         {
             images.map( image =>  {
                 return (
                     <div className={ styles['each-slide'] } key={ image }>
-                        <div style={{
-                            backgroundImage: `url(${ image })`,
-                            backgroundSize: 'cover'
-                        }}>
-                        </div>
+                        <Image width={1200} height={1200} src={image} alt='foto'/>
                     </div>
                 )
 

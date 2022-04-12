@@ -9,6 +9,7 @@ import { useProducts } from '../hooks';
 import { FullScreenLoading } from '../components/ui';
 
 
+
 const HomePage: NextPage = () => {
 
   const { products, isLoading } = useProducts('/products');
@@ -19,7 +20,6 @@ const HomePage: NextPage = () => {
       <Box display='flex' justifyContent='center' sx={{mb:5}}>
         <Typography variant='h1' component='h1'>Pay with cryptocurrency</Typography>
       </Box>
-      <ProductSlideshow images={['https://res.cloudinary.com/djk4q3tys/image/upload/v1649520328/iaxptbkk6aynmqsxho5g.png', 'https://res.cloudinary.com/djk4q3tys/image/upload/v1649520328/iaxptbkk6aynmqsxho5g.png']} />
 
       {
         isLoading

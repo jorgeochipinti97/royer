@@ -14,9 +14,9 @@ import { tesloApi } from '../../../api';
 import { Product } from '../../../models';
 
 
-const validTypes = ['shirts','t-shirt','football shirt','jacket','pants','hoodies','hats','mate','yerba','alfajores','wine','short','socks','wallet','purse',]
-const validGender = ['men', 'women', 'kid', 'unisex']
-const validSizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL']
+const validTypes = ['shirts', 't-shirt', 'football shirt', 'jacket', 'pants', 'hoodies', 'hats', 'mate', 'yerba', 'alfajores', 'wine', 'short', 'socks', 'wallet', 'purse',]
+const validGender = ['men', 'women', 'kid', 'unisex','regionales']
+const validSizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL', 'Unique']
 
 
 interface FormData {
@@ -31,6 +31,7 @@ interface FormData {
     title: string;
     type: string;
     gender: string;
+    isRegional: boolean;
 }
 
 
@@ -79,8 +80,10 @@ const ProductAdminPage: FC<Props> = ({ product }) => {
 
 
     const onNewTag = () => {
-        const newTag = newTagValue.trim().toLocaleLowerCase();
-        setNewTagValue('');
+        try{
+
+            const newTag = newTagValue.trim().toLocaleLowerCase();
+            setNewTagValue('');
         const currentTags = getValues('tags');
 
         if (currentTags.includes(newTag)) {
@@ -88,11 +91,18 @@ const ProductAdminPage: FC<Props> = ({ product }) => {
         }
 
         currentTags.push(newTag);
+    }catch(err){
+        alert(err)
+    }
     }
 
     const onDeleteTag = (tag: string) => {
-        const updatedTags = getValues('tags').filter(t => t !== tag);
-        setValue('tags', updatedTags, { shouldValidate: true });
+
+      try{  const updatedTags = getValues('tags').filter(t => t !== tag);
+        setValue('tags', updatedTags, { shouldValidate: true });}
+        catch(err){
+            alert(err)
+        }
     }
 
     const onFilesSelected = async ({ target }: ChangeEvent<HTMLInputElement>) => {
@@ -174,14 +184,14 @@ const ProductAdminPage: FC<Props> = ({ product }) => {
             subTitle={`Editando: ${product.title}`}
             icon={<DriveFileRenameOutline />}
         >
-            <form>
+           
                 <Box display='flex' justifyContent='center' flexDirection='column'>
 
                     <Button
                         color="error"
                         startIcon={<DeleteForeverIcon />}
-                        
-                        sx={{ width: '150px', mb:2 }}
+
+                        sx={{ width: '150px', mb: 2 }}
                         onClick={handleSubmit(onSubmitDelete)}
                     >
                         Borrar Producto
@@ -190,7 +200,7 @@ const ProductAdminPage: FC<Props> = ({ product }) => {
                         label="introduzca el nombre para eliminar correctamente"
                         variant="filled"
 
-                        sx={{ mb:3, width:'300px' }}
+                        sx={{ mb: 3, width: '300px' }}
                         {...register('title', {
                             required: 'Este campo es requerido',
                             minLength: { value: 2, message: 'Mínimo 2 caracteres' }
@@ -199,7 +209,7 @@ const ProductAdminPage: FC<Props> = ({ product }) => {
                         helperText={errors.title?.message}
                     />
                 </Box>
-            </form>
+        
             <Divider sx={{ my: 1 }} />
 
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -274,60 +284,62 @@ const ProductAdminPage: FC<Props> = ({ product }) => {
                         />
 
                         <Divider sx={{ my: 1 }} />
+                            <FormControl sx={{ mb: 1 }}>
+                                <FormLabel>Tipo</FormLabel>
+                                <RadioGroup
+                                    row
+                                    value={getValues('type')}
+                                    onChange={({ target }) => setValue('type', target.value, { shouldValidate: true })}
+                                >
+                                    {
+                                        validTypes.map(option => (
+                                            <FormControlLabel
+                                                key={option}
+                                                value={option}
+                                                control={<Radio color='secondary' />}
+                                                label={capitalize(option)}
+                                            />
+                                        ))
+                                    }
+                                </RadioGroup>
+                            </FormControl>
 
-                        <FormControl sx={{ mb: 1 }}>
-                            <FormLabel>Tipo</FormLabel>
-                            <RadioGroup
-                                row
-                                value={getValues('type')}
-                                onChange={({ target }) => setValue('type', target.value, { shouldValidate: true })}
-                            >
+                            <FormControl sx={{ mb: 1 }}>
+                                <FormLabel>Género</FormLabel>
+                                <RadioGroup
+                                    row
+                                    value={getValues('gender')}
+                                    onChange={({ target }) => setValue('gender', target.value, { shouldValidate: true })}
+                                >
+                                    {
+                                        validGender.map(option => (
+                                            <FormControlLabel
+                                                key={option}
+                                                value={option}
+                                                control={<Radio color='secondary' />}
+                                                label={capitalize(option)}
+                                            />
+                                        ))
+                                    }
+                                </RadioGroup>
+                            </FormControl>
+
+
+
+
+                            <FormGroup>
+                                <FormLabel>Tallas</FormLabel>
                                 {
-                                    validTypes.map(option => (
+                                    validSizes.map(size => (
                                         <FormControlLabel
-                                            key={option}
-                                            value={option}
-                                            control={<Radio color='secondary' />}
-                                            label={capitalize(option)}
+                                            key={size}
+                                            control={<Checkbox checked={getValues('sizes').includes(size)} />}
+                                            label={size}
+                                            onChange={() => onChangeSize(size)}
                                         />
                                     ))
                                 }
-                            </RadioGroup>
-                        </FormControl>
-
-                        <FormControl sx={{ mb: 1 }}>
-                            <FormLabel>Género</FormLabel>
-                            <RadioGroup
-                                row
-                                value={getValues('gender')}
-                                onChange={({ target }) => setValue('gender', target.value, { shouldValidate: true })}
-                            >
-                                {
-                                    validGender.map(option => (
-                                        <FormControlLabel
-                                            key={option}
-                                            value={option}
-                                            control={<Radio color='secondary' />}
-                                            label={capitalize(option)}
-                                        />
-                                    ))
-                                }
-                            </RadioGroup>
-                        </FormControl>
-
-                        <FormGroup>
-                            <FormLabel>Tallas</FormLabel>
-                            {
-                                validSizes.map(size => (
-                                    <FormControlLabel
-                                        key={size}
-                                        control={<Checkbox checked={getValues('sizes').includes(size)} />}
-                                        label={size}
-                                        onChange={() => onChangeSize(size)}
-                                    />
-                                ))
-                            }
-                        </FormGroup>
+                            </FormGroup>
 
                     </Grid>
 
@@ -458,7 +470,6 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
     let product: IProduct | null;
 
     if (slug === 'new') {
-        // crear un producto
         const tempProduct = JSON.parse(JSON.stringify(new Product()));
         delete tempProduct._id;
         tempProduct.images = ['img1.jpg', 'img2.jpg'];

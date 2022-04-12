@@ -89,6 +89,7 @@ const ProductPage: NextPage<Props> = ({ product }) => {
                 maxValue={product.inStock > 10 ? 10 : product.inStock}
               />
               <SizeSelector
+                // selectedSize={ product.sizes[2] } 
                 sizes={product.sizes}
                 selectedSize={tempCartProduct.size}
                 onSelectedSize={selectedSize}
@@ -200,7 +201,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     props: {
       product
     },
-    revalidate: 60 * 60 * 24
+    // revalidate: 60 * 60 * 24
   }
 }
 

@@ -1,17 +1,19 @@
 import { FC, useMemo, useState, useEffect } from 'react';
 import NextLink from 'next/link';
-import { Grid, Card, CardActionArea, CardMedia, Box, Typography, Link } from '@mui/material'
+import { Grid, Card, CardActionArea, CardMedia, Box, Typography, Link, Divider } from '@mui/material'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { IProduct } from '../../interfaces'
 import { localFavorites } from '../../utils';
+import Image from 'next/image';
+import { currency } from '../../utils';
 
 interface Props {
     product: IProduct;
 }
 
 export const ProductCard: FC<Props> = ({ product }) => {
-    const [isInFavorites, setIsInFavorites] = useState(localFavorites.existInFavorites(product))
+    const [isInFavorites, setIsInFavorites] = useState<Boolean>()
     const [isHovered, setIsHovered] = useState(false);
     const [isImageLoaded, setIsImageLoaded] = useState(false);
     const productImage = useMemo(() => {
@@ -21,11 +23,33 @@ export const ProductCard: FC<Props> = ({ product }) => {
 
     }, [isHovered, product.images])
 
+    useEffect(() => {
+        let favorites: IProduct[] = JSON.parse(localStorage.getItem('favorites') || '[]')
+        let a
+        const isLiked = () => {
+            favorites.forEach(e => {
+                if (e._id == product._id) {
+                    a = true;
+                } else {
+                    a = false
+                }
+            })
+        }
+        isLiked()
+
+        if (a) {
+            setIsInFavorites(true)
+        } else {
+            setIsInFavorites(false)
+        }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
     const onToggleFavorite = () => {
         localFavorites.toggleFavorite(product)
         setIsInFavorites(!isInFavorites)
     }
-
 
 
 
@@ -53,34 +77,36 @@ export const ProductCard: FC<Props> = ({ product }) => {
                         } */}
 
                             <CardMedia
-                                component='img'
+                                component='div'
                                 className='fadeIn'
-                                image={productImage}
-                                alt={product.title}
-                                onLoad={() => setIsImageLoaded(true)}
-                            />
+                                onLoad={() => setIsImageLoaded(true)}>
+
+                                <Image width={500} height={500} alt={product.title} src={productImage}  />
+                            </CardMedia>
+
 
                         </CardActionArea>
                     </Link>
                 </NextLink>
                 {isInFavorites ?
-                    <FavoriteIcon 
-                    color='error'
-                    onClick={onToggleFavorite}
+                    <FavoriteIcon
+                        color='error'
+                        onClick={onToggleFavorite}
                     />
                     :
                     <FavoriteBorderIcon
-                    color='error'
+                        color='error'
                         onClick={onToggleFavorite}
                     />
                 }
 
-            </Card>
 
+            </Card>
             <Box sx={{ mt: 1, display: isImageLoaded ? 'block' : 'none' }} className='fadeIn'>
                 <Typography fontWeight={700}>{product.title}</Typography>
-                <Typography fontWeight={500}>{`$${product.price}`}</Typography>
+                <Typography fontWeight={500} color='succes'>{`${currency.formattwo(product.price)}`}</Typography>
             </Box>
+            <Divider sx={{ my: 2 }} />
         </Grid>
     )
 }

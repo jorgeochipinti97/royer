@@ -28,11 +28,11 @@ const productSchema = new Schema({
     gender: {
         type: String,
         enum: {
-            values: ['men','women','kid','unisex'],
+            values: ['men','women','kid','unisex','regionales'],
             message: '{VALUE} no es un genero válido'
         },
         default: 'women'
-    }
+    },
 },{
     timestamps: true
 });
