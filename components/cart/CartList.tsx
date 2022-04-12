@@ -5,6 +5,7 @@ import { Box, Button, CardActionArea, CardMedia, Grid, Link, Typography } from '
 import { ItemCounter } from '../ui';
 import { CartContext } from '../../context';
 import { ICartProduct, IOrderItem } from '../../interfaces';
+import { currency } from '../../utils';
 
 
 interface Props {
@@ -65,7 +66,7 @@ export const CartList: FC<Props> = ({ editable = false, products }) => {
                             </Box>
                         </Grid>
                         <Grid item xs={2} display='flex' alignItems='center' flexDirection='column'>
-                            <Typography variant='subtitle1'>{ `$${ product.price }` }</Typography>
+                            <Typography variant='subtitle1'>{`${currency.formattwo(product.price)}`}</Typography>
                             
                             {
                                 editable && (

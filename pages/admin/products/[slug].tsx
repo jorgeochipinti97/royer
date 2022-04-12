@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form';
 import { Box, Button, capitalize, Card, CardActions, CardMedia, Checkbox, Chip, Divider, FormControl, FormControlLabel, FormGroup, FormLabel, Grid, ListItem, Paper, Radio, RadioGroup, TextField } from '@mui/material';
 import { DriveFileRenameOutline, SaveOutlined, UploadOutlined } from '@mui/icons-material';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import { AddOutlined } from '@mui/icons-material';
 
 import { AdminLayout } from '../../../components/layouts'
 import { IProduct } from '../../../interfaces';
@@ -39,8 +40,8 @@ interface Props {
     product: IProduct;
 }
 
-const ProductAdminPage: FC<Props> = ({ product }) => {
-
+const ProductAdminPage: FC<Props> = ({ product, }) => {
+    const { asPath, push } = useRouter();
     const router = useRouter();
     const fileInputRef = useRef<HTMLInputElement>(null)
     const [newTagValue, setNewTagValue] = useState('');
@@ -75,13 +76,15 @@ const ProductAdminPage: FC<Props> = ({ product }) => {
 
     const onChangeSize = (size: string) => {
 
-        try{const currentSizes = getValues('sizes');
-        if (currentSizes.includes(size)) {
-            return setValue('sizes', currentSizes.filter(s => s !== size), { shouldValidate: true });
-        }
+        try {
+            const currentSizes = getValues('sizes');
+            if (currentSizes.includes(size)) {
+                return setValue('sizes', currentSizes.filter(s => s !== size), { shouldValidate: true });
+            }
 
-        setValue('sizes', [...currentSizes, size], { shouldValidate: true });}
-        catch(err){
+            setValue('sizes', [...currentSizes, size], { shouldValidate: true });
+        }
+        catch (err) {
             alert(err)
         }
 
@@ -195,6 +198,18 @@ const ProductAdminPage: FC<Props> = ({ product }) => {
             subTitle={`Editando: ${product.title}`}
             icon={<DriveFileRenameOutline />}
         >
+
+            {asPath == '/admin/products/new' ? null :
+
+                <Box display='flex' justifyContent='end' sx={{ mb: 2 }}>
+                    <Button
+                        startIcon={<AddOutlined />}
+                        color="secondary"
+                        href="/admin/products/new"
+                    >
+                        Crear Nuevo Producto
+                    </Button>
+                </Box>}
 
             <Box display='flex' justifyContent='center' flexDirection='column'>
 
@@ -502,7 +517,7 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
 
     return {
         props: {
-            product
+            product,
         }
     }
 }

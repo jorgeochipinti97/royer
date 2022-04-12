@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { NextPage, GetServerSideProps, GetStaticPaths, GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
 
@@ -22,7 +22,18 @@ interface Props {
 
 
 const ProductPage: NextPage<Props> = ({ product }) => {
+  const [isRegional, setIsRegional] = useState<boolean>()
+  useEffect(() => {
+    if (product.gender === 'regionales') {
+      setIsRegional(true)
+      setTempCartProduct(currentProduct => ({
+        ...currentProduct,
+        size: 'Unique'
+      }));
+    }
 
+
+  }, [isRegional])
   const router = useRouter();
   const { addProductToCart } = useContext(CartContext)
 
@@ -58,6 +69,7 @@ const ProductPage: NextPage<Props> = ({ product }) => {
 
     addProductToCart(tempCartProduct);
     router.push('/cart');
+
   }
 
 
@@ -89,12 +101,13 @@ const ProductPage: NextPage<Props> = ({ product }) => {
                 updatedQuantity={onUpdateQuantity}
                 maxValue={product.inStock > 10 ? 10 : product.inStock}
               />
-              <SizeSelector
-                // selectedSize={ product.sizes[2] } 
-                sizes={product.sizes}
-                selectedSize={tempCartProduct.size}
-                onSelectedSize={selectedSize}
-              />
+              {!isRegional ?
+                <SizeSelector
+                  sizes={product.sizes}
+                  selectedSize={tempCartProduct.size}
+                  onSelectedSize={selectedSize}
+                /> : null
+              }
             </Box>
 
 
