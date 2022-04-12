@@ -12,6 +12,7 @@ import { ItemCounter } from '../../components/ui/ItemCounter';
 
 import { dbProducts } from '../../database';
 import { IProduct, ICartProduct, ISize } from '../../interfaces';
+import { currency } from '../../utils';
 
 
 
@@ -76,7 +77,7 @@ const ProductPage: NextPage<Props> = ({ product }) => {
 
             {/* titulos */}
             <Typography variant='h1' component='h1'>{product.title}</Typography>
-            <Typography variant='subtitle1' component='h2'>{`$${product.price}`}</Typography>
+            <Typography variant='subtitle1' component='h2'>{`${currency.formattwo(product.price)}`}</Typography>
             <Divider sx={{ my: 1 }} />
             <Box sx={{ justifyContent: 'space-around' }}>
               <Chip label="Free Shipping!" color="success" variant="outlined" />
