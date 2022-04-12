@@ -5,6 +5,7 @@ import { AccountCircleOutlined, AdminPanelSettings, CategoryOutlined, Confirmati
 import GradeIcon from '@mui/icons-material/Grade';
 import { UiContext, AuthContext } from '../../context';
 import { useRouter } from 'next/router';
+import StorefrontOutlinedIcon from '@mui/icons-material/StorefrontOutlined';
 
 
 export const SideMenu = () => {
@@ -77,35 +78,14 @@ export const SideMenu = () => {
                     <ListItem
                         button
                         sx={{ display: { xs: '', sm: 'none' } }}
-                        onClick={() => navigateTo('/category/men')}
+                        onClick={() => navigateTo('/products')}
                     >
                         <ListItemIcon>
-                            <MaleOutlined />
+                            <StorefrontOutlinedIcon />
                         </ListItemIcon>
-                        <ListItemText primary={'Men'} />
+                        <ListItemText primary={'Products'} />
                     </ListItem>
 
-                    <ListItem
-                        button
-                        sx={{ display: { xs: '', sm: 'none' } }}
-                        onClick={() => navigateTo('/category/women')}
-                    >
-                        <ListItemIcon>
-                            <FemaleOutlined />
-                        </ListItemIcon>
-                        <ListItemText primary={'Women'} />
-                    </ListItem>
-
-                    <ListItem
-                        button
-                        sx={{ display: { xs: '', sm: 'none' } }}
-                        onClick={() => navigateTo('/category/kid')}
-                    >
-                        <ListItemIcon>
-                            <EscalatorWarningOutlined />
-                        </ListItemIcon>
-                        <ListItemText primary={'Kids'} />
-                    </ListItem>
 
 
                     {
