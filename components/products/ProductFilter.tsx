@@ -49,6 +49,7 @@ export const ProductFilterPage = () => {
     }
     const handleClickTypes = (typeOfProduct_: string) => {
         try {
+            
             setTypeProduct(typeOfProduct_)
             const newProducts_ = products.filter(e => e.type === typeOfProduct_)
             setProductsFiltered(newProducts_)
