@@ -9,13 +9,13 @@ export const Footer = () => {
         <footer>
             <Divider sx={{ my: 1 }} />
             <Box display='flex' justifyContent='center'>
-                <NextLink href='/' passHref>
+                <NextLink href='https://www.instagram.com/royerstore.ar/' passHref>
                     <Link>
                         <Button>  <InstagramIcon sx={{ mr: 4, ml: 4, mb: 2 }} /></Button>
 
                     </Link>
                 </NextLink>
-                <NextLink href='/' passHref>
+                <NextLink href='https://twitter.com/StoreRoyer' passHref>
                     <Link>
                         <Button> <TwitterIcon sx={{ mr: 4, ml: 4, mb: 2 }} /></Button>
 
