@@ -242,6 +242,7 @@ export async function getServerSideProps() {
             alert(err)
         }
     }
+    
     countries_()
 
     return { props: { paises } }
