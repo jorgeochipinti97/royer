@@ -31,16 +31,19 @@ export const ProductFilterPage = () => {
 
             } else if (valueOfProduct_ === 'regionales') {
                 const newProducts_ = products.filter(e => e.gender === valueOfProduct_)
-                setCategories(categoriasRegional)
-                setValueProduct(valueOfProduct_)
                 setProductsFiltered(newProducts_)
+                setValueProduct(valueOfProduct_)
+                setCategories(categoriasRegional)
+                setTypeProduct('')
+
                 console.log(newProducts_)
 
             } else {
                 const newProducts_ = products.filter(e => e.gender === valueOfProduct_)
+                setProductsFiltered(newProducts_)
                 setCategories(categoriasRopa)
                 setValueProduct(valueOfProduct_)
-                setProductsFiltered(newProducts_)
+                setTypeProduct('')
                 console.log(newProducts_)
             }
         } catch (err) {
@@ -49,7 +52,7 @@ export const ProductFilterPage = () => {
     }
     const handleClickTypes = (typeOfProduct_: string) => {
         try {
-            
+
             setTypeProduct(typeOfProduct_)
             const newProducts_ = products.filter(e => e.type === typeOfProduct_)
             setProductsFiltered(newProducts_)
