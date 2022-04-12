@@ -12,7 +12,7 @@ import { IProduct } from '../../interfaces';
 export const ProductFilterPage = () => {
     const { products, isLoading } = useProducts('/products');
     const [_productsFiltered, setProductsFiltered] = useState<IProduct[]>(products)
-    const [valueProduct, setValueProduct] = useState<string>('')
+    const [valueProduct, setValueProduct] = useState<string>('all')
     const [typeProduct, setTypeProduct] = useState<string>('')
     const todasCategorias = ['shirts', 't-shirt', 'football shirt', 'jacket', 'pants', 'hoodies', 'hats', 'mate', 'yerba', 'alfajores', 'wine', 'short', 'socks', 'wallet', 'purse']
     const categoriasRopa = ['shirts', 't-shirt', 'football shirt', 'jacket', 'pants', 'hoodies', 'hats', 'short', 'socks', 'wallet', 'purse']
