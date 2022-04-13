@@ -1,6 +1,6 @@
 import { GetServerSideProps, NextPage } from 'next';
 
-import { Box, Card, CardContent, Divider, Grid, Typography, Chip } from '@mui/material';
+import { Box, Card, CardContent, Divider, Grid, Typography, Chip, Button } from '@mui/material';
 import { CreditCardOffOutlined, CreditScoreOutlined } from '@mui/icons-material';
 import { PayPalButtons } from "@paypal/react-paypal-js";
 import { useRouter } from 'next/router';
@@ -9,18 +9,20 @@ import { ShopLayout } from '../../components/layouts/ShopLayout';
 import { CartList, OrderSummary } from '../../components/cart';
 import { dbOrders } from '../../database';
 import { IOrder } from '../../interfaces';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { tesloApi } from '../../api';
+import Image from 'next/image';
+import { currency } from '../../utils';
 
 
 export type OrderResponseBody = {
     id: string;
     status:
-        | "COMPLETED"
-        | "SAVED"
-        | "APPROVED"
-        | "VOIDED"
-        | "PAYER_ACTION_REQUIRED";
+    | "COMPLETED"
+    | "SAVED"
+    | "APPROVED"
+    | "VOIDED"
+    | "PAYER_ACTION_REQUIRED";
 };
 
 interface Props {
@@ -33,18 +35,30 @@ const OrderPage: NextPage<Props> = ({ order }) => {
     const { shippingAddress } = order;
 
     const [isPaying, setIsPaying] = useState(false);
+    const [discountPrice, setDiscountPrice] = useState<number>(order.total)
+    const crypto = ['https://res.cloudinary.com/djk4q3tys/image/upload/v1649803353/vdcqamydvmx70cksuubo.png', 'https://res.cloudinary.com/djk4q3tys/image/upload/v1649803353/ixqoo5kldhyiy57kuhcr.png', 'https://res.cloudinary.com/djk4q3tys/image/upload/v1649803353/vahsohmh1mozb9tpfbpz.png', 'https://res.cloudinary.com/djk4q3tys/image/upload/v1649803352/zkbtzcdmjqfmtad7ypxw.png', 'https://res.cloudinary.com/djk4q3tys/image/upload/v1649803352/benu5ggpqtwdo7pn4axj.png']
 
+    const handlePrice = (precio: number, descuento: number) => {
+        const porcentajePrecioConDescuento = 100 - descuento;
+        const precioConDescuento = (precio * porcentajePrecioConDescuento) / 100;
 
-    const onOrderCompleted = async( details: OrderResponseBody ) => {
-        
-        if ( details.status !== 'COMPLETED' ) {
+        return precioConDescuento;
+    }
+    useEffect(() => {
+        const a = handlePrice(order.total, 15)
+        setDiscountPrice(a)
+    }, [])
+
+    const onOrderCompleted = async (details: OrderResponseBody) => {
+
+        if (details.status !== 'COMPLETED') {
             return alert('No hay pago en Paypal');
         }
 
         setIsPaying(true);
 
         try {
-            
+
             const { data } = await tesloApi.post(`/orders/pay`, {
                 transactionId: details.id,
                 orderId: order._id
@@ -135,24 +149,58 @@ const OrderPage: NextPage<Props> = ({ order }) => {
                                             />
 
                                         ) : (
-                                            <PayPalButtons
-                                            createOrder={(data, actions) => {
-                                                return actions.order.create({
-                                                    purchase_units: [
-                                                        {
-                                                            amount: {
-                                                                value: `${order.total}`,
-                                                            },
-                                                        },
-                                                    ],
-                                                });
-                                            }}
-                                            onApprove={(data, actions) => {
-                                                return actions.order!.capture().then((details) => {
-                                                    onOrderCompleted( details );
-                                                });
-                                            }}
-                                            />
+                                            <>
+                                                <PayPalButtons
+                                                    createOrder={(data, actions) => {
+                                                        return actions.order.create({
+                                                            purchase_units: [
+                                                                {
+                                                                    amount: {
+                                                                        value: `${order.total}`,
+                                                                    },
+                                                                },
+                                                            ],
+                                                        });
+                                                    }}
+                                                    onApprove={(data, actions) => {
+                                                        return actions.order!.capture().then((details) => {
+                                                            onOrderCompleted(details);
+                                                        });
+                                                    }}
+                                                />
+                                                <Divider sx={{ my: 1 }} />
+                                                <Box display='flex' justifyContent='center' sx={{ mb: 3 }}>
+                                                    <Chip color='secondary' label='15% OFF' variant='filled' sx={{ pr: 3, pl: 3, pt: 1, pb: 1, mt: 2 }} />
+                                                </Box>
+                                                <Grid container>
+                                                    <Grid item xs={6} sx={{ mt: 2 }}>
+                                                        <Typography variant="subtitle1">Total:</Typography>
+                                                    </Grid>
+                                                    <Grid item xs={6} sx={{ mt: 2 }} display='flex' justifyContent='end'>
+                                                        <Typography variant="subtitle1">{currency.format(discountPrice)}</Typography>
+                                                    </Grid>
+                                                </Grid>
+
+                                                <Box display='flex' flexDirection='column' sx={{ mt: 1 }}>
+                                                    <Box display='flex' justifyContent='center' sx={{ mb: 2 }} >
+
+
+                                                        {crypto.map(e => (
+                                                            <Image src={e} key={e} width={35} height={35} alt='foto' />
+                                                        ))}
+
+                                                    </Box>
+
+                                                    <Box display='flex' justifyContent='center'>
+                                                        <Button variant="contained" color='success'><Typography variant='h2' sx={{
+                                                            m: 2, ":hover": {
+                                                                bgcolor: "info"
+                                                            }
+                                                        }} > Pay whit cryptocurrency</Typography></Button>
+                                                    </Box>
+
+                                                </Box>
+                                            </>
                                         )
                                 }
 
@@ -164,7 +212,7 @@ const OrderPage: NextPage<Props> = ({ order }) => {
             </Grid>
 
 
-        </ShopLayout>
+        </ShopLayout >
     )
 }
 
@@ -175,7 +223,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, query }) => 
     const { id = '' } = query;
     const order = await dbOrders.getOrderById(id.toString())
 
-    if ( !order ) {
+    if (!order) {
         return {
             redirect: {
                 destination: '/',

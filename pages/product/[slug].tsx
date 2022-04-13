@@ -33,6 +33,7 @@ const ProductPage: NextPage<Props> = ({ product }) => {
     }
 
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isRegional])
   const router = useRouter();
   const { addProductToCart } = useContext(CartContext)
