@@ -23,8 +23,9 @@ const SummaryPage = () => {
         }
     }, [ router ]);
     
-
-
+useEffect(()=>{
+    setIsPosting(false)
+},[])
 
 
     console.log(shippingAddress);
