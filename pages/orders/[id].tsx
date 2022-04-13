@@ -36,7 +36,7 @@ const OrderPage: NextPage<Props> = ({ order }) => {
 
     const [isPaying, setIsPaying] = useState(false);
     const [discountPrice, setDiscountPrice] = useState<number>(order.total)
-    const [isDisable, setisDisable] = useState<boolean>(true)
+    const [isDisable, setisDisable] = useState<boolean>(false)
     const crypto = ['https://res.cloudinary.com/djk4q3tys/image/upload/v1649803353/vdcqamydvmx70cksuubo.png', 'https://res.cloudinary.com/djk4q3tys/image/upload/v1649803353/ixqoo5kldhyiy57kuhcr.png', 'https://res.cloudinary.com/djk4q3tys/image/upload/v1649803353/vahsohmh1mozb9tpfbpz.png', 'https://res.cloudinary.com/djk4q3tys/image/upload/v1649803352/zkbtzcdmjqfmtad7ypxw.png', 'https://res.cloudinary.com/djk4q3tys/image/upload/v1649803352/benu5ggpqtwdo7pn4axj.png']
 
     const handlePrice = (precio: number, descuento: number) => {
