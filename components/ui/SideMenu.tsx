@@ -6,7 +6,7 @@ import GradeIcon from '@mui/icons-material/Grade';
 import { UiContext, AuthContext } from '../../context';
 import { useRouter } from 'next/router';
 import StorefrontOutlinedIcon from '@mui/icons-material/StorefrontOutlined';
-
+import CurrencyBitcoinIcon from '@mui/icons-material/CurrencyBitcoin';
 
 export const SideMenu = () => {
 
@@ -134,7 +134,15 @@ export const SideMenu = () => {
                                     </ListItemIcon>
                                     <ListItemText primary={'Dashboard'} />
                                 </ListItem>
+                                
+                                <ListItem button
+                                    onClick={() => navigateTo('/')}>
 
+                                    <ListItemIcon>
+                                        <CurrencyBitcoinIcon />
+                                    </ListItemIcon>
+                                    <ListItemText primary={'Crypto Orders'} />
+                                </ListItem>
                                 <ListItem button
                                     onClick={() => navigateTo('/admin/products')}>
                                     <ListItemIcon>
@@ -159,6 +167,8 @@ export const SideMenu = () => {
                                     </ListItemIcon>
                                     <ListItemText primary={'Users'} />
                                 </ListItem>
+
+
                             </>
                         )
                     }

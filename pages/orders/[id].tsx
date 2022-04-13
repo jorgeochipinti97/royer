@@ -8,7 +8,7 @@ import { useRouter } from 'next/router';
 import { ShopLayout } from '../../components/layouts/ShopLayout';
 import { CartList, OrderSummary } from '../../components/cart';
 import { dbOrders } from '../../database';
-import { IOrder } from '../../interfaces';
+import { IOrder, IOrderCrypto } from '../../interfaces';
 import { useEffect, useState } from 'react';
 import { tesloApi } from '../../api';
 import Image from 'next/image';
@@ -36,6 +36,7 @@ const OrderPage: NextPage<Props> = ({ order }) => {
 
     const [isPaying, setIsPaying] = useState(false);
     const [discountPrice, setDiscountPrice] = useState<number>(order.total)
+    const [isDisable, setisDisable] = useState<boolean>(true)
     const crypto = ['https://res.cloudinary.com/djk4q3tys/image/upload/v1649803353/vdcqamydvmx70cksuubo.png', 'https://res.cloudinary.com/djk4q3tys/image/upload/v1649803353/ixqoo5kldhyiy57kuhcr.png', 'https://res.cloudinary.com/djk4q3tys/image/upload/v1649803353/vahsohmh1mozb9tpfbpz.png', 'https://res.cloudinary.com/djk4q3tys/image/upload/v1649803352/zkbtzcdmjqfmtad7ypxw.png', 'https://res.cloudinary.com/djk4q3tys/image/upload/v1649803352/benu5ggpqtwdo7pn4axj.png']
 
     const handlePrice = (precio: number, descuento: number) => {
@@ -47,6 +48,7 @@ const OrderPage: NextPage<Props> = ({ order }) => {
     useEffect(() => {
         const a = handlePrice(order.total, 15)
         setDiscountPrice(a)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const onOrderCompleted = async (details: OrderResponseBody) => {
@@ -73,6 +75,39 @@ const OrderPage: NextPage<Props> = ({ order }) => {
         }
 
     }
+
+    const createCryptoOrder = async () => {
+        setisDisable(true)
+        try {
+            if (order._id != undefined) {
+                const order_: IOrderCrypto = {
+                    _idOrder: order._id,
+                    total: discountPrice,
+                    isPaid: false,
+                }
+                
+                const { data } = await tesloApi({
+                    url: '/cripto',
+                    method: 'POST',
+                    data: order_
+                })
+
+                console.log(data)
+
+                router.replace(`/orders/crypto/${data._id}`);
+
+            } else {
+                alert('id undefined')
+            }
+
+
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+
+
 
 
     return (
@@ -192,11 +227,13 @@ const OrderPage: NextPage<Props> = ({ order }) => {
                                                     </Box>
 
                                                     <Box display='flex' justifyContent='center'>
-                                                        <Button variant="contained" color='success'><Typography variant='h2' sx={{
-                                                            m: 2, ":hover": {
-                                                                bgcolor: "info"
-                                                            }
-                                                        }} > Pay whit cryptocurrency</Typography></Button>
+                                                        <Button variant="contained" color='success'
+                                                            onClick={() => createCryptoOrder()}
+                                                            disabled={isDisable}
+                                                        >
+                                                            <Typography variant='h2' sx={{ m: 2 }}>
+                                                                Pay whit cryptocurrency</Typography>
+                                                        </Button>
                                                     </Box>
 
                                                 </Box>

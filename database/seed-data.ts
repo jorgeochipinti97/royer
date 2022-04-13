@@ -37,8 +37,8 @@ interface SeedData {
 export const initialData: SeedData = {
     users: [
         {
-            name: 'Fernando Herrera',
-            email: 'fernando@google.com',
+            name: 'Fernando Mauro Jorge',
+            email: 'royer@admin.com',
             password: bcrypt.hashSync('123456'),
             role: 'admin'
         },
