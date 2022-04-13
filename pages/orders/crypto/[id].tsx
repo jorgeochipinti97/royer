@@ -39,7 +39,7 @@ const OrderCryptoPage: NextPage<Props> = ({ order }) => {
 
             }, 600000)
         
-        
+        deleteOrder()
         }}, [])
 
 

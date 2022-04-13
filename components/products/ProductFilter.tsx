@@ -52,12 +52,20 @@ export const ProductFilterPage = () => {
     }
     const handleClickTypes = (typeOfProduct_: string) => {
         try {
+            if (valueProduct === 'all') {
+                setTypeProduct(typeOfProduct_)
+                const newProducts_ = products.filter(e => e.type === typeOfProduct_)
+                setProductsFiltered(newProducts_)
+                console.log(newProducts_)
 
-            setTypeProduct(typeOfProduct_)
-            const newProducts_ = products.filter(e => e.type === typeOfProduct_ && e.gender === valueProduct)
+            } else {
 
-            setProductsFiltered(newProducts_)
-            console.log(newProducts_)
+                setTypeProduct(typeOfProduct_)
+                const newProducts_ = products.filter(e => e.type === typeOfProduct_ && e.gender === valueProduct)
+
+                setProductsFiltered(newProducts_)
+                console.log(newProducts_)
+            }
 
 
         } catch (err) {
