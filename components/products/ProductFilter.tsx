@@ -54,7 +54,8 @@ export const ProductFilterPage = () => {
         try {
 
             setTypeProduct(typeOfProduct_)
-            const newProducts_ = products.filter(e => e.type === typeOfProduct_)
+            const newProducts_ = products.filter(e => e.type === typeOfProduct_ && e.gender === valueProduct)
+
             setProductsFiltered(newProducts_)
             console.log(newProducts_)
 
