@@ -509,7 +509,7 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
     if (slug === 'new') {
         const tempProduct = JSON.parse(JSON.stringify(new Product()));
         delete tempProduct._id;
-        tempProduct.images = ['img1.jpg', 'img2.jpg'];
+        tempProduct.images = ['https://res.cloudinary.com/djk4q3tys/image/upload/v1649803292/ayamwt6hdthkkqnhyhkw.jpg', 'https://res.cloudinary.com/djk4q3tys/image/upload/v1649803292/ayamwt6hdthkkqnhyhkw.jpg'];
         product = tempProduct;
 
     } else {
