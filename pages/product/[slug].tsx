@@ -136,7 +136,7 @@ const ProductPage: NextPage<Props> = ({ product }) => {
             {/* Descripción */}
             <Box sx={{ mt: 3 }}>
               <Typography variant='subtitle2'>Description</Typography>
-              <Typography variant='body2'>{product.description}</Typography>
+              <Typography variant='body2'  align="justify">{product.description}</Typography>
             </Box>
 
           </Box>

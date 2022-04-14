@@ -46,7 +46,7 @@ const OrderPage: NextPage<Props> = ({ order }) => {
         return precioConDescuento;
     }
     useEffect(() => {
-        const a = handlePrice(order.total, 15)
+        const a = handlePrice(order.total, 10)
         setDiscountPrice(a)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
@@ -205,7 +205,7 @@ const OrderPage: NextPage<Props> = ({ order }) => {
                                                 />
                                                 <Divider sx={{ my: 1 }} />
                                                 <Box display='flex' justifyContent='center' sx={{ mb: 3 }}>
-                                                    <Chip color='secondary' label='15% OFF' variant='filled' sx={{ pr: 3, pl: 3, pt: 1, pb: 1, mt: 2 }} />
+                                                    <Chip color='secondary' label='10% OFF' variant='filled' sx={{ pr: 3, pl: 3, pt: 1, pb: 1, mt: 2 }} />
                                                 </Box>
                                                 <Grid container>
                                                     <Grid item xs={6} sx={{ mt: 2 }}>
