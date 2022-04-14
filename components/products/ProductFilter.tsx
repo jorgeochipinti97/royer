@@ -81,8 +81,7 @@ export const ProductFilterPage = () => {
                 <Box>
                     <Box display='flex' justifyContent='center'>
 
-                        <Box
-                        >
+                        <Box>
                             <Box display='flex' justifyContent='center' sx={{ flexWrap: { xs: 'wrap', sm: 'wrap' } }} >
                                 <Box>
                                     <Button color={valueProduct === 'all' ? 'primary' : 'info'}
@@ -104,6 +103,9 @@ export const ProductFilterPage = () => {
                                 </Box>
                                 <Box>
                                     <Button onClick={() => handleClickValues('kid')} color={valueProduct === 'kid' ? 'primary' : 'info'}>Kid</Button>
+                                </Box>
+                                <Box>
+                                    <Button onClick={() => handleClickValues('kid')} color={valueProduct === 'accesorios' ? 'primary' : 'info'}>accessories</Button>
                                 </Box>
                             </Box>
                         </Box>
