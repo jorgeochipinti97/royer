@@ -104,7 +104,7 @@ export const ProductCard: FC<Props> = ({ product }) => {
             </Card>
             <Box sx={{ mt: 1, display: isImageLoaded ? 'block' : 'none' }} className='fadeIn'>
                 <Typography fontWeight={700}>{product.title}</Typography>
-                <Typography fontWeight={500} color='succes'>{`${currency.formattwo(product.price)}`}</Typography>
+                <Typography fontWeight={500} sx={{mt:2}} variant='h5' color='succes'>{`${currency.formattwo(product.price)}`}</Typography>
             </Box>
             <Divider sx={{ my: 2 }} />
         </Grid>

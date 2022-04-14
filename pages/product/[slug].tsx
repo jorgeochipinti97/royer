@@ -90,7 +90,7 @@ const ProductPage: NextPage<Props> = ({ product }) => {
 
             {/* titulos */}
             <Typography variant='h1' component='h1'>{product.title}</Typography>
-            <Typography variant='subtitle1' component='h2'>{`${currency.formattwo(product.price)}`}</Typography>
+            <Typography variant='h5' sx={{mt:2}} fontWeight={600}>{`${currency.formattwo(product.price)}`}</Typography>
             <Divider sx={{ my: 1 }} />
             <Box sx={{ justifyContent: 'space-around' }}>
               <Chip label="Free Shipping!" color="success" variant="outlined" />
