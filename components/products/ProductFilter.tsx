@@ -105,7 +105,7 @@ export const ProductFilterPage = () => {
                                     <Button onClick={() => handleClickValues('kid')} color={valueProduct === 'kid' ? 'primary' : 'info'}>Kid</Button>
                                 </Box>
                                 <Box>
-                                    <Button onClick={() => handleClickValues('kid')} color={valueProduct === 'accesorios' ? 'primary' : 'info'}>Accessories</Button>
+                                    <Button onClick={() => handleClickValues('accessories')} color={valueProduct === 'accesorios' ? 'primary' : 'info'}>Accessories</Button>
                                 </Box>
                             </Box>
                         </Box>
