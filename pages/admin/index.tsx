@@ -76,7 +76,7 @@ const DashboardPage = () => {
 
             <SummaryTile 
                 title={ numberOfClients }
-                subTitle="Clientes"
+                subTitle="Clientes registrados"
                 icon={ <GroupOutlined color="primary" sx={{ fontSize: 40 }} /> }
             />
 
@@ -88,13 +88,13 @@ const DashboardPage = () => {
 
             <SummaryTile 
                 title={ productsWithNoInventory }
-                subTitle="Sin existencias"
+                subTitle="Sin stock"
                 icon={ <CancelPresentationOutlined color="error" sx={{ fontSize: 40 }} /> }
             />
 
             <SummaryTile 
                 title={ lowInventory }
-                subTitle="Bajo inventario"
+                subTitle="Bajo stock"
                 icon={ <ProductionQuantityLimitsOutlined color="warning" sx={{ fontSize: 40 }} /> }
             />
 
