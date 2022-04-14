@@ -64,7 +64,7 @@ const DashboardPage = () => {
 
             <SummaryTile 
                 title={ paidOrders }
-                subTitle="Ordenes pagadas"
+                subTitle="Ordenes pagas"
                 icon={ <AttachMoneyOutlined color="success" sx={{ fontSize: 40 }} /> }
             />
 

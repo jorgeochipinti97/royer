@@ -16,7 +16,7 @@ import { Product } from '../../../models';
 
 
 const validTypes = ['shirts', 't-shirt', 'football shirt', 'jacket', 'pants', 'hoodies', 'hats', 'mate', 'yerba', 'alfajores', 'wine', 'short', 'socks', 'wallet', 'purse',]
-const validGender = ['men', 'women', 'kid', 'unisex', 'regionales']
+const validGender = ['men', 'women', 'kid', 'unisex', 'regionales','accesorios']
 const validSizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL', 'Unique']
 
 
