@@ -16,7 +16,7 @@ import { Product } from '../../../models';
 
 
 const validTypes = ['shirts', 't-shirt', 'football shirt', 'jacket', 'pants', 'hoodies', 'hats', 'mate', 'yerba', 'alfajores', 'wine', 'short', 'socks', 'wallet', 'purse',]
-const validGender = ['men', 'women', 'kid', 'unisex', 'regionales','accesorios']
+const validGender = ['men', 'women', 'kid', 'unisex', 'regionales', 'accesorios']
 const validSizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL', 'Unique']
 
 
@@ -46,6 +46,7 @@ const ProductAdminPage: FC<Props> = ({ product, }) => {
     const fileInputRef = useRef<HTMLInputElement>(null)
     const [newTagValue, setNewTagValue] = useState('');
     const [isSaving, setIsSaving] = useState(false);
+    const [isHidden, setIsHidden] = useState<boolean>()
 
     const { register, handleSubmit, formState: { errors }, getValues, setValue, watch } = useForm<FormData>({
         defaultValues: product
@@ -71,7 +72,15 @@ const ProductAdminPage: FC<Props> = ({ product, }) => {
         }
     }, [watch, setValue])
 
+    useEffect(() => {
+        if (getValues('gender') == 'regionales' || getValues('gender') == 'accesorios') {
+            setIsHidden(true)
+        }else{
+            setIsHidden(false)
+        }
 
+
+    }, [getValues('gender')])
 
 
     const onChangeSize = (size: string) => {
@@ -352,21 +361,23 @@ const ProductAdminPage: FC<Props> = ({ product, }) => {
 
 
 
+                        {isHidden ? null :
 
-                        <FormGroup>
-                            <FormLabel>Tallas</FormLabel>
-                            {
-                                validSizes.map(size => (
-                                    <FormControlLabel
-                                        key={size}
-                                        control={<Checkbox checked={getValues('sizes').includes(size)} />}
-                                        label={size}
-                                        onChange={() => onChangeSize(size)}
-                                    />
-                                ))
-                            }
-                        </FormGroup>
+                            <FormGroup>
+                                <FormLabel>Tallas</FormLabel>
+                                {
+                                    validSizes.map(size => (
+                                        <FormControlLabel
+                                            key={size}
+                                            control={<Checkbox checked={getValues('sizes').includes(size)} />}
+                                            label={size}
+                                            onChange={() => onChangeSize(size)}
+                                        />
+                                    ))
+                                }
+                            </FormGroup>
 
+                        }
                     </Grid>
 
                     {/* Tags e imagenes */}
