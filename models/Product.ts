@@ -20,7 +20,7 @@ const productSchema = new Schema({
     type: {
         type: String,
         enum: {
-            values: ['shirts','t-shirt','football shirt','jacket','pants','hoodies','hats','mate','yerba','alfajores','wine','short','socks','wallet','purse',],
+            values: ['shirts','t-shirt','football shirt','jacket','pants','hoodies','hats','mate','yerba','alfajores','wine','short','socks','wallet','purse','accessories','bag'],
             message: '{VALUE} no es un tipo válido'
         },
         default: 'shirts'
@@ -28,7 +28,7 @@ const productSchema = new Schema({
     gender: {
         type: String,
         enum: {
-            values: ['men','women','kid','unisex','regionales','accesorios'],
+            values: ['men','women','kid','unisex','regionales','fashion'],
             message: '{VALUE} no es un genero válido'
         },
         default: 'women'

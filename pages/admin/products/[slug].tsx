@@ -15,8 +15,8 @@ import { tesloApi } from '../../../api';
 import { Product } from '../../../models';
 
 
-const validTypes = ['shirts', 't-shirt', 'football shirt', 'jacket', 'pants', 'hoodies', 'hats', 'mate', 'yerba', 'alfajores', 'wine', 'short', 'socks', 'wallet', 'purse',]
-const validGender = ['men', 'women', 'kid', 'unisex', 'regionales', 'accesorios']
+const validTypes = ['shirts','t-shirt','football shirt','jacket','pants','hoodies','hats','mate','yerba','alfajores','wine','short','socks','wallet','purse','accessories','bag']
+const validGender = ['men','women','kid','unisex','regionales','fashion']
 const validSizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL', 'Unique']
 
 
@@ -73,7 +73,7 @@ const ProductAdminPage: FC<Props> = ({ product, }) => {
     }, [watch, setValue])
 
     useEffect(() => {
-        if (getValues('gender') == 'regionales' || getValues('gender') == 'accesorios') {
+        if (getValues('gender') == 'regionales' || getValues('gender') == 'fashion') {
             setIsHidden(true)
         }else{
             setIsHidden(false)
@@ -81,6 +81,16 @@ const ProductAdminPage: FC<Props> = ({ product, }) => {
 
 
     }, [getValues('gender')])
+
+    useEffect(() => {
+        if (getValues('type') == 'accessories' || getValues('type') == 'bag') {
+            setIsHidden(true)
+        }else{
+            setIsHidden(false)
+        }
+
+
+    }, [getValues('type')])
 
 
     const onChangeSize = (size: string) => {
