@@ -6,14 +6,17 @@ import 'react-slideshow-image/dist/styles.css';
 import styles from './ProductSlideshow.module.css';
 
 interface Props {
-    images: string[]
+    images: string[],
+    seconds:number,
+    height: number,
+    width:number
 }
 
-export const ProductSlideshow: FC<Props> = ({ images }) => {
+export const ProductSlideshow: FC<Props> = ({ images, seconds, height, width }) => {
   return (
     <Slide
         easing="ease"
-        duration={ 7000 }
+        duration={ seconds }
         indicators
         
     >
@@ -21,7 +24,7 @@ export const ProductSlideshow: FC<Props> = ({ images }) => {
             images.map( image =>  {
                 return (
                     <div className={ styles['each-slide'] } key={ image }>
-                        <Image width={1200} height={1200} src={image} alt='foto'/>
+                        <Image width={width} height={height} src={image} alt={image}/>
                     </div>
                 )
 

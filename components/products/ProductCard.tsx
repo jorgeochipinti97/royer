@@ -7,6 +7,9 @@ import { IProduct } from '../../interfaces'
 import { localFavorites } from '../../utils';
 import Image from 'next/image';
 import { currency } from '../../utils';
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import CurrencyBitcoinIcon from '@mui/icons-material/CurrencyBitcoin';
+
 
 interface Props {
     product: IProduct;
@@ -16,6 +19,8 @@ export const ProductCard: FC<Props> = ({ product }) => {
     const [isInFavorites, setIsInFavorites] = useState<Boolean>()
     const [isHovered, setIsHovered] = useState(false);
     const [isImageLoaded, setIsImageLoaded] = useState(false);
+    const [discountPrice, setDiscountPrice] = useState<number>(product.price)
+
     const productImage = useMemo(() => {
         return isHovered
             ? product.images[1]
@@ -43,7 +48,20 @@ export const ProductCard: FC<Props> = ({ product }) => {
             setIsInFavorites(false)
         }
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
+    const handlePrice = (precio: number, descuento: number) => {
+        const porcentajePrecioConDescuento = 100 - descuento;
+        const precioConDescuento = (precio * porcentajePrecioConDescuento) / 100;
+
+        return precioConDescuento;
+    }
+
+    useEffect(() => {
+        const a = handlePrice(product.price, 10)
+        setDiscountPrice(a)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const onToggleFavorite = () => {
@@ -81,7 +99,7 @@ export const ProductCard: FC<Props> = ({ product }) => {
                                 className='fadeIn'
                                 onLoad={() => setIsImageLoaded(true)}>
 
-                                <Image width={500} height={500} alt={product.title} src={productImage}  />
+                                <Image width={500} height={500} alt={product.title} src={productImage} />
                             </CardMedia>
 
 
@@ -102,10 +120,14 @@ export const ProductCard: FC<Props> = ({ product }) => {
 
 
             </Card>
-            <Box sx={{ mt: 1, display: isImageLoaded ? 'block' : 'none' }} className='fadeIn'>
+            <Box sx={{ mt: 1, display: isImageLoaded ? 'block' : 'none' }} className='fadeIn' >
                 <Typography fontWeight={700}>{product.title}</Typography>
-                <Typography fontWeight={500} sx={{mt:2}} variant='h5' color='succes'>{`${currency.formattwo(product.price)}`}</Typography>
+                <Box>
+                <Typography fontWeight={500} sx={{ mt: 2 }} variant='h6' color='warm'><AttachMoneyIcon/> Paypal: {`${currency.formattwo(product.price)}`}</Typography>
+                <Typography fontWeight={500} sx={{ mt: 2 }} variant='h6' color='succes'><CurrencyBitcoinIcon/> Crypto: {`${currency.formattwo(discountPrice)}`}</Typography>
+                </Box>
             </Box>
+            
             <Divider sx={{ my: 2 }} />
         </Grid>
     )

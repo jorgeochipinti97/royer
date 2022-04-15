@@ -17,9 +17,13 @@ const HomePage: NextPage = () => {
 
   return (
     <ShopLayout title={'Royer-Shop - Home'} pageDescription={'Encuentra los mejores productos de Teslo aquí'}>
-      <Box display='flex' justifyContent='center' sx={{mb:5}}>
-        <Typography variant='h1' component='h1'>Pay with cryptocurrency</Typography>
-      </Box>
+      <ProductSlideshow
+        images={['https://res.cloudinary.com/djk4q3tys/image/upload/v1650010722/nogmicqu6xlfarpcvrky.jpg', 'https://res.cloudinary.com/djk4q3tys/image/upload/v1650010722/puzd1rdp1jkykqtxjkae.jpg', 'https://res.cloudinary.com/djk4q3tys/image/upload/v1650010722/ds5fundqtf5tgvtuxms8.jpg']}
+        seconds={3000}
+        height={1000}
+        width={1800}
+      />
+
 
       {
         isLoading

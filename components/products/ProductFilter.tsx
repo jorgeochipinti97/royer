@@ -14,8 +14,10 @@ export const ProductFilterPage = () => {
     const [_productsFiltered, setProductsFiltered] = useState<IProduct[]>(products)
     const [valueProduct, setValueProduct] = useState<string>('all')
     const [typeProduct, setTypeProduct] = useState<string>('')
-    const todasCategorias = ['shirts', 't-shirt', 'football shirt', 'jacket', 'pants', 'hoodies', 'hats', 'mate', 'yerba', 'alfajores', 'wine', 'short', 'socks', 'wallet', 'purse']
+    const genders_ = ['all','kid', 'regionales', 'fashion']
+    const todasCategorias = ['shirts', 't-shirt', 'football shirt', 'jacket', 'pants', 'hoodies', 'hats', 'mate', 'yerba', 'alfajores', 'wine', 'short', 'socks', 'wallet', 'purse', 'accessories', 'bag']
     const categoriasRopa = ['shirts', 't-shirt', 'football shirt', 'jacket', 'pants', 'hoodies', 'hats', 'short', 'socks', 'wallet', 'purse']
+    const fashion__ = ['wallet', 'purse', 'shirts', 'bag']
     const categoriasRegional = ['mate', 'yerba', 'alfajores', 'wine']
     const [categories, setCategories] = useState<string[]>(todasCategorias)
 
@@ -38,6 +40,12 @@ export const ProductFilterPage = () => {
 
                 console.log(newProducts_)
 
+            } else if (valueOfProduct_ == 'fashion') {
+                const newProducts_ = products.filter(e => e.gender === valueOfProduct_)
+                setProductsFiltered(newProducts_)
+                setValueProduct(valueOfProduct_)
+                setCategories(fashion__)
+                setTypeProduct('')
             } else {
                 const newProducts_ = products.filter(e => e.gender === valueOfProduct_)
                 setProductsFiltered(newProducts_)
@@ -81,32 +89,17 @@ export const ProductFilterPage = () => {
                 <Box>
                     <Box display='flex' justifyContent='center'>
 
-                        <Box>
+                        <Box
+                        >
                             <Box display='flex' justifyContent='center' sx={{ flexWrap: { xs: 'wrap', sm: 'wrap' } }} >
-                                <Box>
-                                    <Button color={valueProduct === 'all' ? 'primary' : 'info'}
-                                        onClick={() => handleClickValues('all')}
-                                    >
-                                        All Products</Button>
-                                </Box>
-                                <Box>
-                                    <Button onClick={() => handleClickValues('regionales')} color={valueProduct === 'regional' ? 'primary' : 'info'}>Regional Products</Button>
-                                </Box>
-                                <Box>
-                                    <Button onClick={() => handleClickValues('unisex')} color={valueProduct === 'unisex' ? 'primary' : 'info'}>Unisex</Button>
-                                </Box>
-                                <Box>
-                                    <Button onClick={() => handleClickValues('men')} color={valueProduct === 'men' ? 'primary' : 'info'}>Men</Button>
-                                </Box>
-                                <Box>
-                                    <Button onClick={() => handleClickValues('women')} color={valueProduct === 'women' ? 'primary' : 'info'}>Women</Button>
-                                </Box>
-                                <Box>
-                                    <Button onClick={() => handleClickValues('kid')} color={valueProduct === 'kid' ? 'primary' : 'info'}>Kid</Button>
-                                </Box>
-                                <Box>
-                                    <Button onClick={() => handleClickValues('accessories')} color={valueProduct === 'accesorios' ? 'primary' : 'info'}>Accessories</Button>
-                                </Box>
+                                {genders_.map(e => (
+                                    <Box key={e}>
+                                        <Button color={valueProduct === e ? 'primary' : 'info'}
+                                            onClick={() => handleClickValues(e)}
+                                        >{capitalize(e)}</Button>
+                                    </Box>
+                                ))}
+
                             </Box>
                         </Box>
                     </Box>

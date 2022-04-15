@@ -33,7 +33,7 @@ const ProductPage: NextPage<Props> = ({ product }) => {
     }
 
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isRegional])
   const router = useRouter();
   const { addProductToCart } = useContext(CartContext)
@@ -80,8 +80,12 @@ const ProductPage: NextPage<Props> = ({ product }) => {
       <Grid container spacing={3}>
 
         <Grid item xs={12} sm={7}>
+
           <ProductSlideshow
             images={product.images}
+            seconds={7000}
+            height={1200}
+            width={1200}
           />
         </Grid>
 
@@ -90,7 +94,7 @@ const ProductPage: NextPage<Props> = ({ product }) => {
 
             {/* titulos */}
             <Typography variant='h1' component='h1'>{product.title}</Typography>
-            <Typography variant='h5' sx={{mt:2}} fontWeight={600}>{`${currency.formattwo(product.price)}`}</Typography>
+            <Typography variant='h5' sx={{ mt: 2 }} fontWeight={600}>{`${currency.formattwo(product.price)}`}</Typography>
             <Divider sx={{ my: 1 }} />
             <Box sx={{ justifyContent: 'space-around' }}>
               <Chip label="Free Shipping!" color="success" variant="outlined" />
@@ -136,7 +140,7 @@ const ProductPage: NextPage<Props> = ({ product }) => {
             {/* Descripción */}
             <Box sx={{ mt: 3 }}>
               <Typography variant='subtitle2'>Description</Typography>
-              <Typography variant='body2'  align="justify">{product.description}</Typography>
+              <Typography variant='body2' align="justify">{product.description}</Typography>
             </Box>
 
           </Box>
