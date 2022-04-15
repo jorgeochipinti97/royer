@@ -232,7 +232,7 @@ const OrderPage: NextPage<Props> = ({ order }) => {
                                                             disabled={isDisable}
                                                         >
                                                             <Typography variant='h2' sx={{ m: 2 }}>
-                                                                Pay whit cryptocurrency</Typography>
+                                                                Pay with cryptocurrency</Typography>
                                                         </Button>
                                                     </Box>
 

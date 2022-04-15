@@ -124,29 +124,35 @@ export const ProductCard: FC<Props> = ({ product }) => {
                 <Typography fontWeight={700}>{product.title}</Typography>
                 <Box>
                     <Box display='flex' justifyContent='center' sx={{ mb: 1, mt: 2 }}>
-                        <Button
-                            color="primary"
-                            startIcon={<AttachMoneyIcon />}
-                            sx={{ width: '150px' }}
+                        <NextLink href={`/product/${product.slug}`} passHref prefetch={false}>
+                            <Link>
+                                <Button
+                                    color="primary"
+                                    startIcon={<AttachMoneyIcon />}
+                                    sx={{ width: '150px' }}
 
 
-                        >
-                            
-                                Paypal: {`${currency.formattwo(product.price)}`}
-                          
-                        </Button>
+                                >
+
+                                    Paypal: {`${currency.formattwo(product.price)}`}
+                                </Button>
+                            </Link>
+                        </NextLink>
                     </Box>
                     <Box display='flex' justifyContent='center' sx={{ mb: 1 }}>
-                        <Button
-                            color="success"
-                            startIcon={<CurrencyBitcoinIcon />}
-                            sx={{ width: '200px', pt:1,pb:1 }}
-                          
-                        >
-                            <Typography fontWeight={700} variant='button' >
-                                Crypto: {`${currency.formattwo(discountPrice)}`}
-                            </Typography>
-                        </Button>
+                        <NextLink href={`/product/${product.slug}`} passHref prefetch={false}>
+                            <Link>
+                                <Button
+                                    color="success"
+                                    startIcon={<CurrencyBitcoinIcon />}
+                                    sx={{ width: '200px', pt: 1, pb: 1 }}
+                                >
+                                    <Typography fontWeight={700} variant='button' >
+                                        Crypto: {`${currency.formattwo(discountPrice)}`}
+                                    </Typography>
+                                </Button>
+                            </Link>
+                        </NextLink>
                     </Box>
 
                 </Box>
