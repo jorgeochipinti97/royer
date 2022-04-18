@@ -20,19 +20,25 @@ export const ProductFilterPage = () => {
     const fashion__ = ['wallet', 'purse', 'shirts', 'bag', 'hats']
     const categoriasRegional = ['mate', 'yerba', 'alfajores', 'wine']
     const [categories, setCategories] = useState<string[]>(todasCategorias)
-    const [select_, setSelect_] = useState<string>('')
+    const [select_, setSelect_] = useState<string>('populars')
 
     useEffect(()=>{
-        setProductsFiltered(products)
+        const _handle =()=>{
+            setProductsFiltered(products)
+        }
+        _handle()
     },[products])
 
+
     useEffect(() => {
-        if (select_ == 'populars') {
-            console.log('hola1')
+
+        if (select_ === 'popularity') {
             // const newProducts: IProduct[] = _productsFiltered.filter(e => e.slug.includes('river') || e.slug.includes('boca'))
             // setProductsFiltered(newProducts)
-        } else if (select_ == 'hight') {
-            console.log('hola2')
+        } 
+
+         if (select_ === 'hight') {
+             console.log('hight')
             const newProducts: IProduct[] = _productsFiltered.sort((a: IProduct, b: IProduct) => {
                 if (a.price < b.price) {
                     return -1
@@ -42,8 +48,9 @@ export const ProductFilterPage = () => {
                 return 0
             })
             setProductsFiltered(newProducts)
-        } else if (select_ == 'low') {
-            const newProducts: IProduct[] = _productsFiltered.sort((a: IProduct, b: IProduct) => {
+        } 
+         if (select_ === 'low') {
+            const newProducts_: IProduct[] = _productsFiltered.sort((a: IProduct, b: IProduct) => {
                 if (a.price < b.price) {
                     return 1
                 } else if (a.price, b.price) {
@@ -51,9 +58,9 @@ export const ProductFilterPage = () => {
                 }
                 return 0
             })
-            setProductsFiltered(newProducts)
+            setProductsFiltered(newProducts_)
         }
-    }, [_productsFiltered, select_])
+    }, [select_])
 
 
 
@@ -64,7 +71,7 @@ export const ProductFilterPage = () => {
                 setValueProduct(valueOfProduct_)
                 setCategories(todasCategorias)
                 setTypeProduct('')
-                setSelect_('hight')
+                setSelect_('populars')
                 console.log(categories)
 
             } else if (valueOfProduct_ === 'regionales') {
@@ -101,6 +108,7 @@ export const ProductFilterPage = () => {
                 const newProducts_ = products.filter(e => e.type === typeOfProduct_)
                 setProductsFiltered(newProducts_)
                 console.log(newProducts_)
+               
 
             } else {
 
@@ -109,6 +117,7 @@ export const ProductFilterPage = () => {
 
                 setProductsFiltered(newProducts_)
                 console.log(newProducts_)
+           
             }
 
 
@@ -149,7 +158,7 @@ export const ProductFilterPage = () => {
                             {
                                 categories.map(e => (
                                     // eslint-disable-next-line react/jsx-key
-                                    <Box >
+                                    <Box key={e}>
                                         <Button onClick={() => handleClickTypes(e)} color={typeProduct === e ? 'primary' : 'info'}>{capitalize(e)}</Button>
                                     </Box>
                                 )
@@ -167,12 +176,11 @@ export const ProductFilterPage = () => {
                             labelId="select-label"
                             id="select"
                             label="sort by"
-                            value=''
-                            onChange={e => setSelect_(e.target.value)}
-                        >
-                            <MenuItem value={'populars'}>Populars</MenuItem>
-                            <MenuItem value={'hight'}>Price: hight to low  </MenuItem>
+                            value={select_}
+                            onChange={e => setSelect_(e.target.value)}>
+                            <MenuItem value={'popularity'}>popularity</MenuItem>
                             <MenuItem value={'low'}>Price: low to hight  </MenuItem>
+                            <MenuItem value={'hight'}>Price: hight to low  </MenuItem>
                         </Select>
                     </FormControl>
                 </Box>

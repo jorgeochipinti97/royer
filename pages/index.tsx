@@ -25,11 +25,11 @@ const HomePage: NextPage = () => {
       />
 
 
-      {
+      {/* {
         isLoading
           ? <FullScreenLoading />
           : <ProductList products={products} />
-      }
+      } */}
 
 
     </ShopLayout>
