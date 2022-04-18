@@ -24,7 +24,7 @@ export const ProductFilterPage = () => {
 
     useEffect(()=>{
         setProductsFiltered(products)
-    },[])
+    },[products])
 
     useEffect(() => {
         if (select_ == 'populars') {
@@ -53,7 +53,7 @@ export const ProductFilterPage = () => {
             })
             setProductsFiltered(newProducts)
         }
-    }, [select_])
+    }, [_productsFiltered, select_])
 
 
 

@@ -129,12 +129,10 @@ export const ProductCard: FC<Props> = ({ product }) => {
                                 <Button
                                     color="primary"
                                     startIcon={<AttachMoneyIcon />}
-                                    sx={{ width: '150px' }}
-
-
-                                >
-
-                                    Paypal: {`${currency.formattwo(product.price)}`}
+                                    sx={{ width: '150px' }}>
+                                    <Typography variant='button'>
+                                        Paypal: {`${currency.formattwo(product.price)}`}
+                                    </Typography>
                                 </Button>
                             </Link>
                         </NextLink>
@@ -145,7 +143,7 @@ export const ProductCard: FC<Props> = ({ product }) => {
                                 <Button
                                     color="success"
                                     startIcon={<CurrencyBitcoinIcon />}
-                                    sx={{ width: '163px', pt: 1, pb: 1  }}
+                                    sx={{ width: '163px', pt: 1, pb: 1 }}
                                 >
                                     <Typography fontWeight={700} variant='button' >
                                         Crypto: {`${currency.formattwo(discountPrice)}`}

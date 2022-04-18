@@ -2,7 +2,7 @@ import { useState, useContext, useEffect } from 'react';
 import { NextPage, GetServerSideProps, GetStaticPaths, GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
 
-import { Box, Button, Chip, Divider, Grid, Typography } from '@mui/material';
+import { Box, Button, Chip, Divider, Grid, Link, Typography } from '@mui/material';
 
 import { CartContext } from '../../context/cart/CartContext';
 
@@ -13,7 +13,10 @@ import { ItemCounter } from '../../components/ui/ItemCounter';
 import { dbProducts } from '../../database';
 import { IProduct, ICartProduct, ISize } from '../../interfaces';
 import { currency } from '../../utils';
+import NextLink from 'next/link';
 
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import CurrencyBitcoinIcon from '@mui/icons-material/CurrencyBitcoin';
 
 
 interface Props {
@@ -23,6 +26,8 @@ interface Props {
 
 const ProductPage: NextPage<Props> = ({ product }) => {
   const [isRegional, setIsRegional] = useState<boolean>()
+  const [discountPrice, setDiscountPrice] = useState<number>(product.price)
+
   useEffect(() => {
     if (product.gender === 'regionales') {
       setIsRegional(true)
@@ -37,6 +42,19 @@ const ProductPage: NextPage<Props> = ({ product }) => {
   }, [isRegional])
   const router = useRouter();
   const { addProductToCart } = useContext(CartContext)
+  /*   TODO ::  HACER REFACTORIZACION DEL HANDLE PRICE */
+  const handlePrice = (precio: number, descuento: number) => {
+    const porcentajePrecioConDescuento = 100 - descuento;
+    const precioConDescuento = (precio * porcentajePrecioConDescuento) / 100;
+
+    return precioConDescuento;
+  }
+
+  useEffect(() => {
+    const a = handlePrice(product.price, 10)
+    setDiscountPrice(a)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const [tempCartProduct, setTempCartProduct] = useState<ICartProduct>({
     _id: product._id,
@@ -94,7 +112,37 @@ const ProductPage: NextPage<Props> = ({ product }) => {
 
             {/* titulos */}
             <Typography variant='h1' component='h1'>{product.title}</Typography>
-            <Typography variant='h5' sx={{ mt: 2 }} fontWeight={600}>{`${currency.formattwo(product.price)}`}</Typography>
+            <Box display='flex' justifyContent='space-around' sx={{ m: 3 }}>
+              <NextLink href={`#`} passHref prefetch={false}>
+                <Link>
+                  <Button
+                    color="primary"
+                    startIcon={<AttachMoneyIcon />}
+                    sx={{ width: '150px' }}
+
+
+                  >
+                    <Typography variant='button'>
+                      Paypal: {`${currency.formattwo(product.price)}`}
+                    </Typography>
+                  </Button>
+                </Link>
+              </NextLink>
+              <NextLink href={`#`} passHref prefetch={false}>
+                <Link>
+                  <Button
+                    color="success"
+                    startIcon={<CurrencyBitcoinIcon />}
+                    sx={{ width: '163px', pt: 1, pb: 1 }}
+                  >
+                    <Typography fontWeight={700} variant='button' >
+                      Crypto: {`${currency.formattwo(discountPrice)}`}
+                    </Typography>
+                  </Button>
+                </Link>
+              </NextLink>
+
+            </Box>
             <Divider sx={{ my: 1 }} />
             <Box sx={{ justifyContent: 'space-around' }}>
               <Chip label="Free Shipping!" color="success" variant="outlined" />
