@@ -5,6 +5,7 @@ import { capitalize, Box, Button, Divider, InputLabel, Select, MenuItem, FormCon
 import { useProducts } from '../../hooks';
 import { ProductList } from './ProductList';
 import { IProduct } from '../../interfaces';
+import { sortHight, sortLow } from '../../utils/sort';
 
 
 
@@ -22,45 +23,25 @@ export const ProductFilterPage = () => {
     const [categories, setCategories] = useState<string[]>(todasCategorias)
     const [select_, setSelect_] = useState<string>('populars')
 
-    useEffect(()=>{
-        const _handle =()=>{
+    useEffect(() => {
+        const _handle = () => {
             setProductsFiltered(products)
         }
         _handle()
-    },[products])
+    }, [products])
 
 
-    useEffect(() => {
-
-        if (select_ === 'popularity') {
-            // const newProducts: IProduct[] = _productsFiltered.filter(e => e.slug.includes('river') || e.slug.includes('boca'))
-            // setProductsFiltered(newProducts)
-        } 
-
-         if (select_ === 'hight') {
-             console.log('hight')
-            const newProducts: IProduct[] = _productsFiltered.sort((a: IProduct, b: IProduct) => {
-                if (a.price < b.price) {
-                    return -1
-                } else if (a.price, b.price) {
-                    return 1
-                }
-                return 0
-            })
-            setProductsFiltered(newProducts)
-        } 
-         if (select_ === 'low') {
-            const newProducts_: IProduct[] = _productsFiltered.sort((a: IProduct, b: IProduct) => {
-                if (a.price < b.price) {
-                    return 1
-                } else if (a.price, b.price) {
-                    return -1
-                }
-                return 0
-            })
-            setProductsFiltered(newProducts_)
+    const handleSelectChange = (e:string) => {
+        setSelect_(e)
+        if (e == 'low') {
+            sortLow(_productsFiltered)
         }
-    }, [select_])
+
+        if (e == 'hight') {
+            sortHight(_productsFiltered)
+        }
+    }
+
 
 
 
@@ -108,7 +89,7 @@ export const ProductFilterPage = () => {
                 const newProducts_ = products.filter(e => e.type === typeOfProduct_)
                 setProductsFiltered(newProducts_)
                 console.log(newProducts_)
-               
+
 
             } else {
 
@@ -117,7 +98,7 @@ export const ProductFilterPage = () => {
 
                 setProductsFiltered(newProducts_)
                 console.log(newProducts_)
-           
+
             }
 
 
@@ -177,7 +158,7 @@ export const ProductFilterPage = () => {
                             id="select"
                             label="sort by"
                             value={select_}
-                            onChange={e => setSelect_(e.target.value)}>
+                            onChange={e =>  handleSelectChange(e.target.value)}>
                             <MenuItem value={'popularity'}>popularity</MenuItem>
                             <MenuItem value={'low'}>Price: low to hight  </MenuItem>
                             <MenuItem value={'hight'}>Price: hight to low  </MenuItem>

@@ -118,7 +118,7 @@ const ProductPage: NextPage<Props> = ({ product }) => {
                   <Button
                     color="primary"
                     startIcon={<AttachMoneyIcon />}
-                    sx={{ width: '150px' }}
+                    sx={{ width: '150px',m:2 }}
 
 
                   >
@@ -133,7 +133,7 @@ const ProductPage: NextPage<Props> = ({ product }) => {
                   <Button
                     color="success"
                     startIcon={<CurrencyBitcoinIcon />}
-                    sx={{ width: '163px', pt: 1, pb: 1 }}
+                    sx={{ width: '163px', pt: 1, pb: 1,m:2 }}
                   >
                     <Typography fontWeight={700} variant='button' >
                       Crypto: {`${currency.formattwo(discountPrice)}`}
@@ -154,6 +154,9 @@ const ProductPage: NextPage<Props> = ({ product }) => {
                 updatedQuantity={onUpdateQuantity}
                 maxValue={product.inStock > 10 ? 10 : product.inStock}
               />
+
+
+              {/* TODO :  poner que son fashion y cosas sin talle para sacar el select size */}
               {!isRegional ?
                 <SizeSelector
                   sizes={product.sizes}
