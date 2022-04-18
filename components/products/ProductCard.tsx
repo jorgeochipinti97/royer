@@ -1,6 +1,6 @@
 import { FC, useMemo, useState, useEffect } from 'react';
 import NextLink from 'next/link';
-import { Grid, Card, CardActionArea, CardMedia, Box, Typography, Link, Divider, Button } from '@mui/material'
+import { Grid, Card, CardActionArea, CardMedia, Box, Typography, Link, Divider, Button, Chip, capitalize } from '@mui/material'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { IProduct } from '../../interfaces'
@@ -9,6 +9,7 @@ import Image from 'next/image';
 import { currency } from '../../utils';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import CurrencyBitcoinIcon from '@mui/icons-material/CurrencyBitcoin';
+import {capitalizarPrimeraLetraPalabras} from '../../utils/sort'
 
 
 interface Props {
@@ -21,6 +22,11 @@ export const ProductCard: FC<Props> = ({ product }) => {
     const [isImageLoaded, setIsImageLoaded] = useState(false);
     const [discountPrice, setDiscountPrice] = useState<number>(product.price)
 
+    
+    const handleTitle=(title:string)=>{
+        title.split('')
+        console.log(title)
+    }
     const productImage = useMemo(() => {
         return isHovered
             ? product.images[1]
@@ -70,6 +76,7 @@ export const ProductCard: FC<Props> = ({ product }) => {
     }
 
 
+    
 
     return (
         <Grid item
@@ -83,16 +90,16 @@ export const ProductCard: FC<Props> = ({ product }) => {
                     <Link>
 
                         <CardActionArea>
-                            {/* 
+                            
                         {
                             (product.inStock === 0 ) && (
                                 <Chip 
                                     color="primary"
-                                    label="No hay disponibles"
+                                    label="No stock"
                                     sx={{ position: 'absolute', zIndex: 99, top: '10px', left: '10px' }}
                                 />
                             )
-                        } */}
+                        }
 
                             <CardMedia
                                 component='div'
@@ -114,14 +121,13 @@ export const ProductCard: FC<Props> = ({ product }) => {
                     :
                     <FavoriteBorderIcon
                         color='error'
-                        onClick={onToggleFavorite}
-                    />
+                        onClick={onToggleFavorite}/>
                 }
 
 
             </Card>
             <Box sx={{ mt: 1, display: isImageLoaded ? 'block' : 'none' }} className='fadeIn' >
-                <Typography fontWeight={700}>{product.title}</Typography>
+                <Typography fontWeight={700}>{capitalizarPrimeraLetraPalabras(`${product.title}`)}</Typography>
                 <Box>
                     <Box display='flex' justifyContent='center' sx={{ mb: 1, mt: 2 }}>
                         <NextLink href={`/product/${product.slug}`} passHref prefetch={false}>
@@ -143,8 +149,7 @@ export const ProductCard: FC<Props> = ({ product }) => {
                                 <Button
                                     color="success"
                                     startIcon={<CurrencyBitcoinIcon />}
-                                    sx={{ width: '163px', pt: 1, pb: 1 }}
-                                >
+                                    sx={{ width: '163px', pt: 1, pb: 1 }}>
                                     <Typography fontWeight={700} variant='button' >
                                         Crypto: {`${currency.formattwo(discountPrice)}`}
                                     </Typography>

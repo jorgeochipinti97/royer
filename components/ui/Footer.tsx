@@ -2,11 +2,11 @@ import NextLink from 'next/link';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import CopyrightIcon from '@mui/icons-material/Copyright';
-import { Box, Button, Divider, Link, Typography } from '@mui/material';
+import { AppBar, Box, Button, Divider, Link, Typography } from '@mui/material';
 
 export const Footer = () => {
     return (
-        <footer>
+        <footer >
             <Divider sx={{ my: 1 }} />
             <Box display='flex' justifyContent='center'>
                 <NextLink href='https://www.instagram.com/royerstore.ar/' passHref>
@@ -47,6 +47,9 @@ export const Footer = () => {
             </Box>
             <Box display='flex' justifyContent='center' sx={{ mt: 3 }} >
                 <Typography component='h5'><CopyrightIcon sx={{ fontSize: 14 }} />  all rights reserved. Royer</Typography>
+            </Box>
+            <Box display='flex' justifyContent='center' sx={{ mt: 3,mb:2 }} >
+                <Typography component='h5' fontWeight={650}> Development by LAZARO</Typography>
             </Box>
         </footer>
     )

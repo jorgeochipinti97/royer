@@ -12,7 +12,7 @@ import { ItemCounter } from '../../components/ui/ItemCounter';
 
 import { dbProducts } from '../../database';
 import { IProduct, ICartProduct, ISize } from '../../interfaces';
-import { currency } from '../../utils';
+import { capitalizarPrimeraLetraPalabras, currency } from '../../utils';
 import NextLink from 'next/link';
 
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
@@ -25,12 +25,12 @@ interface Props {
 
 
 const ProductPage: NextPage<Props> = ({ product }) => {
-  const [isRegional, setIsRegional] = useState<boolean>()
+  const [isNoSize, setIsNoSize] = useState<boolean>()
   const [discountPrice, setDiscountPrice] = useState<number>(product.price)
 
   useEffect(() => {
-    if (product.gender === 'regionales') {
-      setIsRegional(true)
+    if (product.gender === 'regionales' || product.gender === 'fashion') {
+      setIsNoSize(true)
       setTempCartProduct(currentProduct => ({
         ...currentProduct,
         size: 'Unique'
@@ -39,7 +39,7 @@ const ProductPage: NextPage<Props> = ({ product }) => {
 
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isRegional])
+  }, [isNoSize])
   const router = useRouter();
   const { addProductToCart } = useContext(CartContext)
   /*   TODO ::  HACER REFACTORIZACION DEL HANDLE PRICE */
@@ -111,17 +111,14 @@ const ProductPage: NextPage<Props> = ({ product }) => {
           <Box display='flex' flexDirection='column'>
 
             {/* titulos */}
-            <Typography variant='h1' component='h1'>{product.title}</Typography>
+            <Typography variant='h1' component='h1'>{capitalizarPrimeraLetraPalabras(product.title)}</Typography>
             <Box display='flex' justifyContent='space-around' sx={{ m: 3 }}>
               <NextLink href={`#`} passHref prefetch={false}>
                 <Link>
                   <Button
                     color="primary"
                     startIcon={<AttachMoneyIcon />}
-                    sx={{ width: '150px',m:2 }}
-
-
-                  >
+                    sx={{ width: '163px',m:2, pt:1,pb:1 }}>
                     <Typography variant='button'>
                       Paypal: {`${currency.formattwo(product.price)}`}
                     </Typography>
@@ -141,7 +138,6 @@ const ProductPage: NextPage<Props> = ({ product }) => {
                   </Button>
                 </Link>
               </NextLink>
-
             </Box>
             <Divider sx={{ my: 1 }} />
             <Box sx={{ justifyContent: 'space-around' }}>
@@ -157,7 +153,7 @@ const ProductPage: NextPage<Props> = ({ product }) => {
 
 
               {/* TODO :  poner que son fashion y cosas sin talle para sacar el select size */}
-              {!isRegional ?
+              {!isNoSize ?
                 <SizeSelector
                   sizes={product.sizes}
                   selectedSize={tempCartProduct.size}

@@ -30,11 +30,9 @@ export const ProductSlideshow: FC<Props> = ({ images, seconds, height, width }) 
                 images.map(image => {
                     return (
                         <div className={styles['each-slide']} key={image}>
-                            <NextLink href={`${urls_.map(e=>e)}`}>
-                            <Link>
+  
                                 <Image width={width} height={height} src={image} alt={image} />
-                            </Link>
-                            </NextLink>
+
                         </div>
                     )
 

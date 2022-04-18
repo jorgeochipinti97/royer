@@ -42,9 +42,6 @@ export const ProductFilterPage = () => {
         }
     }
 
-
-
-
     const handleClickValues = (valueOfProduct_: string) => {
         try {
             if (valueOfProduct_ === 'all') {
@@ -114,9 +111,7 @@ export const ProductFilterPage = () => {
             <Box>
                 <Box>
                     <Box display='flex' justifyContent='center'>
-
-                        <Box
-                        >
+                        <Box>
                             <Box display='flex' justifyContent='center' sx={{ flexWrap: { xs: 'wrap', sm: 'wrap' } }} >
                                 {genders_.map(e => (
                                     <Box key={e}>
