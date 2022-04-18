@@ -11,8 +11,8 @@ import { IProduct } from '../../interfaces';
 
 export const ProductFilterPage = () => {
     const { products, isLoading } = useProducts('/products');
-    const [_productsFiltered, setProductsFiltered] = useState<IProduct[]>(products)
     const [valueProduct, setValueProduct] = useState<string>('all')
+    const [_productsFiltered, setProductsFiltered] = useState<IProduct[]>(products)
     const [typeProduct, setTypeProduct] = useState<string>('')
     const genders_ = ['all', 'kid', 'regionales', 'fashion']
     const todasCategorias = ['shirts', 't-shirt', 'football shirt', 'jacket', 'pants', 'hoodies', 'hats', 'mate', 'yerba', 'alfajores', 'wine', 'short', 'socks', 'wallet', 'purse', 'accessories', 'bag']
@@ -22,7 +22,9 @@ export const ProductFilterPage = () => {
     const [categories, setCategories] = useState<string[]>(todasCategorias)
     const [select_, setSelect_] = useState<string>('')
 
-
+    useEffect(()=>{
+        setProductsFiltered(products)
+    },[])
 
     useEffect(() => {
         if (select_ == 'populars') {
@@ -33,20 +35,19 @@ export const ProductFilterPage = () => {
             console.log('hola2')
             const newProducts: IProduct[] = _productsFiltered.sort((a: IProduct, b: IProduct) => {
                 if (a.price < b.price) {
-                    return 1
-                } else if (a.price, b.price) {
                     return -1
+                } else if (a.price, b.price) {
+                    return 1
                 }
                 return 0
             })
             setProductsFiltered(newProducts)
         } else if (select_ == 'low') {
-            console.log('asdsadsa')
             const newProducts: IProduct[] = _productsFiltered.sort((a: IProduct, b: IProduct) => {
                 if (a.price < b.price) {
-                    return -1
-                } else if (a.price, b.price) {
                     return 1
+                } else if (a.price, b.price) {
+                    return -1
                 }
                 return 0
             })
