@@ -131,10 +131,10 @@ const OrderCryptoPage: NextPage<Props> = ({ order }) => {
     const onSubmit = async (form: FormData) => {
         console.log('submit')
         console.log(form)
-        setTimeout(() => {
-            console.log('intervalo limpio')
-            clearInterval(idInterval)
-        }, 1000)
+        // setTimeout(() => {
+        //     console.log('intervalo limpio')
+        //     clearInterval(idInterval)
+        // }, 1000)
         try {
             const { data } = await tesloApi({
                 url: '/cripto',
