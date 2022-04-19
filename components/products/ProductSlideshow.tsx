@@ -15,10 +15,7 @@ interface Props {
 }
 
 export const ProductSlideshow: FC<Props> = ({ images, seconds, height, width }) => {
-    const urls_ =['/products', '/','/']
-    useEffect(()=>{
-        console.log(urls_.map(e=> e))
-    },[])
+
     return (
         <Slide
             easing="ease"

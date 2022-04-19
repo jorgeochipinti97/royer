@@ -6,6 +6,8 @@ const orderCryptoSchema = new Schema({
     total        : { type: Number, required: true },
     isSend        :{type: Boolean, default: false},
     isPaid : { type: Boolean, required: true, default: false },
+    crypto: { type: String },
+    amount: { type: Number },
     transactionId: { type: String },
     wallet: { type: String },
 

@@ -113,7 +113,7 @@ const OrderPage: NextPage<Props> = ({ order }) => {
 
     return (
         <ShopLayout title='Order Resume' pageDescription={'Order Resume'}>
-            <Typography variant='h1' component='h1'>Orden: {order._id}</Typography>
+            <Typography variant='subtitle1' >Orden: {order._id}</Typography>
 
             {
                 order.isPaid

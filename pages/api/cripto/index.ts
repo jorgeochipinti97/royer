@@ -17,6 +17,8 @@ export default function handler(req: NextApiRequest, res: NextApiResponse<Data>)
             return createOrder(req, res);
         case 'DELETE':
             return deleteOrder(req, res);
+        case 'PUT':
+            return updateOrder(req, res);
         default:
             return res.status(400).json({ message: 'Bad request' })
     }
@@ -75,3 +77,33 @@ const deleteOrder = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
     }
 }
 
+const updateOrder = async(req: NextApiRequest, res: NextApiResponse<Data>) => {
+    
+    const { _id = ''} = req.body as IOrderCrypto;
+
+    if ( !isValidObjectId( _id ) ) {
+        return res.status(400).json({ message: 'El id del producto no es válido' });
+    }
+    
+    try {
+        console.log(req.body)
+        await db.connect();
+        const order = await OrderCrypto.findById(_id);
+        if ( !order ) {
+            await db.disconnect();
+            return res.status(400).json({ message: 'No existe un producto con ese ID' });
+        }
+        await order.update( req.body );
+        await db.disconnect();
+        
+
+        return res.status(200).json( order );
+        
+    } catch (error) {
+        console.log(error);
+        await db.disconnect();
+        return res.status(400).json({ message: 'Revisar la consola del servidor' });
+    }
+
+
+}

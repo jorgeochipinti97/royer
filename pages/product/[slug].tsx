@@ -94,6 +94,13 @@ const ProductPage: NextPage<Props> = ({ product }) => {
 
   return (
     <ShopLayout title={product.title} pageDescription={product.description}>
+      <Box sx={{mb:2}}>
+        <NextLink href='/products' passHref>
+          <Link>
+            <Button color='secondary'>Back</Button>
+          </Link>
+        </NextLink>
+      </Box>
 
       <Grid container spacing={3}>
 
@@ -117,8 +124,9 @@ const ProductPage: NextPage<Props> = ({ product }) => {
                 <Link>
                   <Button
                     color="primary"
+                    onClick={()=> console.log()}
                     startIcon={<AttachMoneyIcon />}
-                    sx={{ width: '163px',m:2, pt:1,pb:1 }}>
+                    sx={{ width: '163px', m: 2, pt: 1, pb: 1 }}>
                     <Typography variant='button'>
                       Paypal: {`${currency.formattwo(product.price)}`}
                     </Typography>
@@ -129,8 +137,9 @@ const ProductPage: NextPage<Props> = ({ product }) => {
                 <Link>
                   <Button
                     color="success"
+                    onClick={()=> console.log()}
                     startIcon={<CurrencyBitcoinIcon />}
-                    sx={{ width: '163px', pt: 1, pb: 1,m:2 }}
+                    sx={{ width: '163px', pt: 1, pb: 1, m: 2 }}
                   >
                     <Typography fontWeight={700} variant='button' >
                       Crypto: {`${currency.formattwo(discountPrice)}`}
