@@ -5,7 +5,8 @@ export interface IOrderCrypto {
     total: number;
     isPaid: boolean;
     transactionId?: string;
-
+    isSend:boolean;
+    wallet?: string;
 
     createdAt?: string;
     updatedAt?: string;

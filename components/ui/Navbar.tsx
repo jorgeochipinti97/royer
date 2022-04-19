@@ -107,12 +107,12 @@ export const Navbar = () => {
 
 
                 {/* Pantallas pequeñas */}
-                <IconButton
+                {/* <IconButton
                     sx={{ display: { xs: 'flex', sm: 'none' } }}
                     onClick={ toggleSideMenu }
                 >
                     <SearchOutlined />
-                </IconButton>
+                </IconButton> */}
 
                 <NextLink href="/cart" passHref>
                     <Link>

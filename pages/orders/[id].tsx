@@ -84,6 +84,7 @@ const OrderPage: NextPage<Props> = ({ order }) => {
                     _idOrder: order._id,
                     total: discountPrice,
                     isPaid: false,
+                    isSend:false,
                 }
                 
                 const { data } = await tesloApi({

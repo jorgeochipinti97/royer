@@ -7,6 +7,9 @@ import { UiContext, AuthContext } from '../../context';
 import { useRouter } from 'next/router';
 import StorefrontOutlinedIcon from '@mui/icons-material/StorefrontOutlined';
 import CurrencyBitcoinIcon from '@mui/icons-material/CurrencyBitcoin';
+import ConnectWithoutContactIcon from '@mui/icons-material/ConnectWithoutContact';
+import QuizIcon from '@mui/icons-material/Quiz';
+
 
 export const SideMenu = () => {
 
@@ -41,8 +44,8 @@ export const SideMenu = () => {
 
                     <ListItem>
                         <Input
-                         /*TODO: sacar autofocus */ 
-                         autoFocus
+                            /*TODO: sacar autofocus */
+                            // autoFocus
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                             onKeyPress={(e) => e.key === 'Enter' ? onSearchTerm() : null}
@@ -76,16 +79,7 @@ export const SideMenu = () => {
                     }
 
 
-                    <ListItem
-                        button
-                        sx={{ display: { xs: '', sm: 'none' } }}
-                        onClick={() => navigateTo('/products')}
-                    >
-                        <ListItemIcon>
-                            <StorefrontOutlinedIcon />
-                        </ListItemIcon>
-                        <ListItemText primary={'Products'} />
-                    </ListItem>
+
 
 
 
@@ -111,7 +105,35 @@ export const SideMenu = () => {
                                 </ListItem>
                             )
                     }
+                    <ListItem
+                        button
+                        sx={{ display: { xs: '', sm: 'none' } }}
+                        onClick={() => navigateTo('/products')}
+                    >
+                        <ListItemIcon>
+                            <StorefrontOutlinedIcon />
+                        </ListItemIcon>
+                        <ListItemText primary={'Products'} />
+                    </ListItem>
 
+                    <ListItem
+                        sx={{ display: { xs: '', sm: 'none' } }}
+                        button
+                        onClick={() => navigateTo('/')}>
+                        <ListItemIcon>
+                            <ConnectWithoutContactIcon />
+                        </ListItemIcon>
+                        <ListItemText primary={'Contact Us'} />
+                    </ListItem>
+                    <ListItem
+                        sx={{ display: { xs: '', sm: 'none' } }}
+                        button
+                        onClick={() => navigateTo('/')}>
+                        <ListItemIcon>
+                            <QuizIcon />
+                        </ListItemIcon>
+                        <ListItemText primary={'FAQS'} />
+                    </ListItem>
                     <ListItem
                         button
                         onClick={() => navigateTo('/favorites')}>
@@ -135,7 +157,7 @@ export const SideMenu = () => {
                                     </ListItemIcon>
                                     <ListItemText primary={'Dashboard'} />
                                 </ListItem>
-                                
+
                                 <ListItem button
                                     onClick={() => navigateTo('/')}>
 

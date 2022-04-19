@@ -4,8 +4,10 @@ import { IOrderCrypto } from '../interfaces';
 const orderCryptoSchema = new Schema({
     _idOrder     : { type: Schema.Types.ObjectId,ref: 'Order' },
     total        : { type: Number, required: true },
+    isSend        :{type: Boolean, default: false},
     isPaid : { type: Boolean, required: true, default: false },
     transactionId: { type: String },
+    wallet: { type: String },
 
 }, {
     timestamps: true,
