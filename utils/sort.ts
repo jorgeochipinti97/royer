@@ -23,7 +23,7 @@ export const sortHight = (products: IProduct[]) => {
 
 }
 
-export const capitalizarPrimeraLetraPalabras= (frase:string) =>{
+export const capitalizarPrimeraLetraPalabras= (frase:string| any) =>{
     if (typeof frase != 'string') {
         throw TypeError('El argumento debe ser una cadena de caracteres.');
     }

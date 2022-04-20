@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 import { GetServerSideProps, NextPage } from 'next';
 import { IOrderCrypto } from '../../../interfaces';
-import { Box, Card, CardContent, Divider, Grid, Typography, Chip, FormControl, FormLabel, TextField, RadioGroup, FormControlLabel, Radio, Button, Link } from '@mui/material';
+import { Box, Card, CardContent, Divider, Grid, Typography, Chip, FormControl, FormLabel, TextField, RadioGroup, FormControlLabel, Radio, Button, Link, capitalize } from '@mui/material';
 import { ShopLayout } from '../../../components/layouts';
-import { currency } from '../../../utils';
+import { capitalizarPrimeraLetraPalabras, currency } from '../../../utils';
 import { db, dbCryptoOrders } from '../../../database';
 import { useRouter } from 'next/router';
 import { tesloApi } from '../../../api';
@@ -56,11 +56,17 @@ const OrderCryptoPage: NextPage<Props> = ({ order }) => {
     useEffect(() => {
         const deleteOrder = () => {
 
-            const idInterval = setInterval(async () => {
-                let tiempoRestante = 9
-                tiempoRestante -= 1
-                console.log(tiempoRestante)
-                if (tiempoRestante > 0) {
+            if (order.isSend) {
+                return
+            }
+
+            let i = 10
+            let counter = window.setInterval(async () => {
+                let f = i--
+                console.log(f)
+                if (f <= 0) {
+
+                    console.log('hi')
                     alert('la orden ha sido eliminada')
                     const { data } = await tesloApi({
                         url: '/cripto',
@@ -68,20 +74,15 @@ const OrderCryptoPage: NextPage<Props> = ({ order }) => {
                         data: order
                     });
                     router.replace(`/orders/${order._idOrder}`);
-
-                    setTimeout(() => {
-                        clearInterval(idInterval)
-                    }, 1000);
+                    clearInterval(counter)
                 }
 
-
-
             }, 60000)
-
         }
-
         deleteOrder()
     }, [])
+
+
 
 
     const handleChangeCryptoButtons = async (crypto_: string) => {
@@ -129,12 +130,7 @@ const OrderCryptoPage: NextPage<Props> = ({ order }) => {
     }
 
     const onSubmit = async (form: FormData) => {
-        console.log('submit')
-        console.log(form)
-        // setTimeout(() => {
-        //     console.log('intervalo limpio')
-        //     clearInterval(idInterval)
-        // }, 1000)
+
         try {
             const { data } = await tesloApi({
                 url: '/cripto',
@@ -154,7 +150,7 @@ const OrderCryptoPage: NextPage<Props> = ({ order }) => {
                     </Link>
                 </NextLink>
                 :
-                <NextLink href={`/products}`} passHref>
+                <NextLink href={`/products`} passHref>
                     <Link>
                         <Button color='primary'>Back</Button>
                     </Link>
@@ -168,8 +164,8 @@ const OrderCryptoPage: NextPage<Props> = ({ order }) => {
                 {order.isSend ?
                     <Box sx={{ m: 2 }} >
                         <Box display='flex' flexDirection='column'>
-                            <Chip label='your order is being reviewed' variant='outlined' color='secondary' sx={{mb:1}}/>
-                            <Chip label='we will contact you as soon as possible' variant='filled' color='primary' sx={{mb:2}} />
+                            <Chip label='your order is being reviewed' variant='outlined' color='secondary' sx={{ mb: 1 }} />
+                            <Chip label='we will contact you as soon as possible' variant='filled' color='primary' sx={{ mb: 2 }} />
                         </Box>
                         <Box display='flex' justifyContent='center'>
                             <Typography variant='h5'>your order ID: {order._id}</Typography>
@@ -206,17 +202,19 @@ const OrderCryptoPage: NextPage<Props> = ({ order }) => {
                                 </Card>
                             </Box> :
                             <Box display='flex' justifyContent='center' sx={{ mb: 3 }}>
-                                <Card className='summary-card' sx={{ width: 300 }} >
+                                <Card className='summary-card' sx={{ width: 350 }} >
                                     <CardContent>
                                         <Box display='flex' justifyContent='space-around'>
-                                            <Typography variant="subtitle1">Total:</Typography>
-                                            <Typography variant="subtitle1">{order.total} {order.crypto}</Typography>
+                                            <Typography variant="subtitle1">{order.amount} {capitalizarPrimeraLetraPalabras(order.crypto)}</Typography>
                                         </Box>
                                         <Box display='flex' justifyContent='space-around'>
-                                            {wallet_ != '' ?
-                                                <Typography variant="subtitle1">{network}</Typography> : null
-                                            }
-                                            <Typography variant="subtitle1">{order.wallet}</Typography>
+                                            <Typography variant="subtitle1">From: {order.wallet}</Typography>
+                                        </Box>
+                                        <Box display='flex' justifyContent='space-around'>
+                                            <Typography variant="subtitle1">{network}</Typography>
+                                        </Box>
+                                        <Box display='flex' justifyContent='space-around'>
+                                            <Typography variant="subtitle1">Hash: {order.transactionId}</Typography>
                                         </Box>
                                     </CardContent>
                                 </Card>
@@ -290,6 +288,7 @@ const OrderCryptoPage: NextPage<Props> = ({ order }) => {
                                             type='text'
                                         ></TextField>
                                         <Button
+
                                             type='submit'
                                             color='success' sx={{ m: 3 }}>
                                             Send
