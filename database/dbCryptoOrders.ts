@@ -4,25 +4,32 @@ import { IOrderCrypto } from '../interfaces';
 import { OrderCrypto } from '../models';
 
 
-export const getOrderById = async (id: string): Promise<IOrderCrypto | null> => {
-
+export const getOrderCryptoById = async (id: string): Promise<IOrderCrypto | null> => {
+    
+    
     if (!isValidObjectId(id)) {
         return null;
     }
+    try{
+        
+        await db.connect();
+        const order = await OrderCrypto.findById(id).lean();
+        await db.disconnect();
+        
+        if (!order) {
+            return null;
+        }
 
-    await db.connect();
-    const order = await OrderCrypto.findById(id).lean();
-    await db.disconnect();
+        return JSON.parse(JSON.stringify(order));
 
-    if (!order) {
-        return null;
+    }catch(err){
+        console.log(err)
+        return null
     }
-
-    return JSON.parse(JSON.stringify(order));
 
 
 }
-export const deleteOrderById = async (id: string) => {
+export const deleteOrderCryptoById = async (id: string) => {
 
     if (!isValidObjectId(id)) {
         return null;

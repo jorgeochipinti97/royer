@@ -9,7 +9,7 @@ import StorefrontOutlinedIcon from '@mui/icons-material/StorefrontOutlined';
 import CurrencyBitcoinIcon from '@mui/icons-material/CurrencyBitcoin';
 import ConnectWithoutContactIcon from '@mui/icons-material/ConnectWithoutContact';
 import QuizIcon from '@mui/icons-material/Quiz';
-
+import ContentPasteSearchSharpIcon from '@mui/icons-material/ContentPasteSearchSharp';
 
 export const SideMenu = () => {
 
@@ -115,6 +115,16 @@ export const SideMenu = () => {
                         </ListItemIcon>
                         <ListItemText primary={'Products'} />
                     </ListItem>
+                    <ListItem
+                        button
+                        sx={{ display: { xs: '', sm: 'none' } }}
+                        onClick={() => navigateTo('/find')}
+                    >
+                        <ListItemIcon>
+                            <ContentPasteSearchSharpIcon />
+                        </ListItemIcon>
+                        <ListItemText primary={'Find My Order'} />
+                    </ListItem>
 
                     <ListItem
                         sx={{ display: { xs: '', sm: 'none' } }}
@@ -159,7 +169,7 @@ export const SideMenu = () => {
                                 </ListItem>
 
                                 <ListItem button
-                                    onClick={() => navigateTo('/')}>
+                                    onClick={() => navigateTo('/admin/crypto')}>
 
                                     <ListItemIcon>
                                         <CurrencyBitcoinIcon />

@@ -3,11 +3,13 @@ import { db } from '../../../database';
 import { IOrder } from '../../../interfaces';
 import { Product, Order } from '../../../models';
 import { getSession } from 'next-auth/react';
+import { isValidObjectId } from 'mongoose';
 
 
 type Data =
     | { message: string }
-    | IOrder;
+    | IOrder
+    | IOrder[];
 
 export default function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
 
@@ -15,6 +17,10 @@ export default function handler(req: NextApiRequest, res: NextApiResponse<Data>)
     switch (req.method) {
         case 'POST':
             return createOrder(req, res);
+        case 'PUT':
+            return updateOrder(req, res);
+        case 'GET':
+            return getOrders(req, res);
         default:
             return res.status(400).json({ message: 'Bad request' })
     }
@@ -86,3 +92,44 @@ const createOrder = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
     }
 }
 
+const updateOrder = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
+
+    const { _id = '' } = req.body as IOrder;
+
+    if (!isValidObjectId(_id)) {
+        return res.status(400).json({ message: 'El id del producto no es válido' });
+    }
+
+    try {
+        console.log(req.body)
+        await db.connect();
+        const order = await Order.findById(_id);
+        if (!order) {
+            await db.disconnect();
+            return res.status(400).json({ message: 'No existe un producto con ese ID' });
+        }
+        await order.update(req.body);
+        await db.disconnect();
+
+
+        return res.status(200).json(order);
+
+    } catch (error) {
+        console.log(error);
+        await db.disconnect();
+        return res.status(400).json({ message: 'Revisar la consola del servidor' });
+    }
+
+
+}
+
+const getOrders = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
+
+    await db.connect();
+    const orders = await Order.find()      
+    .sort({ createdAt: 'desc' })
+    .lean()
+    await db.disconnect();
+    return res.status(200).json(orders)
+
+}

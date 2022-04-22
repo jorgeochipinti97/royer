@@ -6,13 +6,16 @@ import { isValidObjectId } from 'mongoose';
 
 
 type Data =
+    | IOrderCrypto
+    | IOrderCrypto[]
     | { message: string }
-    | IOrderCrypto;
 
 export default function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
 
 
     switch (req.method) {
+        case 'GET':
+            return getOrders(req, res);
         case 'POST':
             return createOrder(req, res);
         case 'DELETE':
@@ -77,33 +80,45 @@ const deleteOrder = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
     }
 }
 
-const updateOrder = async(req: NextApiRequest, res: NextApiResponse<Data>) => {
-    
-    const { _id = ''} = req.body as IOrderCrypto;
+const updateOrder = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
 
-    if ( !isValidObjectId( _id ) ) {
+    const { _id = '' } = req.body as IOrderCrypto;
+
+    if (!isValidObjectId(_id)) {
         return res.status(400).json({ message: 'El id del producto no es válido' });
     }
-    
+
     try {
         console.log(req.body)
         await db.connect();
         const order = await OrderCrypto.findById(_id);
-        if ( !order ) {
+        if (!order) {
             await db.disconnect();
             return res.status(400).json({ message: 'No existe un producto con ese ID' });
         }
-        await order.update( req.body );
+        await order.update(req.body);
         await db.disconnect();
-        
 
-        return res.status(200).json( order );
-        
+
+        return res.status(200).json(order);
+
     } catch (error) {
         console.log(error);
         await db.disconnect();
         return res.status(400).json({ message: 'Revisar la consola del servidor' });
     }
 
+
+}
+
+
+const getOrders = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
+
+    await db.connect();
+    const ordersCrypto = await OrderCrypto.find()      
+    .sort({ createdAt: 'desc' })
+    .lean()
+    await db.disconnect();
+    return res.status(200).json(ordersCrypto)
 
 }
