@@ -33,7 +33,7 @@ const getAddressFromCookies = (): FormData => {
         city: Cookies.get('city') || '',
         country: Cookies.get('country') || '',
         phone: Cookies.get('phone') || '',
-        taxId: Cookies.get('taxId') || '',
+        taxId: Cookies.get('taxid') || '',
         email: Cookies.get('email') || '',
     }
 }
@@ -49,16 +49,19 @@ const AddressPage = ({ paises }: any) => {
 
     const { register, handleSubmit, formState: { errors } } = useForm<FormData>({
         defaultValues: getAddressFromCookies()
+
     });
     const [_email, setEmail] = useState('')
 
     const onSubmitAddress = async (data: FormData) => {
-        if (isValidEmail(_email)) {
+        const a = Cookies.get('email')
+
+        if (isValidEmail(_email) || a != undefined && isValidEmail(a)) {
             updateAddress(data);
             await router.push('/checkout/summary');
         } else {
             console.log(_email)
-            alert('error please rewrite your email')
+            alert('error please check your email')
         }
     }
 

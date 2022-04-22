@@ -309,7 +309,7 @@ export default OrderCryptoPage
 export const getServerSideProps: GetServerSideProps = async ({ req, query }) => {
 
     const { id = '' } = query;
-    const order = await dbCryptoOrders.getOrderById(id.toString())
+    const order = await dbCryptoOrders.getOrderCryptoById(id.toString())
 
     if (!order) {
         return {

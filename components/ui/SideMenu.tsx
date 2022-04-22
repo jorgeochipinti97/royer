@@ -10,7 +10,7 @@ import CurrencyBitcoinIcon from '@mui/icons-material/CurrencyBitcoin';
 import ConnectWithoutContactIcon from '@mui/icons-material/ConnectWithoutContact';
 import QuizIcon from '@mui/icons-material/Quiz';
 import ContentPasteSearchSharpIcon from '@mui/icons-material/ContentPasteSearchSharp';
-
+import NotListedLocationSharpIcon from '@mui/icons-material/NotListedLocationSharp';
 export const SideMenu = () => {
 
     const router = useRouter();
@@ -199,6 +199,14 @@ export const SideMenu = () => {
                                         <AdminPanelSettings />
                                     </ListItemIcon>
                                     <ListItemText primary={'Users'} />
+                                </ListItem>
+                                <ListItem button
+                                    onClick={() => navigateTo('/')}>
+
+                                    <ListItemIcon>
+                                        <NotListedLocationSharpIcon />
+                                    </ListItemIcon>
+                                    <ListItemText primary={'Queries'} />
                                 </ListItem>
 
 
