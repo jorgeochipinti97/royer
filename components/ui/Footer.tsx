@@ -15,7 +15,7 @@ export const Footer = () => {
         console.log(router.asPath)
         if (router.asPath.includes('product')) {
             setIsVisible(false)
-        } else{
+        } else {
             setIsVisible(true)
         }
 
@@ -24,8 +24,12 @@ export const Footer = () => {
     return (
         <footer >
             {isVisible
-            ? <FormQuery product_='' />
-            :null
+                ? (
+                    <Box>
+                        <Divider sx={{ my: 1 }} />
+                        <FormQuery product_='' />
+                    </Box>)
+                : null
             }
             <Box >
                 <Divider sx={{ my: 1 }} />

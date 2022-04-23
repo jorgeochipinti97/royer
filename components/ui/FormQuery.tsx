@@ -14,8 +14,6 @@ const FormQuery:FC<Props> = ({ product_ }) => {
     const [name_, setName_] = useState<string>('')
     const [query_, setQuery_] = useState<string>('')
 
-
-
     const handleClickQuery = async (name: string, email: string, query: string, product: string | '') => {
         console.log(name, email, query, product)
         if (isValidEmail(email)) {
@@ -37,9 +35,9 @@ const FormQuery:FC<Props> = ({ product_ }) => {
                 <Typography variant='h6'>Any questions ? Ask us</Typography>
             </Box>
             <Box display='flex' justifyContent='center'>
-                <Box display='flex' justifyContent='space-around' flexDirection='column'>
-                    <TextField label="name" variant="filled" sx={{ m: 1,width: 600 }} onChange={e => setName_(e.target.value)}  />
-                    <TextField label="email" variant="filled" sx={{ m: 1,width: 600 }} onChange={e => setEmail_(e.target.value)} />
+                <Box display='flex' justifyContent='space-around' flexDirection='column' >
+                    <TextField label="name" variant="filled" sx={{ m: 1, width:250 }} onChange={e => setName_(e.target.value)}  />
+                    <TextField label="email" variant="filled" sx={{ m: 1, width:250 }} onChange={e => setEmail_(e.target.value)} />
                 </Box>
             </Box>
                 <Box display='flex' justifyContent='center' sx={{ mt: 3 }}>
