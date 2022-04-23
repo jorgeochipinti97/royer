@@ -14,6 +14,9 @@ const FavoritesPage: NextPage = () => {
         setFavoriteProducts(localFavorites.productsInFavorites)
     }, [])
 
+    useEffect(() => {
+        setFavoriteProducts(localFavorites.productsInFavorites)
+    }, [favoriteProducts])
 
 
     return (
@@ -21,11 +24,11 @@ const FavoritesPage: NextPage = () => {
 
             {favoriteProducts.length == 0 ?
                 <>
-                    <Box display='flex' justifyContent='center' sx={{ mt: 10 }}>
-                        <Typography variant='h2' component='h2' sx={{ mr: 5,fontSize: 70  }}>Don t have favorites yet</Typography>
-                    <SentimentVeryDissatisfiedIcon  sx={{ fontSize: 100 }}/>
+                    <Box display='flex' justifyContent='center' sx={{ mt: 30 }}>
+                        <Typography variant='h2' component='h2' sx={{ mr: 5, fontSize: 30 }}>Don t have favorites yet</Typography>
+                        <SentimentVeryDissatisfiedIcon sx={{ fontSize: 100 }} />
                     </Box>
-                    <Box>
+                    <Box sx={{ mt: 4 }}>
                         <NextLink href='/' passHref>
                             <Link typography="h4" color='secondary'>
                                 Back

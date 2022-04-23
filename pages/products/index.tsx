@@ -16,8 +16,6 @@ const ProductsPage = () => {
 
 
 
-
-
     return (
         <ShopLayout title={'Royer-Shop - Products'} pageDescription={'Encuentra los mejores productos aquí'}>
             <Divider sx={{my:1}}/>

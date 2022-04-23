@@ -2,7 +2,7 @@ import { useState, useContext, useEffect } from 'react';
 import { NextPage, GetServerSideProps, GetStaticPaths, GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
 
-import { Box, Button, Chip, Divider, Grid, Link, Typography } from '@mui/material';
+import { Box, Button, Chip, Divider, Grid, Link, TextField, Typography } from '@mui/material';
 
 import { CartContext } from '../../context/cart/CartContext';
 
@@ -17,16 +17,19 @@ import NextLink from 'next/link';
 
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import CurrencyBitcoinIcon from '@mui/icons-material/CurrencyBitcoin';
+import { tesloApi } from '../../api';
+import { isValidEmail } from '../../utils/validations';
+import FormQuery from '../../components/ui/FormQuery';
 
 
 interface Props {
   product: IProduct
 }
 
-
 const ProductPage: NextPage<Props> = ({ product }) => {
   const [isNoSize, setIsNoSize] = useState<boolean>()
   const [discountPrice, setDiscountPrice] = useState<number>(product.price)
+  const [title_, setTitle] = useState<string>('')
 
   useEffect(() => {
     if (product.gender === 'regionales' || product.gender === 'fashion') {
@@ -51,6 +54,7 @@ const ProductPage: NextPage<Props> = ({ product }) => {
   }
 
   useEffect(() => {
+    setTitle(product.slug)
     const a = handlePrice(product.price, 10)
     setDiscountPrice(a)
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -92,9 +96,11 @@ const ProductPage: NextPage<Props> = ({ product }) => {
   }
 
 
+
+
   return (
     <ShopLayout title={product.title} pageDescription={product.description}>
-      <Box sx={{mb:2}}>
+      <Box sx={{ mb: 2 }}>
         <NextLink href='/products' passHref>
           <Link>
             <Button color='secondary'>Back</Button>
@@ -124,7 +130,7 @@ const ProductPage: NextPage<Props> = ({ product }) => {
                 <Link>
                   <Button
                     color="primary"
-                    onClick={()=> console.log()}
+                    onClick={() => console.log()}
                     startIcon={<AttachMoneyIcon />}
                     sx={{ width: '163px', m: 2, pt: 1, pb: 1 }}>
                     <Typography variant='button'>
@@ -137,7 +143,7 @@ const ProductPage: NextPage<Props> = ({ product }) => {
                 <Link>
                   <Button
                     color="success"
-                    onClick={()=> console.log()}
+                    onClick={() => console.log()}
                     startIcon={<CurrencyBitcoinIcon />}
                     sx={{ width: '163px', pt: 1, pb: 1, m: 2 }}
                   >
@@ -200,6 +206,9 @@ const ProductPage: NextPage<Props> = ({ product }) => {
             </Box>
 
           </Box>
+          <Box>
+            <FormQuery product_={product.title}/>
+          </Box>
         </Grid>
 
 
@@ -210,34 +219,6 @@ const ProductPage: NextPage<Props> = ({ product }) => {
 }
 
 
-// getServerSideProps 
-// You should use getServerSideProps when:
-// - Only if you need to pre-render a page whose data must be fetched at request time
-//* No usar esto.... SSR
-// export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-
-//   const { slug = '' } = params as { slug: string };
-//   const product = await dbProducts.getProductBySlug( slug );
-
-// if ( !product ) {
-//   return {
-//     redirect: {
-//       destination: '/',
-//       permanent: false
-//     }
-//   }
-// }
-
-//   return {
-//     props: {
-//       product
-//     }
-//   }
-// }
-
-
-// getStaticPaths....
-// You should use getStaticPaths if you’re statically pre-rendering pages that use dynamic routes
 export const getStaticPaths: GetStaticPaths = async (ctx) => {
 
   const productSlugs = await dbProducts.getAllProductSlugs();
@@ -253,11 +234,7 @@ export const getStaticPaths: GetStaticPaths = async (ctx) => {
   }
 }
 
-// You should use getStaticProps when:
-//- The data required to render the page is available at build time ahead of a user’s request.
-//- The data comes from a headless CMS.
-//- The data can be publicly cached (not user-specific).
-//- The page must be pre-rendered (for SEO) and be very fast — getStaticProps generates HTML and JSON files, both of which can be cached by a CDN for performance.
+
 export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   const { slug = '' } = params as { slug: string };

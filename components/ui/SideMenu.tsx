@@ -201,7 +201,7 @@ export const SideMenu = () => {
                                     <ListItemText primary={'Users'} />
                                 </ListItem>
                                 <ListItem button
-                                    onClick={() => navigateTo('/')}>
+                                    onClick={() => navigateTo('/admin/queries')}>
 
                                     <ListItemIcon>
                                         <NotListedLocationSharpIcon />

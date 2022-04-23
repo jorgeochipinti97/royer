@@ -26,9 +26,8 @@ export const getOrderCryptoById = async (id: string): Promise<IOrderCrypto | nul
         console.log(err)
         return null
     }
-
-
 }
+
 export const deleteOrderCryptoById = async (id: string) => {
 
     if (!isValidObjectId(id)) {

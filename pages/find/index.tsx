@@ -11,25 +11,30 @@ export default function Find() {
     const onClickFind = async () => {
         try {
             const a = await tesloApi.get('/orders')
-            let b: boolean = false
-            a.data.map((e: { _id: string | undefined; }) => {
+
+            const b = a.data.map((e: { _id: string }) => {
                 if (e._id == idOrder) {
-                    b = true
-                } else {
-                    b = false
+                    return true
+                }else {
+                    return false
                 }
             })
-            if (b) {
-                return router.push(`/orders/${idOrder}`)
-            } else {
-                return alert('Your order was not found')
-            }
+
+         if(b.includes(true)){
+             router.push(`/orders/${idOrder}`)
+         }else{
+             alert('Your order was not found')
+         }
+
+
+
+
+
+
         } catch (er) {
             console.log(er)
         }
     }
-
-
     const handleChange = (e: string) => {
         setIdOrder(e)
     }
@@ -48,8 +53,6 @@ export default function Find() {
                     <Button onClick={() => onClickFind()} color='success' size="large">Find</Button>
                 </Box>
             </Box>
-
-
         </ShopLayout>
     )
 }
