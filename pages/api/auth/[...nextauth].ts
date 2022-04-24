@@ -28,12 +28,12 @@ export default NextAuth({
 
   ],
 
-  // pages: {
-  //   signIn: '/auth/login',
-  //   newUser: '/auth/register'
-  // },
+  pages: {
+    signIn: '/auth/login',
+    newUser: '/auth/register'
+  },
 
-  // // Callbacks
+  // Callbacks
 
   
   session: {
