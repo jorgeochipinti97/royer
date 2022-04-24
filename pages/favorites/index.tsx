@@ -14,15 +14,10 @@ const FavoritesPage: NextPage = () => {
         setFavoriteProducts(localFavorites.productsInFavorites)
     }, [])
 
-    useEffect(() => {
-        setFavoriteProducts(localFavorites.productsInFavorites)
-    }, [favoriteProducts])
-
-
     return (
         <ShopLayout title={'Royer-Shop - Home'} pageDescription={'Encuentra los mejores productos de Teslo aquí'}>
 
-            {favoriteProducts.length == 0 ?
+            {favoriteProducts.length == 0  ?
                 <>
                     <Box display='flex' justifyContent='center' sx={{ mt: 30 }}>
                         <Typography variant='h2' component='h2' sx={{ mr: 5, fontSize: 30 }}>Don t have favorites yet</Typography>

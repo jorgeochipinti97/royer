@@ -8,7 +8,6 @@ const productsInFavorites = (): IProduct[] => {
 
 const toggleFavorite = (product: IProduct) => {
     try{
-
         let favorites: IProduct[] = JSON.parse(localStorage.getItem('favorites') || '[]')
         let a:Boolean
         const isLiked = () => {
