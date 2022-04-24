@@ -7,32 +7,27 @@ const productsInFavorites = (): IProduct[] => {
 }
 
 const toggleFavorite = (product: IProduct) => {
-    try{
-
-        let favorites: IProduct[] = JSON.parse(localStorage.getItem('favorites') || '[]')
-        let a:Boolean
-        const isLiked = () => {
-            favorites.forEach(e => {
-                if (e._id == product._id) {
-                    a = true;
-                } else {
-                    a = false
-                }
-            })
-            const f = () => {
-                if (a) {
-                    favorites = favorites.filter(e => e._id !== product._id)
-                } else {
-                    favorites.push(product)
-                }
-                localStorage.setItem('favorites', JSON.stringify(favorites))
+    let favorites: IProduct[] = JSON.parse(localStorage.getItem('favorites') || '[]')
+    let a:Boolean
+    const isLiked = () => {
+        favorites.forEach(e => {
+            if (e._id == product._id) {
+                a = true;
+            } else {
+                a = false
             }
-            f()
+        })
+        const f = () => {
+            if (a) {
+                favorites = favorites.filter(e => e._id !== product._id)
+            } else {
+                favorites.push(product)
+            }
+            localStorage.setItem('favorites', JSON.stringify(favorites))
         }
-        isLiked()
-    }catch(err){
-        console.log(err)
+        f()
     }
+    isLiked()
 }
 
 
