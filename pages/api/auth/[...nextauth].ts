@@ -28,11 +28,10 @@ export default NextAuth({
 
   ],
 
-  // Custom Pages
-  // pages: {
-  //   signIn: '/auth/login',
-  //   newUser: '/auth/register'
-  // },
+  pages: {
+    signIn: '/auth/login',
+    newUser: '/auth/register'
+  },
 
   // // Callbacks
 
