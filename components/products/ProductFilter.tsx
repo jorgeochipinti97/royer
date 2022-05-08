@@ -15,7 +15,7 @@ export const ProductFilterPage = () => {
     const [valueProduct, setValueProduct] = useState<string>('all')
     const [_productsFiltered, setProductsFiltered] = useState<IProduct[]>(products)
     const [typeProduct, setTypeProduct] = useState<string>('')
-    const genders_ = ['all', 'kid', 'regionales', 'fashion']
+    const genders_ = ['all', 'regionales', 'fashion']
     const todasCategorias = ['shirts', 't-shirt', 'football shirt', 'jacket', 'pants', 'hoodies', 'hats', 'mate', 'yerba', 'alfajores', 'wine', 'short', 'socks', 'wallet', 'purse', 'accessories', 'bag']
     const categoriasRopa = ['shirts', 't-shirt', 'football shirt', 'jacket', 'pants', 'hoodies', 'hats', 'short', 'socks', 'wallet', 'purse']
     const fashion__ = ['wallet', 'purse', 'shirts', 'bag', 'hats']
