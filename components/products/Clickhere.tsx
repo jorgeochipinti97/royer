@@ -22,7 +22,7 @@ export const ClickHere = () => {
                                 component='div'
                                 className='fadeIn'
                                 onLoad={() => setIsImageLoaded(true)}>
-                                <Image width={500} height={500} alt='royer' src='https://res.cloudinary.com/djk4q3tys/image/upload/v1652037641/eeu1n0hrg8zvelbo9jjj.jpg' />
+                                <Image width={500} height={500} alt='royer' src='https://res.cloudinary.com/djk4q3tys/image/upload/v1652040590/uffw9po6ntgqvc0lx7zu.jpg' />
                             </CardMedia>
                         </CardActionArea>
                     </Link>

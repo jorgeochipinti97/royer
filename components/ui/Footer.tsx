@@ -56,17 +56,17 @@ export const Footer = () => {
                             <Button>Products</Button>
                         </Link>
                     </NextLink>
-                    <NextLink href='/' passHref>
+                    <NextLink href='/find' passHref>
                         <Link>
                             <Button>Find My Order</Button>
                         </Link>
                     </NextLink>
-                    <NextLink href='/' passHref>
+                    <NextLink href='/contact' passHref>
                         <Link>
                             <Button>Contact Us</Button>
                         </Link>
                     </NextLink>
-                    <NextLink href='/' passHref>
+                    <NextLink href='/faqs' passHref>
                         <Link>
                             <Button>FAQS</Button>
                         </Link>
