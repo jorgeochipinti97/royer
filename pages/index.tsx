@@ -4,7 +4,7 @@ import { GetServerSideProps, GetStaticPaths, GetStaticProps } from 'next';
 
 import { ShopLayout } from '../components/layouts';
 
-import { ProductList, ProductSlideshow } from '../components/products';
+import {  ProductList, ProductSlideshow } from '../components/products';
 import { useProducts } from '../hooks';
 
 import { FullScreenLoading } from '../components/ui';
@@ -44,6 +44,7 @@ const HomePage: NextPage<Props> = ({ product__ }) => {
                 <Typography variant="h1" sx={{ mb: 2, mt: 5 }}>Most Populars</Typography>
               </Box>
               <ProductList products={products_} />
+           
             </>
           )
       }
