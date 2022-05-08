@@ -129,7 +129,7 @@ export const SideMenu = () => {
                     <ListItem
                         sx={{ display: { xs: '', sm: 'none' } }}
                         button
-                        onClick={() => navigateTo('/')}>
+                        onClick={() => navigateTo('/contact')}>
                         <ListItemIcon>
                             <ConnectWithoutContactIcon />
                         </ListItemIcon>
