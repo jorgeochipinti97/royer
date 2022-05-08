@@ -10,6 +10,7 @@ export interface IProduct {
     title: string;
     type: IType;
     gender: 'men'|'women'|'kid'|'unisex'|'regionales'|'fashion';
+    popular:boolean;
     createdAt: string;
     updatedAt: string;
 

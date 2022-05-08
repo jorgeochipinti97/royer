@@ -15,8 +15,8 @@ import { tesloApi } from '../../../api';
 import { Product } from '../../../models';
 
 
-const validTypes = ['shirts','t-shirt','football shirt','jacket','pants','hoodies','hats','mate','yerba','alfajores','wine','short','socks','wallet','purse','accessories','bag']
-const validGender = ['men','women','kid','unisex','regionales','fashion']
+const validTypes = ['shirts', 't-shirt', 'football shirt', 'jacket', 'pants', 'hoodies', 'hats', 'mate', 'yerba', 'alfajores', 'wine', 'short', 'socks', 'wallet', 'purse', 'accessories', 'bag']
+const validGender = ['men', 'women', 'kid', 'unisex', 'regionales', 'fashion']
 const validSizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL', 'Unique']
 
 
@@ -32,7 +32,7 @@ interface FormData {
     title: string;
     type: string;
     gender: string;
-    isRegional: boolean;
+    popular: boolean;
 }
 
 
@@ -75,7 +75,7 @@ const ProductAdminPage: FC<Props> = ({ product, }) => {
     useEffect(() => {
         if (getValues('gender') == 'regionales' || getValues('gender') == 'fashion') {
             setIsHidden(true)
-        }else{
+        } else {
             setIsHidden(false)
         }
 
@@ -85,7 +85,7 @@ const ProductAdminPage: FC<Props> = ({ product, }) => {
     useEffect(() => {
         if (getValues('type') == 'accessories' || getValues('type') == 'bag') {
             setIsHidden(true)
-        }else{
+        } else {
             setIsHidden(false)
         }
 
@@ -166,6 +166,15 @@ const ProductAdminPage: FC<Props> = ({ product, }) => {
         );
     }
 
+    const onChangePopular = async (e: string) => {
+        if (e == 'true') {
+            setValue('popular', true)
+            console.log(getValues('popular'))
+        } else{
+            setValue('popular', false)
+            console.log(getValues('popular'))
+        }
+    }
 
 
     const onSubmit = async (form: FormData) => {
@@ -369,6 +378,27 @@ const ProductAdminPage: FC<Props> = ({ product, }) => {
                             </RadioGroup>
                         </FormControl>
 
+                        <FormControl sx={{ mb: 1 }}>
+                            <FormLabel>Es Popular?</FormLabel>
+                            <RadioGroup
+                                row
+                                onChange={({ target }) => onChangePopular(target.value)}
+                            >
+
+                                <FormControlLabel
+                                    value={true}
+                                    control={<Radio color='secondary' />}
+                                    label={'true'}
+                                />
+                                <FormControlLabel
+                                    value={false}
+                                    control={<Radio color='secondary' />}
+                                    label={'false'}
+                                />
+
+                            </RadioGroup>
+                        </FormControl>
+
 
 
                         {isHidden ? null :
@@ -506,9 +536,6 @@ const ProductAdminPage: FC<Props> = ({ product, }) => {
     )
 }
 
-// You should use getServerSideProps when:
-// - Only if you need to pre-render a page whose data must be fetched at request time
-
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
 
@@ -526,7 +553,7 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
         product = await dbProducts.getProductBySlug(slug.toString());
     }
 
-    if (!product) {
+    if (!product && product != undefined) {
         return {
             redirect: {
                 destination: '/admin/products',

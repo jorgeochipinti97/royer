@@ -33,6 +33,12 @@ const productSchema = new Schema({
         },
         default: 'women'
     },
+    popular:{
+
+        type:Boolean,
+        default:false,
+    
+    }
 },{
     timestamps: true
 });
