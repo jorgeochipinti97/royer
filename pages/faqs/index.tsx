@@ -1,0 +1,35 @@
+import { ShopLayout } from "../../components/layouts"
+import { AccordionFaqs } from "../../components/ui"
+import { Box, Divider, Typography } from "@mui/material"
+import QuizIcon from '@mui/icons-material/Quiz';
+const index = () => {
+    return (
+        <>
+            <ShopLayout title='FAQS' pageDescription="faqs">
+                <Box display='flex' justifyContent='center' sx={{ mb: 2 }}>
+                    <Box display='flex'>
+                        <QuizIcon/>
+                    <Typography variant='h1' sx={{ml:2}}>FAQS</Typography>
+                    </Box>
+                </Box>
+                <AccordionFaqs pregunta="How are shipments made?" respuesta='Shipments are made by DHL or FedEx depending on the most convenient company to ship in your area.' />
+                <Divider sx={{ my: 1, m:2}} />
+
+                <AccordionFaqs pregunta="How long does it take for my order to arrive?" respuesta='Your order can take between 5 and 14 days depending on the country you are in.' />
+                <Divider sx={{ my: 1, m:2}} />
+
+                <AccordionFaqs pregunta="What are the means of payment?" respuesta='We accept payments through Paypal and remember that by paying with cryptocurrencies you have a 10% discount on all purchases.' />
+                <Divider sx={{ my: 1, m:2}} />
+
+                <AccordionFaqs pregunta="Can I change the delivery address of my package?" respuesta='Unfortunately, the address cannot be changed once the shipment has been dispatched.' />
+                <Divider sx={{ my: 1, m:2}} />
+
+                <AccordionFaqs pregunta="Where do I receive my order?" respuesta='Your order will be taken to your home or place that you indicate with the address at the time of purchase.' />
+                <Divider sx={{ my:1 , m:2 }} />
+
+            </ShopLayout>
+        </>
+    )
+}
+
+export default index

@@ -22,6 +22,21 @@ export const sortHight = (products: IProduct[]) => {
     })
 
 }
+export const sortPopularity = (products: IProduct[]) => {
+    products.map(e => console.log(e.destacados))
+    // products.sort((a:IProduct, b:IProduct) => {
+    //     console.log(a.destacados)
+    //     if (a.destacados == false) {
+    //         return 1
+    //     } else if(a.destacados) {
+    //         return -1
+    //     }else if(a.destacados == undefined){
+    //         return 0 
+    //     }
+    //     return 0
+    // })
+
+}
 
 export const capitalizarPrimeraLetraPalabras= (frase:string| any) =>{
     if (typeof frase != 'string') {

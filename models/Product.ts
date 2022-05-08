@@ -38,6 +38,12 @@ const productSchema = new Schema({
         type:Boolean,
         default:false,
     
+    },
+    destacados:{
+
+        type:Boolean,
+        default:false,
+    
     }
 },{
     timestamps: true

@@ -11,6 +11,7 @@ export interface IProduct {
     type: IType;
     gender: 'men'|'women'|'kid'|'unisex'|'regionales'|'fashion';
     popular:boolean;
+    destacados:boolean;
     createdAt: string;
     updatedAt: string;
 

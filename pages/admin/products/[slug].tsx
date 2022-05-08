@@ -33,6 +33,7 @@ interface FormData {
     type: string;
     gender: string;
     popular: boolean;
+    destacados: boolean;
 }
 
 
@@ -170,9 +171,18 @@ const ProductAdminPage: FC<Props> = ({ product, }) => {
         if (e == 'true') {
             setValue('popular', true)
             console.log(getValues('popular'))
-        } else{
+        } else {
             setValue('popular', false)
             console.log(getValues('popular'))
+        }
+    }
+    const onChangeDestacado = async (e: string) => {
+        if (e == 'true') {
+            setValue('destacados', true)
+            console.log(getValues('destacados'))
+        } else {
+            setValue('destacados', false)
+            console.log(getValues('destacados'))
         }
     }
 
@@ -337,67 +347,94 @@ const ProductAdminPage: FC<Props> = ({ product, }) => {
                             helperText={errors.price?.message}
                         />
 
-                        <Divider sx={{ my: 1 }} />
-                        <FormControl sx={{ mb: 1 }}>
-                            <FormLabel>Tipo</FormLabel>
-                            <RadioGroup
-                                row
-                                value={getValues('type')}
-                                onChange={({ target }) => setValue('type', target.value, { shouldValidate: true })}
-                            >
-                                {
-                                    validTypes.map(option => (
-                                        <FormControlLabel
-                                            key={option}
-                                            value={option}
-                                            control={<Radio color='secondary' />}
-                                            label={capitalize(option)}
-                                        />
-                                    ))
-                                }
-                            </RadioGroup>
-                        </FormControl>
+                        <Box display='flex' flexDirection='column'>
 
-                        <FormControl sx={{ mb: 1 }}>
-                            <FormLabel>Género</FormLabel>
-                            <RadioGroup
-                                row
-                                value={getValues('gender')}
-                                onChange={({ target }) => setValue('gender', target.value, { shouldValidate: true })}
-                            >
-                                {
-                                    validGender.map(option => (
-                                        <FormControlLabel
-                                            key={option}
-                                            value={option}
-                                            control={<Radio color='secondary' />}
-                                            label={capitalize(option)}
-                                        />
-                                    ))
-                                }
-                            </RadioGroup>
-                        </FormControl>
+                            <FormControl sx={{ mb: 1 }}>
+                                <FormLabel>Tipo</FormLabel>
+                                <RadioGroup
+                                    row
+                                    value={getValues('type')}
+                                    onChange={({ target }) => setValue('type', target.value, { shouldValidate: true })}
+                                >
+                                    {
+                                        validTypes.map(option => (
+                                            <FormControlLabel
+                                                key={option}
+                                                value={option}
+                                                control={<Radio color='secondary' />}
+                                                label={capitalize(option)}
+                                            />
+                                        ))
+                                    }
+                                </RadioGroup>
+                            </FormControl>
 
-                        <FormControl sx={{ mb: 1 }}>
-                            <FormLabel>Es Popular?</FormLabel>
-                            <RadioGroup
-                                row
-                                onChange={({ target }) => onChangePopular(target.value)}
-                            >
 
-                                <FormControlLabel
-                                    value={true}
-                                    control={<Radio color='secondary' />}
-                                    label={'true'}
-                                />
-                                <FormControlLabel
-                                    value={false}
-                                    control={<Radio color='secondary' />}
-                                    label={'false'}
-                                />
+                            <FormControl sx={{ mb: 1 }}>
+                                <FormLabel>Género</FormLabel>
+                                <RadioGroup
+                                    row
+                                    value={getValues('gender')}
+                                    onChange={({ target }) => setValue('gender', target.value, { shouldValidate: true })}
+                                >
+                                    {
+                                        validGender.map(option => (
+                                            <FormControlLabel
+                                                key={option}
+                                                value={option}
+                                                control={<Radio color='secondary' />}
+                                                label={capitalize(option)}
+                                            />
+                                        ))
+                                    }
+                                </RadioGroup>
+                            </FormControl>
 
-                            </RadioGroup>
-                        </FormControl>
+
+                            <FormControl sx={{ mb: 1 }}>
+                                <FormLabel>Es Popular?</FormLabel>
+                                <RadioGroup
+                                    row
+                                    onChange={({ target }) => onChangePopular(target.value)}
+                                >
+
+                                    <FormControlLabel
+                                        value={true}
+                                        control={<Radio color='secondary' />}
+                                        label={'true'}
+                                    />
+                                    <FormControlLabel
+                                        value={false}
+                                        control={<Radio color='secondary' />}
+                                        label={'false'}
+                                    />
+
+                                </RadioGroup>
+                            </FormControl>
+
+
+                            <FormControl sx={{ mb: 1 }}>
+                                <FormLabel>Es destacado?</FormLabel>
+                                <RadioGroup
+                                    row
+                                    onChange={({ target }) => onChangeDestacado(target.value)}
+                                >
+
+                                    <FormControlLabel
+                                        value={true}
+                                        control={<Radio color='secondary' />}
+                                        label={'true'}
+                                    />
+                                    <FormControlLabel
+                                        value={false}
+                                        control={<Radio color='secondary' />}
+                                        label={'false'}
+                                    />
+
+                                </RadioGroup>
+                            </FormControl>
+                        </Box>
+
 
 
 

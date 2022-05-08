@@ -138,7 +138,7 @@ export const SideMenu = () => {
                     <ListItem
                         sx={{ display: { xs: '', sm: 'none' } }}
                         button
-                        onClick={() => navigateTo('/')}>
+                        onClick={() => navigateTo('/faqs')}>
                         <ListItemIcon>
                             <QuizIcon />
                         </ListItemIcon>
