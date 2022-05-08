@@ -11,26 +11,10 @@ export const Footer = () => {
     const router = useRouter()
     const [isVisible, setIsVisible] = useState<boolean>()
 
-    useEffect(() => {
-        console.log(router.asPath)
-        if (router.asPath.includes('product')) {
-            setIsVisible(false)
-        } else {
-            setIsVisible(true)
-        }
 
-
-    }, [])
     return (
         <footer >
-            {isVisible
-                ? (
-                    <Box>
-                        <Divider sx={{ my: 1 }} />
-                        <FormQuery product_='' />
-                    </Box>)
-                : null
-            }
+
             <Box >
                 <Divider sx={{ my: 1 }} />
                 <Box display='flex' justifyContent='center'>
@@ -61,12 +45,17 @@ export const Footer = () => {
                     </NextLink>
                     <NextLink href='/' passHref>
                         <Link>
-                            <Button>About Us</Button>
+                            <Button>Find My Order</Button>
                         </Link>
                     </NextLink>
                     <NextLink href='/' passHref>
                         <Link>
                             <Button>Contact Us</Button>
+                        </Link>
+                    </NextLink>
+                    <NextLink href='/' passHref>
+                        <Link>
+                            <Button>FAQS</Button>
                         </Link>
                     </NextLink>
                 </Box>

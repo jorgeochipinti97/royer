@@ -16,7 +16,7 @@ const HomePage: NextPage = () => {
   return (
     <ShopLayout title={'Royer-Shop - Home'} pageDescription={'Home'}>
       <ProductSlideshow
-        images={['https://res.cloudinary.com/djk4q3tys/image/upload/v1650356226/zvwursory8lgux6y7qjr.jpg', 'https://res.cloudinary.com/djk4q3tys/image/upload/v1650356226/hay8ghoiyq5miglpdxlm.jpg','https://res.cloudinary.com/djk4q3tys/image/upload/v1650356196/jrfuxieuyyso6dyosiiq.jpg' ]}
+        images={['https://res.cloudinary.com/djk4q3tys/image/upload/v1651118986/tlcwig0alhbqnicxcib8.jpg', 'https://res.cloudinary.com/djk4q3tys/image/upload/v1650356226/hay8ghoiyq5miglpdxlm.jpg','https://res.cloudinary.com/djk4q3tys/image/upload/v1650356196/jrfuxieuyyso6dyosiiq.jpg' ]}
         seconds={3000}
         height={1000}
         width={1800}

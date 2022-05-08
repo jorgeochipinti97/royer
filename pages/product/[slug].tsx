@@ -2,7 +2,7 @@ import { useState, useContext, useEffect } from 'react';
 import { NextPage, GetServerSideProps, GetStaticPaths, GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
 
-import { Box, Button, Chip, Divider, Grid, Link, TextField, Typography } from '@mui/material';
+import { Box, Button, Card, CardMedia, Chip, Divider, Grid, Link, Modal, TextField, Typography } from '@mui/material';
 
 import { CartContext } from '../../context/cart/CartContext';
 
@@ -20,6 +20,7 @@ import CurrencyBitcoinIcon from '@mui/icons-material/CurrencyBitcoin';
 import { tesloApi } from '../../api';
 import { isValidEmail } from '../../utils/validations';
 import FormQuery from '../../components/ui/FormQuery';
+import Image from 'next/image';
 
 
 interface Props {
@@ -30,6 +31,7 @@ const ProductPage: NextPage<Props> = ({ product }) => {
   const [isNoSize, setIsNoSize] = useState<boolean>()
   const [discountPrice, setDiscountPrice] = useState<number>(product.price)
   const [title_, setTitle] = useState<string>('')
+  const [isOpen, setIsOpen] = useState<boolean>(false)
 
   useEffect(() => {
     if (product.gender === 'regionales' || product.gender === 'fashion') {
@@ -176,6 +178,29 @@ const ProductPage: NextPage<Props> = ({ product }) => {
                 /> : null
               }
             </Box>
+            <Box>
+              <Button onClick={() => setIsOpen(true)} color='primary' sx={{ m: 3 }}>Size Guide</Button>
+              <Modal
+                open={isOpen}
+                onClose={() => setIsOpen(false)}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+              >
+                <Box display='flex' justifyContent='center' >
+
+                  <Card>
+                    <Box display='flex' justifyContent='center' >
+                      <Button onClick={() => setIsOpen(false)} sx={{ m: 3 }} color='primary'>Close</Button>
+                    </Box>
+                    <CardMedia
+                      component='div'
+                      className='fadeIn'>
+                      <Image src='https://res.cloudinary.com/djk4q3tys/image/upload/v1650890012/lzr8ottm36ivarjng6xx.jpg' alt='size' width={700} height={700} />
+                    </CardMedia>
+                  </Card>
+                </Box>
+              </Modal>
+            </Box>
 
 
             {
@@ -207,7 +232,7 @@ const ProductPage: NextPage<Props> = ({ product }) => {
 
           </Box>
           <Box>
-            <FormQuery product_={product.title}/>
+            <FormQuery product_={product.title} />
           </Box>
         </Grid>
 
