@@ -25,9 +25,6 @@ const HomePage: NextPage<Props> = ({ product__ }) => {
   const [products_, setProducts_] = useState(product__)
 
 
-  useEffect(() => {
-    console.log(products_)
-  }, [])
 
   return (
     <ShopLayout title={'Royer-Shop - Home'} pageDescription={'Home'}>
