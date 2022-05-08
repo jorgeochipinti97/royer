@@ -9,9 +9,9 @@ const index = () => {
   return (
     <ShopLayout title='Contact Us' pageDescription="page contact">
       <FormQuery product_="" />
+      <Divider sx={{ my: 1 }} />
       <Box display='flex' justifyContent='center' >
         <Box display='flex' justifyContent='space-around' sx={{ mt: 5, width: 500 }}>
-          <Divider sx={{my:1}}/>
           <NextLink href='/' passHref>
             <Link>
               <WhatsAppIcon sx={{ fontSize: 50 }} />
