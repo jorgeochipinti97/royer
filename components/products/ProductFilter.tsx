@@ -16,8 +16,8 @@ export const ProductFilterPage = () => {
     const [_productsFiltered, setProductsFiltered] = useState<IProduct[]>(products)
     const [typeProduct, setTypeProduct] = useState<string>('')
     const genders_ = ['all', 'regionales', 'fashion']
-    const todasCategorias = ['shirt', 'jacket', 'pants', 'hoodies', 'hats', 'mate', 'yerba', 'alfajores', 'wine', 'short', 'socks', 'wallet', 'purse', 'accessories', 'bag']
-    const categoriasRopa = ['shirt', 'jacket', 'pants', 'hoodies', 'hats', 'short', 'socks', 'wallet', 'purse']
+    const todasCategorias = ['shirts', 'jacket', 'pants', 'hoodies', 'hats', 'mate', 'yerba', 'alfajores', 'wine', 'short', 'socks', 'wallet', 'purse', 'accessories', 'bag']
+    const categoriasRopa = ['shirts', 'jacket', 'pants', 'hoodies', 'hats', 'short', 'socks', 'wallet', 'purse']
     const fashion__ = ['wallet', 'purse', 'shirts', 'bag', 'hats']
     const categoriasRegional = ['mate', 'yerba', 'alfajores', 'wine']
     const [categories, setCategories] = useState<string[]>(todasCategorias)
