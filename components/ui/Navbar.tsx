@@ -52,9 +52,9 @@ export const Navbar = () => {
                             <Button color={ asPath === '/4' ? 'primary':'info'}>Find My Order</Button>
                         </Link>
                     </NextLink>
-                    <NextLink href='/' passHref>
+                    <NextLink href='/contact' passHref>
                         <Link>
-                            <Button color={ asPath === '/4' ? 'primary':'info'}>Contact Us</Button>
+                            <Button color={ asPath === '/contact' ? 'primary':'info'}>Contact Us</Button>
                         </Link>
                     </NextLink>
                     <NextLink href='/' passHref>

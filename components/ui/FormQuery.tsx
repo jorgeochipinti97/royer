@@ -32,7 +32,7 @@ const FormQuery:FC<Props> = ({ product_ }) => {
     return (
         <Box >
             <Box sx={{ mt: 5 }} display='flex' justifyContent='center'>
-                <Typography variant='h6'>Any questions ? Ask us!</Typography>
+                <Typography variant='h6'>Any questions ? Contact us!</Typography>
             </Box>
             <Box display='flex' justifyContent='center'>
                 <Box display='flex' justifyContent='space-around' flexDirection='column' >
