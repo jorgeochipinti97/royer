@@ -17,7 +17,7 @@ export const CartList: FC<Props> = ({ editable = false, products }) => {
 
     const { cart, updateCartQuantity, removeCartProduct } = useContext(CartContext);
 
-    const onNewCartQuantityValue = (product: ICartProduct, newQuantityValue: number) => {
+    const onNewCartQuantityValue = (product: any, newQuantityValue: number) => {
         product.quantity = newQuantityValue;
         updateCartQuantity(product);
     }
@@ -31,7 +31,6 @@ export const CartList: FC<Props> = ({ editable = false, products }) => {
                 productsToShow.map(product => (
                     <Grid container spacing={2} key={product.slug + product.size} sx={{ mb: 1 }}>
                         <Grid item xs={3}>
-                            {/* TODO: llevar a la página del producto */}
                             <NextLink href={`/product/${product.slug}`} passHref>
                                 <Link>
                                     <CardActionArea>
