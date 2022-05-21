@@ -31,7 +31,7 @@ export const ProductFilterPage = () => {
     }, [products])
 
 
-    const handleSelectChange = (e:string) => {
+    const handleSelectChange = (e: string) => {
         setSelect_(e)
         if (e == 'low') {
             sortLow(_productsFiltered)
@@ -157,7 +157,7 @@ export const ProductFilterPage = () => {
                             id="select"
                             label="sort by"
                             value={select_}
-                            onChange={e =>  handleSelectChange(e.target.value)}>
+                            onChange={e => handleSelectChange(e.target.value)}>
                             {/* <MenuItem value={'popularity'}>popularity</MenuItem> */}
                             <MenuItem value={'low'}>Price: low to hight  </MenuItem>
                             <MenuItem value={'hight'}>Price: hight to low  </MenuItem>
