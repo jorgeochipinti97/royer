@@ -32,11 +32,11 @@ interface FormData {
 
 const OrderCryptoPage: NextPage<Props> = ({ order }) => {
     const network = 'BEP-20'
-    const walletETH = 'walletETH'
-    const walletBTC = 'walletBTC'
-    const walletBUSD = 'walletBUSD'
-    const walletUSDT = 'walletUSDT'
-    const walletBNB = 'walletBNB'
+    const walletETH = '0x9b9421089cc003b109ac590a8584a56aa40e5947'
+    const walletBTC = '0x9b9421089cc003b109ac590a8584a56aa40e5947'
+    const walletBUSD = '0x53583B48EbC48Fb15352143fBD98BaF3AB54fd50'
+    const walletUSDT = '0x9b9421089cc003b109ac590a8584a56aa40e5947'
+    const walletBNB = '0x53583B48EbC48Fb15352143fBD98BaF3AB54fd50'
     const [CryptoMethod, setCryptoMethod] = useState<string>()
     const [wallet_, setWallet_] = useState<string>('')
     const [crpytoPrice, setcrpytoPrice] = useState<string>()

@@ -8,43 +8,22 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import MailIcon from '@mui/icons-material/Mail';
+import Social from './Social';
 export const Footer = () => {
     const router = useRouter()
     const [isVisible, setIsVisible] = useState<boolean>()
+    const {asPath} = useRouter()
 
 
     return (
         <footer >
-
             <Box >
                 <Divider sx={{ my: 1 }} />
-                <Box display='flex' justifyContent='center'>
-                    <NextLink href='https://www.instagram.com/royerstore.ar/' passHref>
-                        <Link>
-                            <Button>  <InstagramIcon sx={{ mr: 4, ml: 4, mb: 2 }} /></Button>
-
-                        </Link>
-                    </NextLink>
-                    <NextLink href='https://twitter.com/StoreRoyer' passHref>
-                        <Link>
-                            <Button> <TwitterIcon sx={{ mr: 4, ml: 4, mb: 2 }} /></Button>
-
-                        </Link>
-                    </NextLink>
-                    <NextLink href='https://twitter.com/StoreRoyer' passHref>
-                        <Link>
-                            <Button> <WhatsAppIcon sx={{ mr: 4, ml: 4, mb: 2 }} /></Button>
-
-                        </Link>
-                    </NextLink>
-                    <NextLink href='https://twitter.com/StoreRoyer' passHref>
-                        <Link>
-                            <Button> <MailIcon sx={{ mr: 4, ml: 4, mb: 2 }} /></Button>
-
-                        </Link>
-                    </NextLink>
-
-                </Box>
+                {
+                asPath == '/contact'
+                    ? null
+                    : <Social sizeFont={25} />
+                }
                 <Box display='flex' justifyContent='center'>
                     <NextLink href='/' passHref>
                         <Link>
