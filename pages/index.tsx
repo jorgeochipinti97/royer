@@ -24,7 +24,10 @@ const HomePage: NextPage<Props> = ({ product__ }) => {
   const { products, isLoading } = useProducts('/products');
   const [products_, setProducts_] = useState(product__)
 
+useEffect(()=>{
 
+  console.log(process.env.NEXTAUTH_URL)
+},[])
 
   return (
     <ShopLayout title={'Royer-Shop - Home'} pageDescription={'Home'}>
