@@ -26,7 +26,7 @@ const HomePage: NextPage<Props> = ({ product__ }) => {
 
 useEffect(()=>{
 
-  console.log(process.env.NEXTAUTH_URL)
+  console.log('hola', process.env.NEXTAUTH_URL)
 },[])
 
   return (
