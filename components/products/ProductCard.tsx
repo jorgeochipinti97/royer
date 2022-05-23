@@ -127,7 +127,7 @@ export const ProductCard: FC<Props> = ({ product }) => {
 
             </Card>
             <Box sx={{ mt: 1, display: isImageLoaded ? 'block' : 'none' }} className='fadeIn' >
-                <Typography fontWeight={700}>{capitalizarPrimeraLetraPalabras(`${product.title}`)}</Typography>
+                <Typography variant="body2" textAlign={'center'} fontWeight={700} >{capitalizarPrimeraLetraPalabras(`${product.title}`)}</Typography>
                 <Box>
                     <Box display='flex' justifyContent='center' sx={{ mb: 1, mt: 2 }}>
                         <NextLink href={`/product/${product.slug}`} passHref prefetch={false}>
@@ -135,9 +135,9 @@ export const ProductCard: FC<Props> = ({ product }) => {
                                 <Button
                                     color="primary"
                                     startIcon={<AttachMoneyIcon />}
-                                    sx={{ width: '150px' }}>
-                                    <Typography variant='button'>
-                                        Paypal: {`${currency.formattwo(product.price)}`}
+                                    sx={{ width: '130px' }}>
+                                    <Typography variant="body2" textAlign={'center'} fontWeight={700}>
+                                        Paypal:{`${currency.formattwo(product.price)}`}
                                     </Typography>
                                 </Button>
                             </Link>
@@ -149,9 +149,9 @@ export const ProductCard: FC<Props> = ({ product }) => {
                                 <Button
                                     color="success"
                                     startIcon={<CurrencyBitcoinIcon />}
-                                    sx={{ width: '150px', pt: 1, pb: 1 }}>
-                                    <Typography fontWeight={700} variant='button' >
-                                        Crypto: {`${currency.formattwo(discountPrice)}`}
+                                    sx={{ width: '130px', pt: 1, pb: 1 }}>
+                                    <Typography variant="body2" textAlign={'center'} fontWeight={700} >
+                                        Crypto:{`${currency.formattwo(discountPrice)}`}
                                     </Typography>
                                 </Button>
                             </Link>

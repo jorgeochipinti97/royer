@@ -13,7 +13,8 @@ export const ProductList: FC<Props> = ({ products }) => {
     const router = useRouter()
     return (
         <>
-            <Grid container spacing={4}>
+            <Grid container spacing={1}>
+
                 {
                     products.map(product => (
                         <ProductCard
