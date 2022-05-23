@@ -13,26 +13,21 @@ export const ProductList: FC<Props> = ({ products }) => {
     const router = useRouter()
     return (
         <>
-            {/* <Grid container spacing={1}> */}
-            <Box sx={{ display: 'flex' ,  justifyContent: 'space-around' ,flexWrap: 'wrap' }}>
-
-
-                    {
-                        products.map(product => (
-                            <ProductCard
-                                key={product.slug}
-                                product={product}
-                            />
-                        ))
-                    }
-                    {
-                        router.asPath == '/'
-                            ? null
-                            : <ClickHere />
-                    }
-                </Box>
-
-            {/* </Grid> */}
+            <Grid container spacing={4}>
+                {
+                    products.map(product => (
+                        <ProductCard
+                            key={product.slug}
+                            product={product}
+                        />
+                    ))
+                }
+                {
+                    router.asPath == '/'
+                        ? null
+                        : <ClickHere />
+                }
+            </Grid>
         </>
     )
 }

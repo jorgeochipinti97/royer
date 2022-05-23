@@ -9,7 +9,7 @@ import Image from 'next/image';
 import { currency } from '../../utils';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import CurrencyBitcoinIcon from '@mui/icons-material/CurrencyBitcoin';
-import {capitalizarPrimeraLetraPalabras} from '../../utils/sort'
+import { capitalizarPrimeraLetraPalabras } from '../../utils/sort'
 
 
 interface Props {
@@ -22,8 +22,8 @@ export const ProductCard: FC<Props> = ({ product }) => {
     const [isImageLoaded, setIsImageLoaded] = useState(false);
     const [discountPrice, setDiscountPrice] = useState<number>(product.price)
 
-    
-    const handleTitle=(title:string)=>{
+
+    const handleTitle = (title: string) => {
         title.split('')
         console.log(title)
     }
@@ -76,7 +76,7 @@ export const ProductCard: FC<Props> = ({ product }) => {
     }
 
 
-    
+
 
     return (
         <Grid item
@@ -85,21 +85,21 @@ export const ProductCard: FC<Props> = ({ product }) => {
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
         >
-            <Card sx={{m:4}}>
+            <Card sx={{ m: 4 }}>
                 <NextLink href={`/product/${product.slug}`} passHref prefetch={false}>
                     <Link>
 
                         <CardActionArea>
-                            
-                        {
-                            (product.inStock === 0 ) && (
-                                <Chip 
-                                    color="primary"
-                                    label="No stock"
-                                    sx={{ position: 'absolute', zIndex: 99, top: '10px', left: '10px' }}
-                                />
-                            )
-                        }
+
+                            {
+                                (product.inStock === 0) && (
+                                    <Chip
+                                        color="primary"
+                                        label="No stock"
+                                        sx={{ position: 'absolute', zIndex: 99, top: '10px', left: '10px' }}
+                                    />
+                                )
+                            }
 
                             <CardMedia
                                 component='div'
@@ -121,7 +121,7 @@ export const ProductCard: FC<Props> = ({ product }) => {
                     :
                     <FavoriteBorderIcon
                         color='error'
-                        onClick={onToggleFavorite}/>
+                        onClick={onToggleFavorite} />
                 }
 
 

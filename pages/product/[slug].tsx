@@ -9,6 +9,7 @@ import { CartContext } from '../../context/cart/CartContext';
 import { ShopLayout } from '../../components/layouts';
 import { ProductSlideshow, SizeSelector } from '../../components/products';
 import { ItemCounter } from '../../components/ui/ItemCounter';
+import { localFavorites } from '../../utils';
 
 import { dbProducts } from '../../database';
 import { IProduct, ICartProduct, ISize } from '../../interfaces';
@@ -21,6 +22,10 @@ import { tesloApi } from '../../api';
 import { isValidEmail } from '../../utils/validations';
 import FormQuery from '../../components/ui/FormQuery';
 import Image from 'next/image';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+
+import FavoriteIcon from '@mui/icons-material/Favorite';
+
 
 
 interface Props {
@@ -32,6 +37,30 @@ const ProductPage: NextPage<Props> = ({ product }) => {
   const [discountPrice, setDiscountPrice] = useState<number>(product.price)
   const [title_, setTitle] = useState<string>('')
   const [isOpen, setIsOpen] = useState<boolean>(false)
+  const [isInFavorites, setIsInFavorites] = useState<Boolean>()
+
+
+  useEffect(() => {
+    let favorites: IProduct[] = JSON.parse(localStorage.getItem('favorites') || '[]')
+    let a
+    const isLiked = () => {
+      favorites.forEach(e => {
+        if (e._id == product._id) {
+          a = true;
+        } else {
+          a = false
+        }
+      })
+    }
+    isLiked()
+
+    if (a && a != undefined) {
+      setIsInFavorites(true)
+    } else {
+      setIsInFavorites(false)
+    }
+
+  }, [])
 
   useEffect(() => {
     if (product.gender === 'regionales' || product.gender === 'fashion') {
@@ -98,16 +127,29 @@ const ProductPage: NextPage<Props> = ({ product }) => {
   }
 
 
-
+  const onToggleFavorite = () => {
+    localFavorites.toggleFavorite(product)
+    setIsInFavorites(!isInFavorites)
+  }
 
   return (
     <ShopLayout title={product.title} pageDescription={product.description}>
-      <Box sx={{ mb: 2 }}>
+      <Box sx={{ mb: 2 }} display='flex' justifyContent={'space-between'}>
         <NextLink href='/products' passHref>
           <Link>
             <Button color='secondary'>Back</Button>
           </Link>
         </NextLink>
+        {isInFavorites ?
+          <FavoriteIcon
+            color='error'
+            onClick={onToggleFavorite}
+          />
+          :
+          <FavoriteBorderIcon
+            color='error'
+            onClick={onToggleFavorite} />
+        }
       </Box>
 
       <Grid container spacing={3}>

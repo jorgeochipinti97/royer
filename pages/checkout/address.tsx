@@ -42,6 +42,12 @@ const getAddressFromCookies = (): FormData => {
 
 
 const AddressPage = ({ paises }: any) => {
+    const [countriesSort, setcountriesSort] = useState<String[]>([])
+
+    useEffect(() => {
+        const a = ordenarPaises(paises)
+        setcountriesSort(a)
+    }, [])
 
     const [isUsa, setIsUsa] = useState(false)
     const router = useRouter();
@@ -65,6 +71,21 @@ const AddressPage = ({ paises }: any) => {
         }
     }
 
+    const ordenarPaises = (paises_: string[]) => {
+
+        const paisesLower = paises_.map(e => e.toLocaleLowerCase())
+        paisesLower.sort((a: string, b: string) => {
+            if (a > b) {
+                return 1;
+            }
+            if (a < b) {
+                return -1;
+            }
+
+            return 0;
+        });
+        return paisesLower
+    }
     return (
         <ShopLayout title="Royer Shop - Address" pageDescription="Confirmar dirección del destino">
             <form onSubmit={handleSubmit(onSubmitAddress)}>
@@ -164,21 +185,21 @@ const AddressPage = ({ paises }: any) => {
                                 select
                                 variant="filled"
                                 label="country"
-                                defaultValue={ paises[0]}
+                                defaultValue={countriesSort[0]}
                                 {...register('country', {
                                     required: 'This field is required'
                                 })}
                                 error={!!errors.country}
                                 onChange={(e) => {
                                     if (e.target.value == 'United States') { setIsUsa(true) }
-                                    else{
+                                    else {
                                         setIsUsa(false)
                                     }
                                 }
                                 }
                             >
                                 {
-                                    paises.map((country: any) => (
+                                    countriesSort.map((country: any) => (
                                         <MenuItem
                                             key={country}
                                             value={country}
@@ -236,16 +257,15 @@ export async function getServerSideProps() {
     const paises: string[] = []
 
     const countries_ = () => {
-        try{
+        try {
 
             data.forEach((e: { name: { common: any; }; }) => {
                 paises.push(e.name.common)
             });
-        }catch(err){
+        } catch (err) {
             alert(err)
         }
     }
-    
     countries_()
 
     return { props: { paises } }
