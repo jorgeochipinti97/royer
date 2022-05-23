@@ -66,7 +66,6 @@ const AddressPage = ({ paises }: any) => {
             updateAddress(data);
             await router.push('/checkout/summary');
         } else {
-            console.log(_email)
             alert('error please check your email')
         }
     }

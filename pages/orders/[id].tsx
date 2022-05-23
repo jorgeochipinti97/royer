@@ -93,7 +93,6 @@ const OrderPage: NextPage<Props> = ({ order }) => {
                     data: order_
                 })
 
-                console.log(data)
 
                 router.replace(`/orders/crypto/${data._id}`);
 

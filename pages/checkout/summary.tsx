@@ -26,7 +26,6 @@ const SummaryPage = () => {
 
 
 
-    console.log(shippingAddress);
     if (!shippingAddress) {
         return <></>;
     }

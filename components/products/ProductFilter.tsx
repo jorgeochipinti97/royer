@@ -63,7 +63,6 @@ export const ProductFilterPage = () => {
                 setCategories(categoriasRegional)
                 setTypeProduct('')
 
-                console.log(newProducts_)
 
             } else if (valueOfProduct_ == 'fashion') {
                 const newProducts_ = products.filter(e => e.gender === valueOfProduct_)
@@ -77,7 +76,6 @@ export const ProductFilterPage = () => {
                 setCategories(categoriasRopa)
                 setValueProduct(valueOfProduct_)
                 setTypeProduct('')
-                console.log(newProducts_)
             }
         } catch (err) {
             alert(err)
@@ -89,7 +87,6 @@ export const ProductFilterPage = () => {
                 setTypeProduct(typeOfProduct_)
                 const newProducts_ = products.filter(e => e.type === typeOfProduct_)
                 setProductsFiltered(newProducts_)
-                console.log(newProducts_)
 
 
             } else {
@@ -98,7 +95,6 @@ export const ProductFilterPage = () => {
                 const newProducts_ = products.filter(e => e.type === typeOfProduct_ && e.gender === valueProduct)
 
                 setProductsFiltered(newProducts_)
-                console.log(newProducts_)
 
             }
 

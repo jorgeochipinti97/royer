@@ -15,7 +15,6 @@ const FormQuery:FC<Props> = ({ product_ }) => {
     const [query_, setQuery_] = useState<string>('')
 
     const handleClickQuery = async (name: string, email: string, query: string, product: string | '') => {
-        console.log(name, email, query, product)
         if (isValidEmail(email)) {
             await tesloApi.post(`/queries`, {
                 name,

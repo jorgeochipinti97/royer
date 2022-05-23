@@ -63,10 +63,8 @@ const OrderCryptoPage: NextPage<Props> = ({ order }) => {
             let i = 10
             let counter = window.setInterval(async () => {
                 let f = i--
-                console.log(f)
                 if (f <= 0) {
 
-                    console.log('hi')
                     alert('la orden ha sido eliminada')
                     const { data } = await tesloApi({
                         url: '/cripto',
