@@ -175,7 +175,7 @@ const ProductPage: NextPage<Props> = ({ product }) => {
             {/* titulos */}
             <Box display='flex' justifyContent='center'>
 
-              <Typography variant='h1' textAlign={'center'} component='h1' sx={{ width: 200 }}>{capitalizarPrimeraLetraPalabras(product.title)}</Typography>
+              <Typography variant='h1' textAlign={'center'} sx={{ width: 300 }}>{capitalizarPrimeraLetraPalabras(product.title)}</Typography>
             </Box>
 
             <Box display='flex' justifyContent='space-around' sx={{ m: 3 }}>
