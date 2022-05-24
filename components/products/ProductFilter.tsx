@@ -25,8 +25,8 @@ export const ProductFilterPage = () => {
 
     useEffect(() => {
         const _handle = () => {
-            sortByType(products)
-            setProductsFiltered(products)
+           const a =  sortByType(products)
+            setProductsFiltered(a)
         }
         _handle()
     }, [products])
@@ -40,6 +40,7 @@ export const ProductFilterPage = () => {
 
         if (e == 'hight') {
             sortHight(_productsFiltered)
+        
         }
 
         // if(e =='popularity'){
@@ -47,6 +48,15 @@ export const ProductFilterPage = () => {
         // }
     }
 
+    useEffect(() => {
+    const sort =()=>{
+        const a =   sortByType(_productsFiltered)
+        setProductsFiltered(a)
+    }
+    sort()
+   
+    }, [_productsFiltered])
+    
     const sortByType = (products: IProduct[]) => {
 
         const tshirts: IProduct[] = sortPopularity(products, 'shirts')

@@ -1,5 +1,5 @@
-import { FC, useState } from 'react'
-import { Grid, Card, Box } from '@mui/material'
+import { FC } from 'react'
+import { Grid, } from '@mui/material'
 import { IProduct } from '../../interfaces'
 import { ProductCard } from '.'
 import { ClickHere } from './Clickhere';
