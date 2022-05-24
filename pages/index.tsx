@@ -53,7 +53,7 @@ const HomePage: NextPage<Props> = ({ product__ }) => {
         <Typography variant='h1'>About Us</Typography>
       </Box>
       <Box sx={{ mt: 1 }} display='flex' justifyContent='center'>
-        <Typography variant='body1' align="justify" sx={{ width: 500 }}>
+        <Typography variant='body1' align="justify" sx={{ width: 500,margin:3 }}>
           Royer emerged at the end of 2021 as an idea, which we were able to carry out thanks to a lot of effort and dedication.
           Royers main objective is to make products known worldwide that could only be obtained locally, working together with Fedex and DHL this can be done safely and reliably.
           Royer is founded by only three members who each contributed their efforts to carry this out.</Typography>

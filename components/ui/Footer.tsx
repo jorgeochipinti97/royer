@@ -12,7 +12,7 @@ import Social from './Social';
 export const Footer = () => {
     const router = useRouter()
     const [isVisible, setIsVisible] = useState<boolean>()
-    const {asPath} = useRouter()
+    const { asPath } = useRouter()
 
 
     return (
@@ -20,11 +20,15 @@ export const Footer = () => {
             <Box >
                 <Divider sx={{ my: 1 }} />
                 {
-                asPath == '/contact'
-                    ? null
-                    : <Social sizeFont={25} />
+                    asPath == '/contact'
+                        ? null
+                        :
+                        <Box display='flex' justifyContent='center'>
+
+                            <Social sizeFont={25} />
+                        </Box>
                 }
-                <Box display='flex' justifyContent='center'>
+                {/* <Box display='flex' justifyContent='center'>
                     <NextLink href='/' passHref>
                         <Link>
                             <Button>Home</Button>
@@ -50,7 +54,7 @@ export const Footer = () => {
                             <Button>FAQS</Button>
                         </Link>
                     </NextLink>
-                </Box>
+                </Box> */}
                 <Box display='flex' justifyContent='center' sx={{ mt: 3 }} >
                     <Typography component='h5'><CopyrightIcon sx={{ fontSize: 14 }} />  all rights reserved. Royer</Typography>
                 </Box>

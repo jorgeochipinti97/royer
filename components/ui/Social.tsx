@@ -7,34 +7,34 @@ import MailIcon from '@mui/icons-material/Mail';
 import { Box, Button, Divider, Link, TextField, Typography } from '@mui/material';
 import { FC } from 'react';
 
-interface Props{
+interface Props {
     sizeFont: number
 }
 
-const Social:FC<Props> = ({sizeFont}) => {
+const Social: FC<Props> = ({ sizeFont }) => {
     return (
-        <Box display='flex' justifyContent='center' sx={{ml:7}}>
+        <Box display='flex' justifyContent='center'>
             <NextLink href='https://www.instagram.com/royerstore.ar/' passHref>
                 <Link>
-                    <Button>  <InstagramIcon sx={{ mr: 4, ml: 4, mb: 2, fontSize:sizeFont }} /></Button>
-
-                </Link>
-            </NextLink>
-            <NextLink href='https://twitter.com/StoreRoyer' passHref>
-                <Link>
-                    <Button> <TwitterIcon sx={{ mr: 4, ml: 4, mb: 2,fontSize:sizeFont  }} /></Button>
+                    <Button>  <InstagramIcon sx={{ fontSize: sizeFont }} /></Button>
 
                 </Link>
             </NextLink>
             <NextLink href='https://walink.co/40c03f' passHref>
                 <Link>
-                    <Button> <WhatsAppIcon sx={{ mr: 4, ml: 4, mb: 2,fontSize:sizeFont  }} /></Button>
+                    <Button> <WhatsAppIcon sx={{ fontSize: sizeFont }} /></Button>
+
+                </Link>
+            </NextLink>
+            <NextLink href='https://twitter.com/StoreRoyer' passHref>
+                <Link>
+                    <Button> <TwitterIcon sx={{ fontSize: sizeFont }} /></Button>
 
                 </Link>
             </NextLink>
             <NextLink href="mailto:royerstorearg@gmail.com" passHref>
                 <Link>
-                    <Button> <MailIcon sx={{ mr: 4, ml: 4, mb: 2,fontSize:sizeFont  }} /></Button>
+                    <Button> <MailIcon sx={{ fontSize: sizeFont }} /></Button>
 
                 </Link>
             </NextLink>
