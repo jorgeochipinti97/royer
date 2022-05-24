@@ -25,6 +25,7 @@ export const ProductFilterPage = () => {
 
     useEffect(() => {
         const _handle = () => {
+            sortByType(products)
             setProductsFiltered(products)
         }
         _handle()
@@ -44,6 +45,48 @@ export const ProductFilterPage = () => {
         // if(e =='popularity'){
         //     sortPopularity(_productsFiltered)
         // }
+    }
+
+    const sortByType = (products: IProduct[]) => {
+
+        const tshirts: IProduct[] = sortPopularity(products, 'shirts')
+        const tShirtsMessi = tshirts.sort((a: IProduct, b: IProduct) => {
+
+            if (a.slug.indexOf('messi') < b.slug.indexOf('messi')) {
+                return 1
+            } else if (a.slug.indexOf('messi') > b.slug.indexOf('messi')) {
+                return -1
+            }
+            return 0
+        })
+        const shorts: IProduct[] = sortPopularity(products, 'short')
+        const hoodies: IProduct[] = sortPopularity(products, 'hoodies')
+        const jacket: IProduct[] = sortPopularity(products, 'jacket')
+        const socks: IProduct[] = sortPopularity(products, 'socks')
+        const purse: IProduct[] = sortPopularity(products, 'purse')
+        const wallet: IProduct[] = sortPopularity(products, 'wallet')
+        const hats: IProduct[] = sortPopularity(products, 'hats')
+        const mate: IProduct[] = sortPopularity(products, 'mate')
+        const accessories: IProduct[] = sortPopularity(products, 'accessories')
+        const alfajores: IProduct[] = sortPopularity(products, 'alfajores')
+        const wine: IProduct[] = sortPopularity(products, 'wine')
+        const yerba: IProduct[] = sortPopularity(products, 'yerba')
+
+        return tShirtsMessi
+            .concat(shorts)
+            .concat(hoodies)
+            .concat(jacket)
+            .concat(socks)
+            .concat(purse)
+            .concat(wallet)
+            .concat(hats)
+            .concat(mate)
+            .concat(accessories)
+            .concat(alfajores)
+            .concat(wine)
+            .concat(yerba)
+
+
     }
 
     const handleClickValues = (valueOfProduct_: string) => {

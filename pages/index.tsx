@@ -1,6 +1,6 @@
 import type { NextPage } from 'next';
 import { Box, Typography } from '@mui/material';
-import { GetServerSideProps, GetStaticPaths, GetStaticProps } from 'next';
+import { GetStaticProps } from 'next';
 
 import { ShopLayout } from '../components/layouts';
 

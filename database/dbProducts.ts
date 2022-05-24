@@ -5,23 +5,23 @@ import { IProduct } from '../interfaces';
 
 
 export const getProductBySlug = async (slug: string): Promise<IProduct | null> => {
-    try{
+    try {
 
-        
+
         await db.connect();
         const product = await Product.findOne({ slug }).lean();
         await db.disconnect();
-        
+
         if (!product) {
             return null;
         }
-        
+
         product.images = product.images.map(image => {
             return image.includes('http') ? image : `${process.env.HOST_NAME}products/${image}`
         });
-        
+
         return JSON.parse(JSON.stringify(product));
-    }catch(err){
+    } catch (err) {
         console.log(err)
         return null
     }
@@ -81,7 +81,7 @@ export const getAllProducts = async (): Promise<IProduct[]> => {
 export const getPopulars = async (): Promise<IProduct[]> => {
 
     await db.connect();
-    const products = await Product.find({popular:true}).lean();
+    const products = await Product.find({ popular: true }).lean();
     await db.disconnect();
 
 
