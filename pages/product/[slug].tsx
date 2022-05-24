@@ -135,21 +135,26 @@ const ProductPage: NextPage<Props> = ({ product }) => {
   return (
     <ShopLayout title={product.title} pageDescription={product.description}>
       <Box sx={{ mb: 2 }} display='flex' justifyContent={'space-between'}>
-        <NextLink href='/products' passHref>
-          <Link>
-            <Button color='secondary'>Back</Button>
-          </Link>
-        </NextLink>
-        {isInFavorites ?
-          <FavoriteIcon
-            color='error'
-            onClick={onToggleFavorite}
-          />
-          :
-          <FavoriteBorderIcon
-            color='error'
-            onClick={onToggleFavorite} />
-        }
+        <Box sx={{ m: 2 }}>
+          <NextLink href='/products' passHref>
+            <Link>
+              <Button color='secondary'>Back</Button>
+            </Link>
+          </NextLink>
+        </Box>
+
+        <Box sx={{ m: 2 }}>
+          {isInFavorites ?
+            <FavoriteIcon
+              color='error'
+              onClick={onToggleFavorite}
+            />
+            :
+            <FavoriteBorderIcon
+              color='error'
+              onClick={onToggleFavorite} />
+          }
+        </Box>
       </Box>
 
       <Grid container spacing={3}>
@@ -168,7 +173,11 @@ const ProductPage: NextPage<Props> = ({ product }) => {
           <Box display='flex' flexDirection='column'>
 
             {/* titulos */}
-            <Typography variant='h1' component='h1'>{capitalizarPrimeraLetraPalabras(product.title)}</Typography>
+            <Box display='flex' justifyContent='center'>
+
+              <Typography variant='h1' textAlign={'center'} component='h1' sx={{ width: 200 }}>{capitalizarPrimeraLetraPalabras(product.title)}</Typography>
+            </Box>
+
             <Box display='flex' justifyContent='space-around' sx={{ m: 3 }}>
               <NextLink href={`#`} passHref prefetch={false}>
                 <Link>
@@ -199,19 +208,21 @@ const ProductPage: NextPage<Props> = ({ product }) => {
               </NextLink>
             </Box>
             <Divider sx={{ my: 1 }} />
-            <Box sx={{ justifyContent: 'space-around' }}>
+            <Box display='flex' justifyContent='center'>
               <Chip label="Free Shipping!" color="success" variant="outlined" />
             </Box>
-            <Box sx={{ my: 2 }}>
-              <Typography variant='subtitle2'>Quantity</Typography>
-              <ItemCounter
-                currentValue={tempCartProduct.quantity}
-                updatedQuantity={onUpdateQuantity}
-                maxValue={product.inStock > 10 ? 10 : product.inStock}
-              />
+            <Box sx={{ my: 2, }}>
+              <Typography variant='subtitle2' sx={{ m: 2 }}>Quantity</Typography>
+              <Box sx={{mb:2}}>
+
+                <ItemCounter
+                  currentValue={tempCartProduct.quantity}
+                  updatedQuantity={onUpdateQuantity}
+                  maxValue={product.inStock > 10 ? 10 : product.inStock}
+                />
+              </Box>
 
 
-              {/* TODO :  poner que son fashion y cosas sin talle para sacar el select size */}
               {!isNoSize ?
                 <SizeSelector
                   sizes={product.sizes}
@@ -267,9 +278,12 @@ const ProductPage: NextPage<Props> = ({ product }) => {
 
 
             {/* Descripción */}
-            <Box sx={{ mt: 3 }}>
+            <Box sx={{ mt: 3 }} display='flex' justifyContent='center'>
               <Typography variant='subtitle2'>Description</Typography>
-              <Typography variant='body2' align="justify">{product.description}</Typography>
+            </Box>
+
+            <Box sx={{ mt: 3 }} display='flex' justifyContent='center'>
+              <Typography variant='body2' align="justify" sx={{ width: 300 }}>{product.description}</Typography>
             </Box>
 
           </Box>
