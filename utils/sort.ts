@@ -23,23 +23,27 @@ export const sortHight = (products: IProduct[]) => {
 
 }
 export const sortPopularity = (products: IProduct[], word: string) => {
-    const a = products.sort((a: IProduct, b: IProduct) => {
+    // const a = products.sort((a: IProduct, b: IProduct) => {
 
-        if (a.slug.indexOf(word) < b.slug.indexOf(word)) {
-            return 1
-        } else if (a.slug.indexOf(word) > b.slug.indexOf(word)) {
-            return -1
-        }
-        return 0
-    })
-    return a
+    //     if (a.slug.indexOf(word) < b.slug.indexOf(word)) {
+    //         return 1
+    //     } else if (a.slug.indexOf(word) > b.slug.indexOf(word)) {
+    //         return -1
+    //     }
+    //     return 0
+    // })
+    // return a
+
+    const a = products.filter(e => e.type == word)
+
+    return a 
 }
 
 
 export const odenarCategorias = (products: IProduct[]) => {
 
-    products.map(e =>{
-        let a 
+    products.map(e => {
+        let a
     })
 
 }

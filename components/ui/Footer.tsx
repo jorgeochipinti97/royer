@@ -28,33 +28,6 @@ export const Footer = () => {
                             <Social sizeFont={25} />
                         </Box>
                 }
-                {/* <Box display='flex' justifyContent='center'>
-                    <NextLink href='/' passHref>
-                        <Link>
-                            <Button>Home</Button>
-                        </Link>
-                    </NextLink>
-                    <NextLink href='/products' passHref>
-                        <Link>
-                            <Button>Products</Button>
-                        </Link>
-                    </NextLink>
-                    <NextLink href='/find' passHref>
-                        <Link>
-                            <Button>Find My Order</Button>
-                        </Link>
-                    </NextLink>
-                    <NextLink href='/contact' passHref>
-                        <Link>
-                            <Button>Contact Us</Button>
-                        </Link>
-                    </NextLink>
-                    <NextLink href='/faqs' passHref>
-                        <Link>
-                            <Button>FAQS</Button>
-                        </Link>
-                    </NextLink>
-                </Box> */}
                 <Box display='flex' justifyContent='center' sx={{ mt: 3 }} >
                     <Typography component='h5'><CopyrightIcon sx={{ fontSize: 14 }} />  all rights reserved. Royer</Typography>
                 </Box>
