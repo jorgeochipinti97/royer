@@ -25,7 +25,7 @@ export const ProductFilterPage = () => {
 
     useEffect(() => {
         const _handle = () => {
-           const a =  sortByType(products)
+            const a = sortByType(products)
             setProductsFiltered(a)
         }
         _handle()
@@ -40,7 +40,7 @@ export const ProductFilterPage = () => {
 
         if (e == 'hight') {
             sortHight(_productsFiltered)
-        
+
         }
 
         // if(e =='popularity'){
@@ -48,15 +48,15 @@ export const ProductFilterPage = () => {
         // }
     }
 
-    useEffect(() => {
-    const sort =()=>{
-        const a =   sortByType(_productsFiltered)
-        setProductsFiltered(a)
-    }
-    sort()
-   
-    }, [_productsFiltered])
-    
+    // useEffect(() => {
+    // const sort =()=>{
+    //     const a =   sortByType(_productsFiltered)
+    //     setProductsFiltered(a)
+    // }
+    // sort()
+
+    // }, [_productsFiltered])
+
     const sortByType = (products: IProduct[]) => {
 
         const tshirts: IProduct[] = sortPopularity(products, 'shirts')
@@ -102,7 +102,8 @@ export const ProductFilterPage = () => {
     const handleClickValues = (valueOfProduct_: string) => {
         try {
             if (valueOfProduct_ === 'all') {
-                setProductsFiltered(products)
+                const a = sortByType(products)
+                setProductsFiltered(a)
                 setValueProduct(valueOfProduct_)
                 setCategories(todasCategorias)
                 setTypeProduct('')
@@ -111,7 +112,8 @@ export const ProductFilterPage = () => {
 
             } else if (valueOfProduct_ === 'regionales') {
                 const newProducts_ = products.filter(e => e.gender === valueOfProduct_)
-                setProductsFiltered(newProducts_)
+                const a = sortByType(newProducts_)
+                setProductsFiltered(a)
                 setValueProduct(valueOfProduct_)
                 setCategories(categoriasRegional)
                 setTypeProduct('')
@@ -119,13 +121,15 @@ export const ProductFilterPage = () => {
 
             } else if (valueOfProduct_ == 'fashion') {
                 const newProducts_ = products.filter(e => e.gender === valueOfProduct_)
-                setProductsFiltered(newProducts_)
+                const a = sortByType(newProducts_)
+                setProductsFiltered(a)
                 setValueProduct(valueOfProduct_)
                 setCategories(fashion__)
                 setTypeProduct('')
             } else {
                 const newProducts_ = products.filter(e => e.gender === valueOfProduct_)
-                setProductsFiltered(newProducts_)
+                const a = sortByType(newProducts_)
+                setProductsFiltered(a)
                 setCategories(categoriasRopa)
                 setValueProduct(valueOfProduct_)
                 setTypeProduct('')
@@ -139,7 +143,8 @@ export const ProductFilterPage = () => {
             if (valueProduct === 'all') {
                 setTypeProduct(typeOfProduct_)
                 const newProducts_ = products.filter(e => e.type === typeOfProduct_)
-                setProductsFiltered(newProducts_)
+                const a = sortByType(newProducts_)
+                setProductsFiltered(a)
 
 
             } else {
@@ -147,7 +152,8 @@ export const ProductFilterPage = () => {
                 setTypeProduct(typeOfProduct_)
                 const newProducts_ = products.filter(e => e.type === typeOfProduct_ && e.gender === valueProduct)
 
-                setProductsFiltered(newProducts_)
+                const a = sortByType(newProducts_)
+                setProductsFiltered(a)
 
             }
 
