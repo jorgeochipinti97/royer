@@ -127,7 +127,10 @@ export const ProductCard: FC<Props> = ({ product }) => {
 
             </Card>
             <Box sx={{ mt: 1, display: isImageLoaded ? 'block' : 'none' }} className='fadeIn' >
-                <Typography variant="body2" textAlign={'center'} fontWeight={700} >{capitalizarPrimeraLetraPalabras(`${product.title}`)}</Typography>
+                <Box display='flex' justifyContent='center'>
+
+                <Typography variant="body2" textAlign={'center'} fontWeight={700} sx={{width:120}}>{capitalizarPrimeraLetraPalabras(`${product.title}`)}</Typography>
+                </Box>
                 <Box>
                     <Box display='flex' justifyContent='center' sx={{ mb: 1, mt: 2 }}>
                         <NextLink href={`/product/${product.slug}`} passHref prefetch={false}>
