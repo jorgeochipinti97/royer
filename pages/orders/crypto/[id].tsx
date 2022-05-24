@@ -144,7 +144,7 @@ const OrderCryptoPage: NextPage<Props> = ({ order }) => {
             {!order.isSend ?
                 <NextLink href={`/orders/${order._idOrder}`} passHref>
                     <Link>
-                        <Button color='primary'>Back to the select payment</Button>
+                        <Button color='primary' sx={{ m: 2 }}>Back to the select payment</Button>
                     </Link>
                 </NextLink>
                 :
@@ -181,7 +181,7 @@ const OrderCryptoPage: NextPage<Props> = ({ order }) => {
                     <Box sx={{ mt: 3 }}>
                         {!order.isSend ?
                             <Box display='flex' justifyContent='center' sx={{ mb: 3 }}>
-                                <Card className='summary-card' sx={{ width: 300 }} >
+                                <Card className='summary-card' sx={{ width: 350 }} >
                                     <CardContent>
                                         <Box display='flex' justifyContent='space-around'>
                                             <Typography variant="subtitle1">Total:</Typography>
@@ -190,12 +190,21 @@ const OrderCryptoPage: NextPage<Props> = ({ order }) => {
                                         <Box display='flex' justifyContent='space-around'>
                                             <Typography variant="subtitle1"> {crpytoPrice}</Typography>
                                         </Box>
-                                        <Box display='flex' justifyContent='space-around'>
-                                            {wallet_ != '' ?
-                                                <Typography variant="subtitle1">{network}</Typography> : null
-                                            }
-                                            <Typography variant="subtitle1">{wallet_}</Typography>
+
+
+                                        {wallet_ != ''
+
+                                            ? <Box display='flex' justifyContent='center'>
+                                                <Typography variant="subtitle1" sx={{ mt: 2 }}>{network}</Typography>
+                                            </Box>
+
+                                            : null
+                                        }
+                                        <Box display='flex' justifyContent='center'>
+                                            <Typography variant="body2" fontWeight={700} >{wallet_}</Typography>
                                         </Box>
+
+
                                     </CardContent>
                                 </Card>
                             </Box> :
@@ -226,46 +235,46 @@ const OrderCryptoPage: NextPage<Props> = ({ order }) => {
                                 <form onSubmit={handleSubmit(onSubmit)}>
                                     <FormControl >
                                         <FormControl>
-                                            <FormLabel>Select a criptocurrency please!</FormLabel>
-                                            <RadioGroup
-                                                sx={{ mt: 1 }}
-                                                name="cripto"
-                                                // value={formValues.gender}
-                                                onChange={(e) => handleChangeCryptoButtons(e.target.value)}
-                                                row>
-                                                <FormControlLabel
-                                                    key="eth"
-                                                    value="ethereum"
-                                                    control={<Radio color='secondary' size="small" />}
-                                                    label="Ethereum"
-                                                />
-                                                <FormControlLabel
-                                                    key="btc"
-                                                    value="bitcoin"
-                                                    control={<Radio color='secondary' size="small" />}
-                                                    label="BTC"
-                                                />
-                                                <FormControlLabel
-                                                    key="usdt"
-                                                    value="usdt"
-                                                    control={<Radio color='secondary' size="small" />}
-                                                    label="USDT"
-                                                />
-                                                <FormControlLabel
-                                                    key="busd"
-                                                    value="busd"
-                                                    control={<Radio color='secondary' size="small" />}
-                                                    label="BUSD"
-                                                />
-                                                <FormControlLabel
-                                                    key="bnb"
-                                                    value="binancecoin"
-                                                    control={<Radio color='secondary' size="small" />}
-                                                    label="BNB"
-                                                />
-                                            </RadioGroup>
+                                            <FormLabel sx={{m:2}}>Select a criptocurrency please!</FormLabel>
+                                                <RadioGroup
+                                                    sx={{ m: 2 }}
+                                                    name="cripto"
+                                                    // value={formValues.gender}
+                                                    onChange={(e) => handleChangeCryptoButtons(e.target.value)}
+                                                    row>
+                                                    <FormControlLabel
+                                                        key="eth"
+                                                        value="ethereum"
+                                                        control={<Radio color='secondary' size="small" />}
+                                                        label="Ethereum"
+                                                    />
+                                                    <FormControlLabel
+                                                        key="btc"
+                                                        value="bitcoin"
+                                                        control={<Radio color='secondary' size="small" />}
+                                                        label="BTC"
+                                                    />
+                                                    <FormControlLabel
+                                                        key="usdt"
+                                                        value="usdt"
+                                                        control={<Radio color='secondary' size="small" />}
+                                                        label="USDT"
+                                                    />
+                                                    <FormControlLabel
+                                                        key="busd"
+                                                        value="busd"
+                                                        control={<Radio color='secondary' size="small" />}
+                                                        label="BUSD"
+                                                    />
+                                                    <FormControlLabel
+                                                        key="bnb"
+                                                        value="binancecoin"
+                                                        control={<Radio color='secondary' size="small" />}
+                                                        label="BNB"
+                                                    />
+                                                </RadioGroup>
                                         </FormControl>
-                                        <FormLabel sx={{ mt: 1 }}>Put the hash of the transaction please!</FormLabel>
+                                        <FormLabel sx={{ m: 1 }}>Put the hash of the transaction please!</FormLabel>
                                         <TextField
                                             {...register('transactionId', {
                                                 required: 'this field is required',
@@ -275,7 +284,7 @@ const OrderCryptoPage: NextPage<Props> = ({ order }) => {
                                             name='hash'
                                             type='text'
                                         ></TextField>
-                                        <FormLabel sx={{ mt: 1 }}>Put your wallet please!</FormLabel>
+                                        <FormLabel sx={{ m: 1 }}>Put your wallet please!</FormLabel>
                                         <TextField
                                             {...register('wallet', {
                                                 required: 'this field is required',

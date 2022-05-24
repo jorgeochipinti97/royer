@@ -23,7 +23,6 @@ const CartPage = () => {
 
     return (
         <ShopLayout title='Cart' pageDescription={'Carrito de compras de la tienda'}>
-            <Typography variant='h1' component='h1'>Cart</Typography>
 
             <Grid container>
                 <Grid item xs={ 12 } sm={ 7 }>

@@ -89,8 +89,9 @@ const AddressPage = ({ paises }: any) => {
         <ShopLayout title="Royer Shop - Address" pageDescription="Confirmar dirección del destino">
             <form onSubmit={handleSubmit(onSubmitAddress)}>
 
-
-                <Typography variant="h1" component='h1'>Address</Typography>
+                <Box display='flex' justifyContent='center'>
+                    <Typography variant="h1" component='h1'>Address</Typography>
+                </Box>
 
                 <Grid container spacing={2} sx={{ mt: 2 }}>
 

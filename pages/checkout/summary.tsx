@@ -18,11 +18,11 @@ const SummaryPage = () => {
 
 
     useEffect(() => {
-        if ( !Cookies.get('firstName') ) {
+        if (!Cookies.get('firstName')) {
             router.push('/checkout/address');
         }
-    }, [ router ]);
-    
+    }, [router]);
+
 
 
 
@@ -48,7 +48,9 @@ const SummaryPage = () => {
     }
     return (
         <ShopLayout title='Resumen de orden' pageDescription={'Resumen de la orden'}>
-            <Typography variant='h1' component='h1'>Order summary</Typography>
+            <Box display='flex' justifyContent='center' sx={{mb:3}}>
+                <Typography variant='h1' component='h1'>Order summary</Typography>
+            </Box>
 
             <Grid container>
                 <Grid item xs={12} sm={7}>
