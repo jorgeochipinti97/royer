@@ -10,7 +10,6 @@ interface Props {
 }
 
 export const ProductList: FC<Props> = ({ products }) => {
-    const [productsSort, setProductsSort] = useState<IProduct[]>([])
     const router = useRouter()
 
     return (
@@ -18,7 +17,7 @@ export const ProductList: FC<Props> = ({ products }) => {
             <Grid container spacing={1}>
 
                 {
-                    productsSort.map(product => (
+                    products.map(product => (
                         <ProductCard
                             key={product.slug}
                             product={product}
