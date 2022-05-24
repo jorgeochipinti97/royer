@@ -12,7 +12,7 @@ const index = () => {
       <FormQuery product_="" />
       <Divider sx={{ my: 1 }} />
       <Box display='flex' justifyContent='center'  sx={{mt:7}}>
-        <Social sizeFont={50}/>
+        <Social sizeFont={30}/>
       </Box>
     </ShopLayout>
   )

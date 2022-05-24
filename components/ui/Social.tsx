@@ -13,7 +13,7 @@ interface Props{
 
 const Social:FC<Props> = ({sizeFont}) => {
     return (
-        <Box display='flex' justifyContent='center'>
+        <Box display='flex' justifyContent='center' sx={{ml:7}}>
             <NextLink href='https://www.instagram.com/royerstore.ar/' passHref>
                 <Link>
                     <Button>  <InstagramIcon sx={{ mr: 4, ml: 4, mb: 2, fontSize:sizeFont }} /></Button>

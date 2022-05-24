@@ -1,7 +1,7 @@
 import { IProduct } from '../interfaces/products';
 
 export const sortLow = (products: IProduct[]) => {
-    products.sort((a:IProduct, b:IProduct) => {
+    products.sort((a: IProduct, b: IProduct) => {
         if (a.price < b.price) {
             return -1
         } else if (a.price, b.price) {
@@ -12,7 +12,7 @@ export const sortLow = (products: IProduct[]) => {
 
 }
 export const sortHight = (products: IProduct[]) => {
-    products.sort((a:IProduct, b:IProduct) => {
+    products.sort((a: IProduct, b: IProduct) => {
         if (a.price < b.price) {
             return 1
         } else if (a.price, b.price) {
@@ -22,28 +22,34 @@ export const sortHight = (products: IProduct[]) => {
     })
 
 }
-export const sortPopularity = (products: IProduct[]) => {
-    products.map(e => console.log(e.destacados))
-    // products.sort((a:IProduct, b:IProduct) => {
-    //     console.log(a.destacados)
-    //     if (a.destacados == false) {
-    //         return 1
-    //     } else if(a.destacados) {
-    //         return -1
-    //     }else if(a.destacados == undefined){
-    //         return 0 
-    //     }
-    //     return 0
-    // })
+export const sortPopularity = (products: IProduct[], word: string) => {
+    const a = products.sort((a: IProduct, b: IProduct) => {
+
+        if (a.slug.indexOf(word) < b.slug.indexOf(word)) {
+            return 1
+        } else if (a.slug.indexOf(word) > b.slug.indexOf(word)) {
+            return -1
+        }
+        return 0
+    })
+    return a
+}
+
+
+export const odenarCategorias = (products: IProduct[]) => {
+
+    products.map(e =>{
+        let a 
+    })
 
 }
 
-export const capitalizarPrimeraLetraPalabras= (frase:string| any) =>{
+export const capitalizarPrimeraLetraPalabras = (frase: string | any) => {
     if (typeof frase != 'string') {
         throw TypeError('El argumento debe ser una cadena de caracteres.');
     }
 
-    return frase.replace(/\w\S*/g, (palabra)=>{
+    return frase.replace(/\w\S*/g, (palabra) => {
         return palabra.charAt(0).toUpperCase() + palabra.slice(1).toLowerCase();
     });
 }
