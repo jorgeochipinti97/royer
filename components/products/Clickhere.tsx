@@ -14,7 +14,7 @@ export const ClickHere = () => {
             xs={6}
             sm={4}
         >
-            <Card>
+            <Card sx={{m:3}}>
                 <NextLink href={'/contact'} passHref prefetch={false}>
                     <Link>
                         <CardActionArea>
