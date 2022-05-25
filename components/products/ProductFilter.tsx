@@ -15,7 +15,7 @@ export const ProductFilterPage = () => {
     const [valueProduct, setValueProduct] = useState<string>('all')
     const [_productsFiltered, setProductsFiltered] = useState<IProduct[]>(products)
     const [typeProduct, setTypeProduct] = useState<string>('')
-    const genders_ = ['all', 'regionales', 'fashion']
+    const genders_ = ['all', 'fashion']
     const todasCategorias = ['shirts', 'jacket', 'pants', 'hoodies', 'hats', 'mate', 'yerba', 'alfajores', 'wine', 'short', 'socks', 'wallet', 'purse', 'accessories', 'bag']
     const categoriasRopa = ['shirts', 'jacket', 'pants', 'hoodies', 'hats', 'short', 'socks', 'wallet', 'purse']
     const fashion__ = ['wallet', 'purse', 'shirts', 'bag', 'hats']
@@ -183,6 +183,11 @@ export const ProductFilterPage = () => {
                                         >{capitalize(e)}</Button>
                                     </Box>
                                 ))}
+                                    <Box >
+                                        <Button color={valueProduct === 'regionales' ? 'primary' : 'info'}
+                                            onClick={() => handleClickValues('regionales')}
+                                        >Regionals</Button>
+                                    </Box>
 
                             </Box>
                         </Box>
