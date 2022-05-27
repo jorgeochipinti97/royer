@@ -32,7 +32,7 @@ const Social: FC<Props> = ({ sizeFont }) => {
 
                 </Link>
             </NextLink>
-            <NextLink href="mailto:royerstorearg@gmail.com" passHref>
+            <NextLink href="mailto:info@royer.store" passHref>
                 <Link>
                     <Button> <MailIcon sx={{ fontSize: sizeFont }} /></Button>
 
