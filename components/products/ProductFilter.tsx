@@ -84,6 +84,7 @@ export const ProductFilterPage = () => {
         const wine: IProduct[] = sortPopularity(products, 'wine')
         const yerba: IProduct[] = sortPopularity(products, 'yerba')
 
+  
         return tShirtsMessi
             .concat(shorts)
             .concat(hoodies)

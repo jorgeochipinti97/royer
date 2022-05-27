@@ -45,6 +45,7 @@ const productSchema = new Schema({
         default:false,
     
     }
+    // agregar productos relacionados 
 },{
     timestamps: true
 });
