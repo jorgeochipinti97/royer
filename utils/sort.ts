@@ -11,7 +11,7 @@ export const sortLow = (products: IProduct[]) => {
     })
 
 }
-export const sortHight = (products: IProduct[]) => {
+export const sortHigh = (products: IProduct[]) => {
     products.sort((a: IProduct, b: IProduct) => {
         if (a.price < b.price) {
             return 1

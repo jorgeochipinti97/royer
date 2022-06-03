@@ -5,7 +5,7 @@ import { capitalize, Box, Button, Divider, InputLabel, Select, MenuItem, FormCon
 import { useProducts } from '../../hooks';
 import { ProductList } from './ProductList';
 import { IProduct } from '../../interfaces';
-import { sortHight, sortLow, sortPopularity } from '../../utils/sort';
+import { sortHigh, sortLow, sortPopularity } from '../../utils/sort';
 
 
 
@@ -38,8 +38,8 @@ export const ProductFilterPage = () => {
             sortLow(_productsFiltered)
         }
 
-        if (e == 'hight') {
-            sortHight(_productsFiltered)
+        if (e == 'high') {
+            sortHigh(_productsFiltered)
 
         }
 
@@ -224,8 +224,8 @@ export const ProductFilterPage = () => {
                             value={select_}
                             onChange={e => handleSelectChange(e.target.value)}>
                             {/* <MenuItem value={'popularity'}>popularity</MenuItem> */}
-                            <MenuItem value={'low'}>Price: low to hight  </MenuItem>
-                            <MenuItem value={'hight'}>Price: hight to low  </MenuItem>
+                            <MenuItem value={'low'}>Price: low to high  </MenuItem>
+                            <MenuItem value={'high'}>Price: high to low  </MenuItem>
                         </Select>
                     </FormControl>
                 </Box>
