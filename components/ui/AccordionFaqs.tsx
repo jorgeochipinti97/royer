@@ -7,11 +7,11 @@ import { FC } from 'react';
 import QuizIcon from '@mui/icons-material/Quiz';
 
 
-interface Props{
-pregunta:string,
-respuesta:string
+interface Props {
+    pregunta: string,
+    respuesta: string,
 }
-export const AccordionFaqs:FC<Props> = ({pregunta, respuesta}) => {
+export const AccordionFaqs: FC<Props> = ({ pregunta, respuesta }) => {
     return (
         <>
 
@@ -21,11 +21,11 @@ export const AccordionFaqs:FC<Props> = ({pregunta, respuesta}) => {
                     aria-controls="panel1a-content"
                     id="panel1a-header"
                 >
-                    <Typography variant='h2' sx={{fontWeight: 600}}>{pregunta}</Typography>
+                    <Typography variant='h2' sx={{ fontWeight: 600 }}>{pregunta}</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
                     <Typography variant='body1'>
-                       {respuesta}
+                        {respuesta}
                     </Typography>
                 </AccordionDetails>
             </Accordion>
