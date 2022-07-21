@@ -32,7 +32,7 @@ export const Footer = () => {
                     <Typography component='h5'><CopyrightIcon sx={{ fontSize: 14 }} />  all rights reserved. Royer</Typography>
                 </Box>
                 <Box display='flex' justifyContent='center' sx={{ mt: 3, mb: 2 }} >
-                    <Typography component='h5' fontWeight={650}> Development by LAZARO</Typography>
+                    <Typography component='h5' fontWeight={650}> Development by Jorge Ochipinti</Typography>
                 </Box>
             </Box>
         </footer>
