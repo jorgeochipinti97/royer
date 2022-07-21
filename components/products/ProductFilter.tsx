@@ -43,21 +43,12 @@ export const ProductFilterPage = () => {
 
         }
 
-        // if(e =='popularity'){
-        //     sortPopularity(_productsFiltered)
-        // }
     }
 
-    // useEffect(() => {
-    // const sort =()=>{
-    //     const a =   sortByType(_productsFiltered)
-    //     setProductsFiltered(a)
-    // }
-    // sort()
-
-    // }, [_productsFiltered])
 
     const sortByType = (products: IProduct[]) => {
+
+        //TODO : QUE LO ULTIMO QUEDE PRIMERO
 
         const tshirts: IProduct[] = sortPopularity(products, 'shirts')
         const tShirtsMessi = tshirts.sort((a: IProduct, b: IProduct) => {

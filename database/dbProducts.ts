@@ -78,6 +78,9 @@ export const getAllProducts = async (): Promise<IProduct[]> => {
 
     return JSON.parse(JSON.stringify(products));
 }
+
+
+
 export const getPopulars = async (): Promise<IProduct[]> => {
 
     await db.connect();
