@@ -16,7 +16,6 @@ import { currency } from '../../utils';
 import { isValidObjectId } from 'mongoose';
 import register from '../auth/register';
 
-import { useForm } from 'react-hook-form';
 
 export type OrderResponseBody = {
     id: string;
@@ -34,19 +33,6 @@ interface Props {
 
 const OrderPage: NextPage<Props> = ({ order }) => {
     const router = useRouter();
-
-    const { register, setValue, handleSubmit } = useForm<IOrder>({
-        defaultValues: {
-            _id: order._id,
-            orderItems: order.orderItems,
-            shippingAddress: order.shippingAddress,
-            numberOfItems: order.numberOfItems,
-            subTotal: order.subTotal,
-            tax: order.tax,
-            total: order.total,
-            transactionId: order.transactionId,
-        }
-    })
     const { shippingAddress } = order;
     const [isWestern, setIsWestern] = useState(false)
     const [isAirtm, setIsAirtm] = useState(false)
@@ -146,7 +132,10 @@ const OrderPage: NextPage<Props> = ({ order }) => {
     return (
         <ShopLayout title='Order Resume' pageDescription={'Order Resume'}>
             <Typography variant='subtitle1' >Orden: {order._id}</Typography>
-            <Typography variant='subtitle1' >Transaction ID: {order.transactionId}</Typography>
+            {order.transactionId != 'null' &&
+
+                <Typography variant='subtitle1' >Transaction ID: {order.transactionId}</Typography>
+            }
 
             {
                 order.isPaid &&
@@ -163,14 +152,15 @@ const OrderPage: NextPage<Props> = ({ order }) => {
 
                             <Box sx={{ mb: 5, border: '1px dashed grey' }}>
                                 <Typography align="center" variant='subtitle1' sx={{ m: 1 }}>
-                                    You will be receiving an email soon with the steps to follow your shipment                                    </Typography>
+                                    You will be receiving an email soon with the steps to follow your shipment
+                                </Typography>
                             </Box>
                         </Box>
                     </>
                 )
             }
             {
-                !order.isPaid && !order.transactionId && (
+                !order.isPaid && order.transactionId == 'null' && (
                     (
                         <Chip
                             sx={{ my: 2 }}
@@ -185,7 +175,7 @@ const OrderPage: NextPage<Props> = ({ order }) => {
 
 
             {
-                order.transactionId && (
+                order.transactionId != 'null' && (
                     <Box display='flex' justifyContent='center'>
 
                         <Box sx={{ mb: 5, border: '1px dashed grey' }}>
@@ -250,48 +240,90 @@ const OrderPage: NextPage<Props> = ({ order }) => {
 
                                     )}
                                 {
-                                    !order.isPaid || !order.transactionId &&
-
-                                    (
-                                        <>
-                                            <PayPalButtons
-                                                createOrder={(data, actions) => {
-                                                    return actions.order.create({
-                                                        purchase_units: [
-                                                            {
-                                                                amount: {
-                                                                    value: `${order.total}`,
+                                    order.isPaid || order.transactionId != 'null'
+                                        ? null
+                                        :
+                                        (
+                                            <>
+                                                <PayPalButtons
+                                                    createOrder={(data, actions) => {
+                                                        return actions.order.create({
+                                                            purchase_units: [
+                                                                {
+                                                                    amount: {
+                                                                        value: `${order.total}`,
+                                                                    },
                                                                 },
-                                                            },
-                                                        ],
-                                                    });
-                                                }}
-                                                onApprove={(data, actions) => {
-                                                    return actions.order!.capture().then((details) => {
-                                                        onOrderCompleted(details);
-                                                    });
-                                                }}
-                                            />
-                                            <Divider sx={{ my: 1 }} />
-                                            <Box display='flex' justifyContent='center'>
-                                                <Button variant="contained"
+                                                            ],
+                                                        });
+                                                    }}
+                                                    onApprove={(data, actions) => {
+                                                        return actions.order!.capture().then((details) => {
+                                                            onOrderCompleted(details);
+                                                        });
+                                                    }}
+                                                />
+                                                <Divider sx={{ my: 1 }} />
+                                                <Box display='flex' justifyContent='center'>
+                                                    <Button variant="contained"
 
-                                                    sx={{ m: 1, backgroundColor: 'black' }}
-                                                    onClick={() => setIsWestern(!isWestern)}
-                                                >
-                                                    <Typography variant='subtitle1' sx={{ m: 2, color: 'yellow' }}>
-                                                        Western Union
-                                                    </Typography>
-                                                </Button>
+                                                        sx={{ m: 1, backgroundColor: 'black' }}
+                                                        onClick={() => setIsWestern(!isWestern)}
+                                                    >
+                                                        <Typography variant='subtitle1' sx={{ m: 2, color: 'yellow' }}>
+                                                            Western Union
+                                                        </Typography>
+                                                    </Button>
 
-                                            </Box>
-                                            <Box display='flex' justifyContent='center' sx={{ display: !isWestern ? 'none' : 'block' }}>
-                                                <Box display='flex' flexDirection='column'>
-                                                    <Box display='flex' justifyContent='center'>
-                                                        <Typography variant='subtitle1'>Fernando Gabriel Lansese</Typography>
+                                                </Box>
+                                                <Box display='flex' justifyContent='center' sx={{ display: !isWestern ? 'none' : 'block' }}>
+                                                    <Box display='flex' flexDirection='column'>
+                                                        <Box display='flex' justifyContent='center'>
+                                                            <Typography variant='subtitle1'>Fernando Gabriel Lansese</Typography>
+                                                        </Box>
+                                                        <Box display='flex' justifyContent='center'>
+                                                            <Typography variant='subtitle1'>DNI: 39.960.639</Typography>
+                                                        </Box>
+                                                        <Box display='flex' justifyContent='center'>
+                                                            <form >
+                                                                <FormControl>
+
+                                                                    <FormLabel sx={{ m: 1 }}>Put your transaction id please!</FormLabel>
+                                                                    <TextField
+                                                                        onChange={(e) => setHash_(e.target.value)}
+                                                                        type='text'
+                                                                    ></TextField>
+                                                                    <Button
+                                                                        type='submit'
+                                                                        onClick={() => orderWhitTransactionId(`WSTRN-${hash_}`)}
+                                                                        disabled={isDisable}
+
+                                                                        color='success' sx={{ m: 3 }}>
+                                                                        Send
+                                                                    </Button>
+                                                                </FormControl>
+                                                            </form>
+                                                        </Box>
                                                     </Box>
-                                                    <Box display='flex' justifyContent='center'>
-                                                        <Typography variant='subtitle1'>DNI: 39.960.639</Typography>
+
+                                                </Box>
+                                                <Divider sx={{ my: 1 }} />
+                                                <Box display='flex' justifyContent='center'>
+                                                    <Button variant="contained"
+                                                        color='secondary'
+                                                        sx={{ m: 1 }}
+                                                        onClick={() => setIsAirtm(!isAirtm)}
+                                                    >
+                                                        <Typography variant='subtitle1' sx={{ m: 1, color: 'white' }}>
+                                                            AIRTM
+                                                        </Typography>
+                                                    </Button>
+                                                </Box>
+                                                <Box display='flex' justifyContent='center' sx={{ display: !isAirtm ? 'none' : 'block' }}>
+                                                    <Box display='flex' flexDirection='column'>
+                                                        <Box display='flex' justifyContent='center'>
+                                                            <Typography variant='subtitle1'>felanese1996@gmail.com</Typography>
+                                                        </Box>
                                                     </Box>
                                                     <Box display='flex' justifyContent='center'>
                                                         <form >
@@ -304,97 +336,58 @@ const OrderPage: NextPage<Props> = ({ order }) => {
                                                                 ></TextField>
                                                                 <Button
                                                                     type='submit'
-                                                                    onClick={() => orderWhitTransactionId(`WSTRN-${hash_}`)}
                                                                     disabled={isDisable}
-
+                                                                    onClick={() => orderWhitTransactionId(`AIRTM-${hash_}`)}
                                                                     color='success' sx={{ m: 3 }}>
                                                                     Send
                                                                 </Button>
                                                             </FormControl>
                                                         </form>
                                                     </Box>
-                                                </Box>
 
-                                            </Box>
-                                            <Divider sx={{ my: 1 }} />
-                                            <Box display='flex' justifyContent='center'>
-                                                <Button variant="contained"
-                                                    color='secondary'
-                                                    sx={{ m: 1 }}
-                                                    onClick={() => setIsAirtm(!isAirtm)}
-                                                >
-                                                    <Typography variant='subtitle1' sx={{ m: 1, color: 'white' }}>
-                                                        AIRTM
-                                                    </Typography>
-                                                </Button>
-                                            </Box>
-                                            <Box display='flex' justifyContent='center' sx={{ display: !isAirtm ? 'none' : 'block' }}>
-                                                <Box display='flex' flexDirection='column'>
-                                                    <Box display='flex' justifyContent='center'>
-                                                        <Typography variant='subtitle1'>felanese1996@gmail.com</Typography>
+                                                </Box>
+                                                <Divider sx={{ my: 1 }} />
+                                                <Box display='flex' justifyContent='center' sx={{ mb: 3 }}>
+                                                    <Chip color='secondary' label='10% OFF' variant='filled' sx={{ pr: 3, pl: 3, pt: 1, pb: 1, mt: 2 }} />
+                                                </Box>
+                                                <Grid container>
+                                                    <Grid item xs={6} sx={{ mt: 2 }}>
+                                                        <Typography variant="subtitle1">Total:</Typography>
+                                                    </Grid>
+                                                    <Grid item xs={6} sx={{ mt: 2 }} display='flex' justifyContent='end'>
+                                                        <Typography variant="subtitle1">{currency.format(discountPrice)}</Typography>
+                                                    </Grid>
+                                                </Grid>
+
+                                                <Box display='flex' flexDirection='column' sx={{ mt: 1 }}>
+                                                    <Divider sx={{ my: 1 }} />
+                                                    <Box display='flex' justifyContent='center' sx={{ mb: 2 }} >
+
+
+                                                        {crypto.map(e => (
+                                                            <Image src={e} key={e} width={35} height={35} alt='foto' />
+                                                        ))}
+
                                                     </Box>
-                                                </Box>
-                                                <Box display='flex' justifyContent='center'>
-                                                    <form >
-                                                        <FormControl>
 
-                                                            <FormLabel sx={{ m: 1 }}>Put your transaction id please!</FormLabel>
-                                                            <TextField
-                                                                onChange={(e) => setHash_(e.target.value)}
-                                                                type='text'
-                                                            ></TextField>
-                                                            <Button
-                                                                type='submit'
-                                                                disabled={isDisable}
-                                                                onClick={() => orderWhitTransactionId(`AIRTM-${hash_}`)}
-                                                                color='success' sx={{ m: 3 }}>
-                                                                Send
-                                                            </Button>
-                                                        </FormControl>
-                                                    </form>
-                                                </Box>
+                                                    <Box display='flex' justifyContent='center'>
+                                                        <Button variant="contained" color='success'
+                                                            sx={{ m: 1 }}
+                                                            onClick={() => createCryptoOrder()}
+                                                            disabled={isDisable}
+                                                        >
+                                                            <Typography variant='h2' sx={{ m: 2 }}>
+                                                                pay with cryptocurrency</Typography>
+                                                        </Button>
+                                                    </Box>
+                                                    <Divider sx={{ my: 1 }} />
 
-                                            </Box>
-                                            <Divider sx={{ my: 1 }} />
-                                            <Box display='flex' justifyContent='center' sx={{ mb: 3 }}>
-                                                <Chip color='secondary' label='10% OFF' variant='filled' sx={{ pr: 3, pl: 3, pt: 1, pb: 1, mt: 2 }} />
-                                            </Box>
-                                            <Grid container>
-                                                <Grid item xs={6} sx={{ mt: 2 }}>
-                                                    <Typography variant="subtitle1">Total:</Typography>
-                                                </Grid>
-                                                <Grid item xs={6} sx={{ mt: 2 }} display='flex' justifyContent='end'>
-                                                    <Typography variant="subtitle1">{currency.format(discountPrice)}</Typography>
-                                                </Grid>
-                                            </Grid>
-
-                                            <Box display='flex' flexDirection='column' sx={{ mt: 1 }}>
-                                                <Divider sx={{ my: 1 }} />
-                                                <Box display='flex' justifyContent='center' sx={{ mb: 2 }} >
-
-
-                                                    {crypto.map(e => (
-                                                        <Image src={e} key={e} width={35} height={35} alt='foto' />
-                                                    ))}
 
                                                 </Box>
+                                            </>
+                                        )
 
-                                                <Box display='flex' justifyContent='center'>
-                                                    <Button variant="contained" color='success'
-                                                        sx={{ m: 1 }}
-                                                        onClick={() => createCryptoOrder()}
-                                                        disabled={isDisable}
-                                                    >
-                                                        <Typography variant='h2' sx={{ m: 2 }}>
-                                                            pay with cryptocurrency</Typography>
-                                                    </Button>
-                                                </Box>
-                                                <Divider sx={{ my: 1 }} />
-
-
-                                            </Box>
-                                        </>
-                                    )}
+                                }
 
 
 

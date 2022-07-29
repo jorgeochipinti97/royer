@@ -51,6 +51,17 @@ export const ProductFilterPage = () => {
         //TODO : QUE LO ULTIMO QUEDE PRIMERO
 
         const tshirts: IProduct[] = sortPopularity(products, 'shirts')
+        
+        tshirts.sort((a: IProduct, b: IProduct) => {
+
+            if (a.slug.indexOf('argentina_national') < b.slug.indexOf('argentina_national')) {
+                return 1
+            } else if (a.slug.indexOf('argentina_national') > b.slug.indexOf('argentina_national')) {
+                return -1
+            }
+            return 0
+        })
+
         const tShirtsMessi = tshirts.sort((a: IProduct, b: IProduct) => {
 
             if (a.slug.indexOf('messi') < b.slug.indexOf('messi')) {
@@ -60,6 +71,10 @@ export const ProductFilterPage = () => {
             }
             return 0
         })
+
+      
+
+
         const shorts: IProduct[] = sortPopularity(products, 'short')
         const hoodies: IProduct[] = sortPopularity(products, 'hoodies')
         const jacket: IProduct[] = sortPopularity(products, 'jacket')
