@@ -67,9 +67,7 @@ export default HomePage
 export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   const product__ = await dbProducts.getPopulars()
-  console.log(product__)
 
-  console.log(product__)
   if (!product__) {
     return {
       redirect: {

@@ -62,7 +62,7 @@ export const SideMenu = () => {
                             }
                         />
                     </ListItem>
-                    {/* 
+              
                     {
                         isLoggedIn && (
                             <>
@@ -76,12 +76,12 @@ export const SideMenu = () => {
                                 </ListItem>
                             </>
                         )
-                    } */}
+                    } 
 
 
 
 
-                    {/* {
+                    {
                         isLoggedIn
                             ? (
                                 <ListItem button onClick={logout}>
@@ -102,7 +102,7 @@ export const SideMenu = () => {
                                     <ListItemText primary={'Login'} />
                                 </ListItem>
                             )
-                    } */}
+                    } 
                     <ListItem
                         button
                         sx={{ display: { xs: '', sm: 'none' } }}
@@ -152,7 +152,7 @@ export const SideMenu = () => {
                     </ListItem>
 
                     {/* Admin */}
-                    {/* {
+                    {
                         user?.role === 'admin' && (
                             <>
                                 <Divider />
@@ -210,7 +210,7 @@ export const SideMenu = () => {
 
                             </>
                         )
-                    } */}
+                    }
                 </List>
             </Box>
         </Drawer>
