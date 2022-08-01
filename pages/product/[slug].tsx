@@ -63,13 +63,14 @@ const ProductPage: NextPage<Props> = ({ product }) => {
   }, [])
 
   useEffect(() => {
-    if (product.gender === 'regionales' || product.gender === 'fashion') {
+    if (product.type != 'espadrilles' && product.gender === 'regionales' || product.gender === 'fashion') {
       setIsNoSize(true)
       setTempCartProduct(currentProduct => ({
         ...currentProduct,
         size: 'Unique'
       }));
     }
+    product.type == 'espadrilles' && setIsNoSize(false) 
 
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -184,10 +185,10 @@ const ProductPage: NextPage<Props> = ({ product }) => {
                   <Button
                     color="primary"
                     onClick={() => console.log()}
-                    startIcon={<AttachMoneyIcon />}
+
                     sx={{ width: '163px', m: 2, pt: 1, pb: 1 }}>
                     <Typography variant='button'>
-                      Paypal: {`${currency.formattwo(product.price)}`}
+                      USD: {`${currency.formattwo(product.price)}`}
                     </Typography>
                   </Button>
                 </Link>
@@ -213,7 +214,7 @@ const ProductPage: NextPage<Props> = ({ product }) => {
             </Box>
             <Box sx={{ my: 2, }}>
               <Typography variant='subtitle2' sx={{ m: 2 }}>Quantity</Typography>
-              <Box sx={{mb:2}}>
+              <Box sx={{ mb: 2 }}>
 
                 <ItemCounter
                   currentValue={tempCartProduct.quantity}

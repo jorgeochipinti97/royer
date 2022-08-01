@@ -1,6 +1,6 @@
-import { useMemo, useState, useEffect } from 'react';
+import { useState } from 'react';
 import NextLink from 'next/link';
-import { Grid, Card, CardActionArea, CardMedia, Box, Typography, Link, Divider, Button, Chip, capitalize } from '@mui/material'
+import { Grid, Card, CardActionArea, CardMedia, Link, Divider, } from '@mui/material'
 
 import Image from 'next/image';
 
@@ -14,7 +14,7 @@ export const ClickHere = () => {
             xs={6}
             sm={4}
         >
-            <Card sx={{m:3}}>
+            <Card sx={{ m: 3 }}>
                 <NextLink href={'/contact'} passHref prefetch={false}>
                     <Link>
                         <CardActionArea>

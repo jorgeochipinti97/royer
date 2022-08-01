@@ -33,6 +33,7 @@ const getProducts = async(req: NextApiRequest, res: NextApiResponse<Data>) => {
     await db.connect();
     const products = await Product.find(condition)
                                 .select('title images price inStock slug id_ gender type')
+                                .sort({createdAt:-1})
                                 .lean();
 
     await db.disconnect();

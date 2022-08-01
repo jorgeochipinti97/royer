@@ -10,7 +10,7 @@ const productSchema = new Schema({
     sizes: [{
         type: String,
         enum: {
-            values: ['XS','S','M','L','XL','XXL','XXXL','Unique'],
+            values: ['XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL', 'Unique', '7.5', '8', '8.5', '9', '9.5', '10', '10.5', '11', '11.5', '12', '12.5', '13', '14', '15'],
             message: '{VALUE} no es un tamaño válido'
         }
     }],
@@ -20,7 +20,7 @@ const productSchema = new Schema({
     type: {
         type: String,
         enum: {
-            values: ['shirts','t-shirt','football shirt','jacket','pants','hoodies','hats','mate','yerba','alfajores','wine','short','socks','wallet','purse','accessories','bag'],
+            values: ['shirts', 't-shirt', 'football shirt', 'jacket', 'pants', 'hoodies', 'hats', 'mate', 'yerba', 'alfajores', 'wine', 'short', 'socks', 'wallet', 'purse', 'accessories', 'bag','espadrilles'],
             message: '{VALUE} no es un tipo válido'
         },
         default: 'shirts'
@@ -28,25 +28,25 @@ const productSchema = new Schema({
     gender: {
         type: String,
         enum: {
-            values: ['men','women','kid','unisex','regionales','fashion'],
+            values: ['men', 'women', 'kid', 'unisex', 'regionales', 'fashion'],
             message: '{VALUE} no es un genero válido'
         },
         default: 'women'
     },
-    popular:{
+    popular: {
 
-        type:Boolean,
-        default:false,
-    
+        type: Boolean,
+        default: false,
+
     },
-    destacados:{
+    destacados: {
 
-        type:Boolean,
-        default:false,
-    
+        type: Boolean,
+        default: false,
+
     }
     // agregar productos relacionados 
-},{
+}, {
     timestamps: true
 });
 
@@ -54,7 +54,7 @@ const productSchema = new Schema({
 productSchema.index({ title: 'text', tags: 'text' });
 
 
-const Product: Model<IProduct> = mongoose.models.Product || model('Product', productSchema );
+const Product: Model<IProduct> = mongoose.models.Product || model('Product', productSchema);
 
 
 export default Product;

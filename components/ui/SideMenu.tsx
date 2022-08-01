@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react';
 
 import { Box, Divider, Drawer, IconButton, Input, InputAdornment, List, ListItem, ListItemIcon, ListItemText, ListSubheader } from "@mui/material"
-import { AccountCircleOutlined, AdminPanelSettings, CategoryOutlined, ConfirmationNumberOutlined, EscalatorWarningOutlined, FemaleOutlined, LoginOutlined, MaleOutlined, SearchOutlined, VpnKeyOutlined, DashboardOutlined } from "@mui/icons-material"
+import { AdminPanelSettings, CategoryOutlined, ConfirmationNumberOutlined, SearchOutlined, DashboardOutlined, LoginOutlined, VpnKeyOutlined } from "@mui/icons-material"
 import GradeIcon from '@mui/icons-material/Grade';
 import { UiContext, AuthContext } from '../../context';
 import { useRouter } from 'next/router';
@@ -16,7 +16,6 @@ export const SideMenu = () => {
     const router = useRouter();
     const { isMenuOpen, toggleSideMenu } = useContext(UiContext);
     const { user, isLoggedIn, logout } = useContext(AuthContext);
-
     const [searchTerm, setSearchTerm] = useState('');
 
     const onSearchTerm = () => {
@@ -62,8 +61,8 @@ export const SideMenu = () => {
                             }
                         />
                     </ListItem>
-              
-                    {/* {
+
+                    {
                         isLoggedIn && (
                             <>
                                 <ListItem button>
@@ -76,12 +75,12 @@ export const SideMenu = () => {
                                 </ListItem>
                             </>
                         )
-                    }  */}
+                    }
 
 
 
 
-                    {/* {
+                    {
                         isLoggedIn
                             ? (
                                 <ListItem button onClick={logout}>
@@ -102,7 +101,7 @@ export const SideMenu = () => {
                                     <ListItemText primary={'Login'} />
                                 </ListItem>
                             )
-                    }  */}
+                    }
                     <ListItem
                         button
                         sx={{ display: { xs: '', sm: 'none' } }}

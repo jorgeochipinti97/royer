@@ -137,10 +137,9 @@ export const ProductCard: FC<Props> = ({ product }) => {
                             <Link>
                                 <Button
                                     color="primary"
-                                    startIcon={<AttachMoneyIcon />}
                                     sx={{ width: '130px' }}>
                                     <Typography variant="body2" textAlign={'center'} fontWeight={700}>
-                                        Paypal:{`${currency.formattwo(product.price)}`}
+                                        USD:{`${currency.formattwo(product.price)}`}
                                     </Typography>
                                 </Button>
                             </Link>
