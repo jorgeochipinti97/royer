@@ -22,26 +22,27 @@ export const ProductFilterPage = () => {
     const categoriasRegional = ['mate', 'yerba', 'alfajores', 'wine', 'espadrilles']
     const [categories, setCategories] = useState<string[]>(todasCategorias)
     const [select_, setSelect_] = useState<string>('populars')
+    const [currentPage, setCurrentPage] = useState(0)
+
+
+
 
     useEffect(() => {
         const _handle = () => {
-            setProductsFiltered(products)
+            const pagination = products.slice(currentPage, currentPage + 9)
+            setProductsFiltered(pagination)
         }
         _handle()
     }, [products])
 
 
+
+
+
     const handleSelectChange = (e: string) => {
         setSelect_(e)
-        if (e == 'low') {
-            sortLow(_productsFiltered)
-        }
-
-        if (e == 'high') {
-            sortHigh(_productsFiltered)
-
-        }
-
+        e == 'low' && sortLow(_productsFiltered)
+        e == 'high' && sortHigh(_productsFiltered)
     }
 
     const handleClickValues = (valueOfProduct_: string) => {
@@ -62,7 +63,7 @@ export const ProductFilterPage = () => {
             } else if (valueOfProduct_ === 'regionales') {
                 const newProducts_ = products.filter(e => e.gender === valueOfProduct_)
                 handleProduct(newProducts_, valueOfProduct_, categoriasRegional, '',)
-                
+
             } else if (valueOfProduct_ == 'fashion') {
                 const newProducts_ = products.filter(e => e.gender === valueOfProduct_)
                 handleProduct(newProducts_, valueOfProduct_, fashion__, '',)
@@ -160,6 +161,14 @@ export const ProductFilterPage = () => {
                     ? <FullScreenLoading />
                     : <ProductList products={_productsFiltered} />
             }
+            <Button
+                onClick={() => setCurrentPage(currentPage + 9)}>
+                Siguiente
+            </Button>
+            <Button
+                onClick={() => setCurrentPage(currentPage - 9)}>
+                anterior
+            </Button>
         </>
 
     )
