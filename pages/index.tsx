@@ -72,7 +72,6 @@ const HomePage: NextPage<Props> = ({ product__ }) => {
         height={1000}
         width={1800}
       />
-
       {
         isLoading
           ? <FullScreenLoading />
@@ -91,8 +90,6 @@ const HomePage: NextPage<Props> = ({ product__ }) => {
             </>
           )
       }
-
-
 
       <Box sx={{ mt: 3 }} display='flex' justifyContent='center'>
         <Typography variant='h1'>About Us</Typography>

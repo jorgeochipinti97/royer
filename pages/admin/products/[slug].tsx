@@ -15,7 +15,7 @@ import { tesloApi } from '../../../api';
 import { Product } from '../../../models';
 
 
-const validTypes = ['shirts', 't-shirt', 'football shirt', 'jacket', 'pants', 'hoodies', 'hats', 'mate', 'yerba', 'alfajores', 'wine', 'short', 'socks', 'wallet', 'purse', 'accessories', 'bag','espadrilles']
+const validTypes = ['shirts', 't-shirt', 'football shirt', 'jacket', 'pants', 'hoodies', 'hats', 'mate', 'yerba', 'alfajores', 'wine', 'short', 'socks', 'wallet', 'purse', 'accessories', 'bag', 'espadrilles']
 const validGender = ['men', 'women', 'kid', 'unisex', 'regionales', 'fashion']
 const validSizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL', 'Unique', '7.5', '8', '8.5', '9', '9.5', '10', '10.5', '11', '11.5', '12', '12.5', '13', '14', '15']
 
@@ -74,7 +74,7 @@ const ProductAdminPage: FC<Props> = ({ product, }) => {
     }, [watch, setValue])
 
     useEffect(() => {
-        if (getValues('gender') == 'regionales' || getValues('gender') == 'fashion') {
+        if (getValues('gender') == 'regionales' && getValues('type') != 'espadrilles' || getValues('gender') == 'fashion') {
             setIsHidden(true)
         } else {
             setIsHidden(false)
