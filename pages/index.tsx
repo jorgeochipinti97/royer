@@ -29,9 +29,9 @@ const HomePage: NextPage<Props> = ({ product__ }) => {
     const wine: IProduct[] = sortPopularity(product__, 'wine')
     const mate: IProduct[] = sortPopularity(product__, 'mate')
     const accessories: IProduct[] = sortPopularity(product__, 'accessories')
-  
+
     tshirts.sort((a: IProduct, b: IProduct) => {
-  
+
       if (a.slug.indexOf('argentina_official_') < b.slug.indexOf('argentina_official_')) {
         return 1
       } else if (a.slug.indexOf('argentina_official_') > b.slug.indexOf('argentina_official_')) {
@@ -39,9 +39,9 @@ const HomePage: NextPage<Props> = ({ product__ }) => {
       }
       return 0
     })
-  
+
     const tShirtsMessi = tshirts.sort((a: IProduct, b: IProduct) => {
-  
+
       if (a.slug.indexOf('messi') < b.slug.indexOf('messi')) {
         return 1
       } else if (a.slug.indexOf('messi') > b.slug.indexOf('messi')) {
@@ -49,16 +49,17 @@ const HomePage: NextPage<Props> = ({ product__ }) => {
       }
       return 0
     })
-  
-  
+
+
     const productos = tShirtsMessi
       .concat(alfajores)
       .concat(wine)
       .concat(mate)
       .concat(accessories)
 
-  setProducts_(productos)
-  })
+    setProducts_(productos)
+
+  }, [product__])
 
   const { products, isLoading } = useProducts('/products');
   const [products_, setProducts_] = useState(product__)

@@ -1,6 +1,7 @@
 import { db } from './';
 import { Product } from '../models';
 import { IProduct } from '../interfaces';
+import { sortPopularity } from '../utils';
 
 
 
@@ -83,12 +84,46 @@ export const getAllProducts = async (): Promise<IProduct[]> => {
 
 export const getPopulars = async (): Promise<IProduct[]> => {
 
+
     await db.connect();
     const products = await Product.find({ popular: true }).lean();
+    const tshirts: IProduct[] = sortPopularity(products, 'shirts')
+    const alfajores: IProduct[] = sortPopularity(products, 'alfajores')
+    const wine: IProduct[] = sortPopularity(products, 'wine')
+    const mate: IProduct[] = sortPopularity(products, 'mate')
+    const accessories: IProduct[] = sortPopularity(products, 'accessories')
+
+    tshirts.sort((a: IProduct, b: IProduct) => {
+
+        if (a.slug.indexOf('argentina_official_') < b.slug.indexOf('argentina_official_')) {
+            return 1
+        } else if (a.slug.indexOf('argentina_official_') > b.slug.indexOf('argentina_official_')) {
+            return -1
+        }
+        return 0
+    })
+
+    const tShirtsMessi = tshirts.sort((a: IProduct, b: IProduct) => {
+
+        if (a.slug.indexOf('messi') < b.slug.indexOf('messi')) {
+            return 1
+        } else if (a.slug.indexOf('messi') > b.slug.indexOf('messi')) {
+            return -1
+        }
+        return 0
+    })
+
+
+    const productos = tShirtsMessi
+        .concat(alfajores)
+        .concat(wine)
+        .concat(mate)
+        .concat(accessories)
+
     await db.disconnect();
 
 
-    return JSON.parse(JSON.stringify(products));
+    return JSON.parse(JSON.stringify(productos));
 }
 
 

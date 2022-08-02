@@ -24,7 +24,7 @@ export const sortHigh = (products: IProduct[]) => {
 }
 export const sortPopularity = (products: IProduct[], word: string) => {
     const a = products.filter(e => e.type == word)
-    return a 
+    return a
 }
 
 
@@ -44,4 +44,29 @@ export const capitalizarPrimeraLetraPalabras = (frase: string | any) => {
     return frase.replace(/\w\S*/g, (palabra) => {
         return palabra.charAt(0).toUpperCase() + palabra.slice(1).toLowerCase();
     });
+}
+
+export const sortProductsByTerm = (products: IProduct[], palabra: string) => {
+
+    return products.sort((a: IProduct, b: IProduct) => {
+        if (a.slug.indexOf(palabra) < b.slug.indexOf(palabra)) {
+            return 1
+        } else if (a.slug.indexOf(palabra) > b.slug.indexOf(palabra)) {
+            return -1
+        }
+        return 0
+    })
+
+}
+export const sendLast = (products: IProduct[], palabra: string) => {
+
+    return products.sort((a: IProduct, b: IProduct) => {
+        if (a.slug.indexOf(palabra) < b.slug.indexOf(palabra)) {
+            return -1
+        } else if (a.slug.indexOf(palabra) > b.slug.indexOf(palabra)) {
+            return 1
+        }
+        return 0
+    })
+
 }

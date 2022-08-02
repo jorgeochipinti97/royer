@@ -5,7 +5,7 @@ import { capitalize, Box, Button, Divider, InputLabel, Select, MenuItem, FormCon
 import { useProducts } from '../../hooks';
 import { ProductList } from './ProductList';
 import { IProduct } from '../../interfaces';
-import { sortHigh, sortLow, sortPopularity } from '../../utils/sort';
+import { sortHigh, sortLow } from '../../utils/sort';
 
 
 
@@ -25,8 +25,8 @@ export const ProductFilterPage = () => {
 
     useEffect(() => {
         const _handle = () => {
-            const a = sortByType(products)
-            setProductsFiltered(a)
+            // const a = sortByType(products)
+            setProductsFiltered(products)
         }
         _handle()
     }, [products])
@@ -45,214 +45,11 @@ export const ProductFilterPage = () => {
 
     }
 
-
-    const sortByType = (products: IProduct[]) => {
-
-        //TODO : HACER QUE LAS ULTIMAS DE RIVER Y BOCA QUEDEN AL PRINCIPIO
-
-        const tshirts: IProduct[] = sortPopularity(products, 'shirts')
-
-
-
-
-
-
-        const tShirtsBoca = tshirts.sort((a: IProduct, b: IProduct) => {
-
-            if (a.slug.indexOf('boca') < b.slug.indexOf('boca')) {
-                return 1
-            } else if (a.slug.indexOf('boca') > b.slug.indexOf('boca')) {
-                return -1
-            }
-            return 0
-        })
-        const tShirtsRiver = tShirtsBoca.sort((a: IProduct, b: IProduct) => {
-
-            if (a.slug.indexOf('river') < b.slug.indexOf('river')) {
-                return 1
-            } else if (a.slug.indexOf('river') > b.slug.indexOf('river')) {
-                return -1
-            }
-            return 0
-        })
-
-
-        const tShirtBoca = tShirtsRiver.sort((a: IProduct, b: IProduct) => {
-
-            if (a.slug.indexOf('boca_juniors_jersey_22-23_aero.rdy_adidas_official') < b.slug.indexOf('boca_juniors_jersey_22-23_aero.rdy_adidas_official')) {
-                return 1
-            } else if (a.slug.indexOf('boca_juniors_jersey_22-23_aero.rdy_adidas_official') > b.slug.indexOf('boca_juniors_jersey_22-23_aero.rdy_adidas_official')) {
-                return -1
-            }
-            return 0
-        })
-        const tShirtRiver = tShirtBoca.sort((a: IProduct, b: IProduct) => {
-
-            if (a.slug.indexOf('river_plate_home_jersey_shirt_21-22_-_aero.rdy_adidas_official') < b.slug.indexOf('river_plate_home_jersey_shirt_21-22_-_aero.rdy_adidas_official')) {
-                return 1
-            } else if (a.slug.indexOf('river_plate_home_jersey_shirt_21-22_-_aero.rdy_adidas_official') > b.slug.indexOf('river_plate_home_jersey_shirt_21-22_-_aero.rdy_adidas_official')) {
-                return -1
-            }
-            return 0
-        })
-
-
-        const tshirtArgentina = tShirtRiver.sort((a: IProduct, b: IProduct) => {
-
-            if (a.slug.indexOf('argentina_official') < b.slug.indexOf('argentina_official')) {
-                return 1
-            } else if (a.slug.indexOf('argentina_official') > b.slug.indexOf('argentina_official')) {
-                return -1
-            }
-            return 0
-        })
-
-        const tShirtsMessi = tshirtArgentina.sort((a: IProduct, b: IProduct) => {
-
-            if (a.slug.indexOf('messi') < b.slug.indexOf('messi')) {
-                return 1
-            } else if (a.slug.indexOf('messi') > b.slug.indexOf('messi')) {
-                return -1
-            }
-            return 0
-        })
-
-
-
-
-        // TODO : MATE ANTES QUE TERMOS
-
-        const shorts: IProduct[] = sortPopularity(products, 'short')
-        const hoodies: IProduct[] = sortPopularity(products, 'hoodies')
-        const jacket: IProduct[] = sortPopularity(products, 'jacket')
-        const pants: IProduct[] = sortPopularity(products, 'pants')
-        const socks: IProduct[] = sortPopularity(products, 'socks')
-        const purse: IProduct[] = sortPopularity(products, 'purse')
-        const bag: IProduct[] = sortPopularity(products, 'bag')
-        const wallet: IProduct[] = sortPopularity(products, 'wallet')
-        const hats: IProduct[] = sortPopularity(products, 'hats')
-        const mate: IProduct[] = sortPopularity(products, 'mate')
-
-
-        // TODO : mate de messi, mate maradona, mate edicion argentina ---- mate imperial maestro platero -- bolita 
-
-        mate.sort((a: IProduct, b: IProduct) => {
-
-            if (a.slug.indexOf('mate_platero') < b.slug.indexOf('mate_platero')) {
-                return 1
-            } else if (a.slug.indexOf('mate_platero') > b.slug.indexOf('mate_platero')) {
-                return -1
-            }
-            return 0
-        })
-        mate.sort((a: IProduct, b: IProduct) => {
-
-            if (a.slug.indexOf('mate_platero') < b.slug.indexOf('mate_platero')) {
-                return 1
-            } else if (a.slug.indexOf('mate_platero') > b.slug.indexOf('mate_platero')) {
-                return -1
-            }
-            return 0
-        })
-        mate.sort((a: IProduct, b: IProduct) => {
-
-            if (a.slug.indexOf('mate_imperial') < b.slug.indexOf('mate_imperial')) {
-                return 1
-            } else if (a.slug.indexOf('mate_imperial') > b.slug.indexOf('mate_imperial')) {
-                return -1
-            }
-            return 0
-        })
-
-        mate.sort((a: IProduct, b: IProduct) => {
-
-            if (a.slug.indexOf('edición_argentina') < b.slug.indexOf('edición_argentina')) {
-                return 1
-            } else if (a.slug.indexOf('edición_argentina') > b.slug.indexOf('edición_argentina')) {
-                return -1
-            }
-            return 0
-        })
-
-        mate.sort((a: IProduct, b: IProduct) => {
-
-            if (a.slug.indexOf('maradona') < b.slug.indexOf('maradona')) {
-                return 1
-            } else if (a.slug.indexOf('maradona') > b.slug.indexOf('maradona')) {
-                return -1
-            }
-            return 0
-        })
-        mate.sort((a: IProduct, b: IProduct) => {
-
-            if (a.slug.indexOf('messi') < b.slug.indexOf('messi')) {
-                return 1
-            } else if (a.slug.indexOf('messi') > b.slug.indexOf('messi')) {
-                return -1
-            }
-            return 0
-        })
-        mate.sort((a: IProduct, b: IProduct) => {
-
-            if (a.slug.indexOf('thermos') < b.slug.indexOf('thermos')) {
-                return -1
-            } else if (a.slug.indexOf('thermos') > b.slug.indexOf('thermos')) {
-                return 1
-            }
-            return 0
-        })
-        mate.sort((a: IProduct, b: IProduct) => {
-
-            if (a.slug.indexOf('bombilla') < b.slug.indexOf('bombilla')) {
-                return -1
-            } else if (a.slug.indexOf('bombilla') > b.slug.indexOf('bombilla')) {
-                return 1
-            }
-            return 0
-        })
-        mate.sort((a: IProduct, b: IProduct) => {
-
-            if (a.slug.indexOf('bombillon') < b.slug.indexOf('bombillon')) {
-                return -1
-            } else if (a.slug.indexOf('bombillon') > b.slug.indexOf('bombillon')) {
-                return 1
-            }
-            return 0
-        })
-        const accessories: IProduct[] = sortPopularity(products, 'accessories')
-        const alfajores: IProduct[] = sortPopularity(products, 'alfajores')
-        const wine: IProduct[] = sortPopularity(products, 'wine')
-        const yerba: IProduct[] = sortPopularity(products, 'yerba')
-        const espadrilles: IProduct[] = sortPopularity(products, 'espadrilles')
-
-
-        console.log(mate)
-
-        return tShirtsMessi
-            .concat(shorts)
-            .concat(hoodies)
-            .concat(jacket)
-            .concat(pants)
-            .concat(socks)
-            .concat(bag)
-            .concat(purse)
-            .concat(wallet)
-            .concat(hats)
-            .concat(mate)
-            .concat(accessories)
-            .concat(alfajores)
-            .concat(wine)
-            .concat(yerba)
-            .concat(espadrilles)
-
-
-    }
-
     const handleClickValues = (valueOfProduct_: string) => {
         try {
             if (valueOfProduct_ === 'all') {
-                const a = sortByType(products)
-                setProductsFiltered(a)
+                // const a = sortByType(products)
+                setProductsFiltered(products)
                 setValueProduct(valueOfProduct_)
                 setCategories(todasCategorias)
                 setTypeProduct('')
@@ -261,8 +58,8 @@ export const ProductFilterPage = () => {
 
             } else if (valueOfProduct_ === 'regionales') {
                 const newProducts_ = products.filter(e => e.gender === valueOfProduct_)
-                const a = sortByType(newProducts_)
-                setProductsFiltered(a)
+                // const a = sortByType(newProducts_)
+                setProductsFiltered(products)
                 setValueProduct(valueOfProduct_)
                 setCategories(categoriasRegional)
                 setTypeProduct('')
@@ -270,15 +67,15 @@ export const ProductFilterPage = () => {
 
             } else if (valueOfProduct_ == 'fashion') {
                 const newProducts_ = products.filter(e => e.gender === valueOfProduct_)
-                const a = sortByType(newProducts_)
-                setProductsFiltered(a)
+                // const a = sortByType(newProducts_)
+                setProductsFiltered(products)
                 setValueProduct(valueOfProduct_)
                 setCategories(fashion__)
                 setTypeProduct('')
             } else {
                 const newProducts_ = products.filter(e => e.gender === valueOfProduct_)
-                const a = sortByType(newProducts_)
-                setProductsFiltered(a)
+                // const a = sortByType(newProducts_)
+                setProductsFiltered(products)
                 setCategories(categoriasRopa)
                 setValueProduct(valueOfProduct_)
                 setTypeProduct('')
@@ -292,8 +89,8 @@ export const ProductFilterPage = () => {
             if (valueProduct === 'all') {
                 setTypeProduct(typeOfProduct_)
                 const newProducts_ = products.filter(e => e.type === typeOfProduct_)
-                const a = sortByType(newProducts_)
-                setProductsFiltered(a)
+                // const a = sortByType(newProducts_)
+                setProductsFiltered(products)
 
 
             } else {
@@ -301,8 +98,8 @@ export const ProductFilterPage = () => {
                 setTypeProduct(typeOfProduct_)
                 const newProducts_ = products.filter(e => e.type === typeOfProduct_ && e.gender === valueProduct)
 
-                const a = sortByType(newProducts_)
-                setProductsFiltered(a)
+                // const a = sortByType(newProducts_)
+                setProductsFiltered(products)
 
             }
 
