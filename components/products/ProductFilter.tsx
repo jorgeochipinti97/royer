@@ -22,15 +22,8 @@ export const ProductFilterPage = () => {
     const categoriasRegional = ['mate', 'yerba', 'alfajores', 'wine', 'espadrilles']
     const [categories, setCategories] = useState<string[]>(todasCategorias)
     const [select_, setSelect_] = useState<string>('populars')
-    const [currentPage, setCurrentPage] = useState(0)
 
 
-    useEffect(() => {
-        const _handle = () => {
-            setProductsFiltered(products)
-        }
-        _handle()
-    }, [])
 
     const handleSelectChange = (e: string) => {
         setSelect_(e)
@@ -152,14 +145,6 @@ export const ProductFilterPage = () => {
                     ? <FullScreenLoading />
                     : <ProductList products={_productsFiltered} />
             }
-            <Button
-                onClick={() => setCurrentPage(currentPage + 9)}>
-                Siguiente
-            </Button>
-            <Button
-                onClick={() => setCurrentPage(currentPage - 9)}>
-                anterior
-            </Button>
         </>
 
     )
