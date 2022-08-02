@@ -21,12 +21,20 @@ export const ProductFilterPage = () => {
     const fashion__ = ['wallet', 'purse', 'shirts', 'bag', 'hats']
     const categoriasRegional = ['mate', 'yerba', 'alfajores', 'wine', 'espadrilles']
     const [categories, setCategories] = useState<string[]>(todasCategorias)
-    const [select_, setSelect_] = useState<string>('populars')
+    const [select_, setSelect_] = useState<string>('')
 
+    const handle = () => {
+        setProductsFiltered(products)
+
+    }
+
+    useEffect(() => {
+        handle()
+    }, [])
     const handleSelectChange = (e: string) => {
         setSelect_(e)
-        e == 'low' && sortLow(_productsFiltered)
-        e == 'high' && sortHigh(_productsFiltered)
+        _productsFiltered && e == 'low' && sortLow(_productsFiltered)
+        _productsFiltered && e == 'high' && sortHigh(_productsFiltered)
     }
 
     const handleClickValues = (valueOfProduct_: string) => {

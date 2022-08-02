@@ -81,7 +81,12 @@ const HomePage: NextPage<Props> = ({ product__ }) => {
               <Box display='flex' justifyContent='center'>
                 <Typography variant="h1" sx={{ mb: 2, mt: 5 }}>Most Populars</Typography>
               </Box>
-              <ProductList products={products_} />
+              <Box sx={{ display:{xs:'none', sm:'block',md:'block',lg:'block',xl:'block'} }}>
+                <ProductList products={products_.slice(0,6)} />
+              </Box>
+              <Box sx={{ display:{xs:'block', sm:'none',md:'none',lg:'none',xl:'none'} }}>
+                <ProductList products={products_} />
+              </Box>
 
             </>
           )
