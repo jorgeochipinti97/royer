@@ -24,7 +24,6 @@ export const ProductFilterPage = () => {
     const [select_, setSelect_] = useState<string>('populars')
 
     useEffect(() => {
-        console.log(products.filter(e => e.type == 'espadrilles'))
         const _handle = () => {
             const a = sortByType(products)
             setProductsFiltered(a)
@@ -57,7 +56,6 @@ export const ProductFilterPage = () => {
 
 
 
-        
 
         const tShirtsBoca = tshirts.sort((a: IProduct, b: IProduct) => {
 
@@ -118,19 +116,11 @@ export const ProductFilterPage = () => {
             }
             return 0
         })
-        const tshirtPumas = tShirtsRiver.sort((a: IProduct, b: IProduct) => {
-
-            if (a.slug.indexOf('pumas') < b.slug.indexOf('pumas')) {
-                return -1
-            } else if (a.slug.indexOf('pumas') > b.slug.indexOf('pumas')) {
-                return 1
-            }
-            return 0
-        })
 
 
 
 
+        // TODO : MATE ANTES QUE TERMOS
 
         const shorts: IProduct[] = sortPopularity(products, 'short')
         const hoodies: IProduct[] = sortPopularity(products, 'hoodies')
@@ -142,12 +132,101 @@ export const ProductFilterPage = () => {
         const wallet: IProduct[] = sortPopularity(products, 'wallet')
         const hats: IProduct[] = sortPopularity(products, 'hats')
         const mate: IProduct[] = sortPopularity(products, 'mate')
+
+
+        // TODO : mate de messi, mate maradona, mate edicion argentina ---- mate imperial maestro platero -- bolita 
+
+        mate.sort((a: IProduct, b: IProduct) => {
+
+            if (a.slug.indexOf('mate_platero') < b.slug.indexOf('mate_platero')) {
+                return 1
+            } else if (a.slug.indexOf('mate_platero') > b.slug.indexOf('mate_platero')) {
+                return -1
+            }
+            return 0
+        })
+        mate.sort((a: IProduct, b: IProduct) => {
+
+            if (a.slug.indexOf('mate_platero') < b.slug.indexOf('mate_platero')) {
+                return 1
+            } else if (a.slug.indexOf('mate_platero') > b.slug.indexOf('mate_platero')) {
+                return -1
+            }
+            return 0
+        })
+        mate.sort((a: IProduct, b: IProduct) => {
+
+            if (a.slug.indexOf('mate_imperial') < b.slug.indexOf('mate_imperial')) {
+                return 1
+            } else if (a.slug.indexOf('mate_imperial') > b.slug.indexOf('mate_imperial')) {
+                return -1
+            }
+            return 0
+        })
+
+        mate.sort((a: IProduct, b: IProduct) => {
+
+            if (a.slug.indexOf('edición_argentina') < b.slug.indexOf('edición_argentina')) {
+                return 1
+            } else if (a.slug.indexOf('edición_argentina') > b.slug.indexOf('edición_argentina')) {
+                return -1
+            }
+            return 0
+        })
+
+        mate.sort((a: IProduct, b: IProduct) => {
+
+            if (a.slug.indexOf('maradona') < b.slug.indexOf('maradona')) {
+                return 1
+            } else if (a.slug.indexOf('maradona') > b.slug.indexOf('maradona')) {
+                return -1
+            }
+            return 0
+        })
+        mate.sort((a: IProduct, b: IProduct) => {
+
+            if (a.slug.indexOf('messi') < b.slug.indexOf('messi')) {
+                return 1
+            } else if (a.slug.indexOf('messi') > b.slug.indexOf('messi')) {
+                return -1
+            }
+            return 0
+        })
+        mate.sort((a: IProduct, b: IProduct) => {
+
+            if (a.slug.indexOf('thermos') < b.slug.indexOf('thermos')) {
+                return -1
+            } else if (a.slug.indexOf('thermos') > b.slug.indexOf('thermos')) {
+                return 1
+            }
+            return 0
+        })
+        mate.sort((a: IProduct, b: IProduct) => {
+
+            if (a.slug.indexOf('bombilla') < b.slug.indexOf('bombilla')) {
+                return -1
+            } else if (a.slug.indexOf('bombilla') > b.slug.indexOf('bombilla')) {
+                return 1
+            }
+            return 0
+        })
+        mate.sort((a: IProduct, b: IProduct) => {
+
+            if (a.slug.indexOf('bombillon') < b.slug.indexOf('bombillon')) {
+                return -1
+            } else if (a.slug.indexOf('bombillon') > b.slug.indexOf('bombillon')) {
+                return 1
+            }
+            return 0
+        })
         const accessories: IProduct[] = sortPopularity(products, 'accessories')
         const alfajores: IProduct[] = sortPopularity(products, 'alfajores')
         const wine: IProduct[] = sortPopularity(products, 'wine')
         const yerba: IProduct[] = sortPopularity(products, 'yerba')
         const espadrilles: IProduct[] = sortPopularity(products, 'espadrilles')
 
+
+        console.log(mate)
 
         return tShirtsMessi
             .concat(shorts)
