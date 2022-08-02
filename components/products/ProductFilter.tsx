@@ -23,8 +23,6 @@ export const ProductFilterPage = () => {
     const [categories, setCategories] = useState<string[]>(todasCategorias)
     const [select_, setSelect_] = useState<string>('populars')
 
-
-
     const handleSelectChange = (e: string) => {
         setSelect_(e)
         e == 'low' && sortLow(_productsFiltered)
@@ -60,6 +58,7 @@ export const ProductFilterPage = () => {
             alert(err)
         }
     }
+
     const handleClickTypes = (typeOfProduct_: string) => {
         try {
             if (valueProduct === 'all') {
@@ -74,7 +73,6 @@ export const ProductFilterPage = () => {
         } catch (err) {
             alert(err)
         }
-
     }
 
     return (
