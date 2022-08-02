@@ -32,7 +32,7 @@ export const useProducts = (url: string, config: SWRConfiguration = {}) => {
         const mateArgentina = sortProductsByTerm(mateImperial, 'edición_argentina')
         const mateMaradona = sortProductsByTerm(mateArgentina, 'maradona')
         const mateMessi = sortProductsByTerm(mateMaradona, 'messi')
-        const thermos_ = sortProductsByTerm(mateMessi, 'thermos')
+        const thermos_ = sendLast(mateMessi, 'thermos')
         const bombilla_ = sendLast(thermos_, 'bombilla')
         const bombillon_ = sendLast(bombilla_, 'bombillon')
         const accessories: IProduct[] = sortPopularity(products, 'accessories')
