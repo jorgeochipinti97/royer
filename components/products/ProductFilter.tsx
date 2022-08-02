@@ -25,19 +25,12 @@ export const ProductFilterPage = () => {
     const [currentPage, setCurrentPage] = useState(0)
 
 
-
-
     useEffect(() => {
         const _handle = () => {
-            const pagination = products.slice(currentPage, currentPage + 9)
-            setProductsFiltered(pagination)
+            setProductsFiltered(products)
         }
         _handle()
-    }, [products])
-
-
-
-
+    }, [])
 
     const handleSelectChange = (e: string) => {
         setSelect_(e)
@@ -55,12 +48,10 @@ export const ProductFilterPage = () => {
             select && setSelect_(select)
         }
 
-
-
         try {
-            if (valueOfProduct_ === 'all') {
-                handleProduct(products, valueOfProduct_, todasCategorias, '', 'populars')
-            } else if (valueOfProduct_ === 'regionales') {
+            valueOfProduct_ === 'all' && handleProduct(products, valueOfProduct_, todasCategorias, '', 'populars')
+
+            if (valueOfProduct_ === 'regionales') {
                 const newProducts_ = products.filter(e => e.gender === valueOfProduct_)
                 handleProduct(newProducts_, valueOfProduct_, categoriasRegional, '',)
 
@@ -82,13 +73,10 @@ export const ProductFilterPage = () => {
                 const newProducts_ = products.filter(e => e.type === typeOfProduct_)
                 setProductsFiltered(newProducts_)
             } else {
-
                 setTypeProduct(typeOfProduct_)
                 const newProducts_ = products.filter(e => e.type === typeOfProduct_ && e.gender === valueProduct)
                 setProductsFiltered(newProducts_)
             }
-
-
         } catch (err) {
             alert(err)
         }
@@ -113,7 +101,9 @@ export const ProductFilterPage = () => {
                                 <Box >
                                     <Button color={valueProduct === 'regionales' ? 'primary' : 'info'}
                                         onClick={() => handleClickValues('regionales')}
-                                    >Regionals</Button>
+                                    >
+                                        Regionals
+                                    </Button>
                                 </Box>
 
                             </Box>
