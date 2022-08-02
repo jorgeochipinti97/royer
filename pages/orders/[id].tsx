@@ -285,6 +285,11 @@ const OrderPage: NextPage<Props> = ({ order }) => {
                                                             <Typography variant='subtitle1'>DNI: 39.960.639</Typography>
                                                         </Box>
                                                         <Box display='flex' justifyContent='center'>
+                                                            <Typography variant='subtitle1'>
+                                                                felanese1996@gmail.com
+                                                            </Typography>
+                                                        </Box>
+                                                        <Box display='flex' justifyContent='center'>
                                                             <form >
                                                                 <FormControl>
 
