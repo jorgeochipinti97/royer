@@ -53,13 +53,20 @@ const AddressPage = () => {
 
     });
     const [_email, setEmail] = useState('')
+    const [_emailVerify, setEmailVerify] = useState('')
 
+
+
+    // TODO : OPTIMIZAR ESTO POR FAVORRRRR!!!!
+    
     const onSubmitAddress = async (data: FormData) => {
         const a = Cookies.get('email')
 
-        if (isValidEmail(_email) || a != undefined && isValidEmail(a)) {
-            updateAddress(data);
-            await router.push('/checkout/summary');
+        if (_email.toLowerCase() === _emailVerify.toLowerCase() || a != undefined && a.toLowerCase() == _emailVerify.toLowerCase()) {
+            if (isValidEmail(_email) || a != undefined && isValidEmail(a)) {
+                updateAddress(data);
+                await router.push('/checkout/summary');
+            }
         } else {
             alert('error please check your email')
         }
@@ -111,6 +118,14 @@ const AddressPage = () => {
                             error={!!errors.email}
                             helperText={errors.email?.message}
                             onChange={(e) => setEmail(e.target.value)}
+                        />
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                        <TextField
+                            label='Veriy Email'
+                            variant="filled"
+                            fullWidth
+                            onChange={(e) => setEmailVerify(e.target.value)}
                         />
                     </Grid>
 
@@ -171,7 +186,7 @@ const AddressPage = () => {
                                     required: 'This field is required'
                                 })}
                                 error={!!errors.country}
-                                onChange={(e)=> e.target.value == 'United States' ? setIsUsa(true) : setIsUsa(false)}
+                                onChange={(e) => e.target.value == 'United States' ? setIsUsa(true) : setIsUsa(false)}
                             >
                                 {
                                     countriesSort.map((country: any) => (
