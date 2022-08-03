@@ -249,7 +249,7 @@ const ProductPage: NextPage<Props> = ({ product }) => {
                     <CardMedia
                       component='div'
                       className='fadeIn'>
-                      <Image src={product.type != 'espadrilles' ? 'https://res.cloudinary.com/djk4q3tys/image/upload/v1650890012/lzr8ottm36ivarjng6xx.jpg' : 'https://res.cloudinary.com/djk4q3tys/image/upload/v1659434596/rznhihlfxxgx7f02u1mq.png'} alt='size' width={700} height={700} />
+                      <Image src={product.type != 'espadrilles' ? 'https://res.cloudinary.com/djk4q3tys/image/upload/v1659495626/crugli9fcbf80ff1jxts.jpg' : 'https://res.cloudinary.com/djk4q3tys/image/upload/v1659434596/rznhihlfxxgx7f02u1mq.png'} alt='size' width={700} height={700} />
                     </CardMedia>
                   </Card>
                 </Box>

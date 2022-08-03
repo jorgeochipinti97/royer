@@ -7,7 +7,6 @@ import { IProduct } from '../../interfaces'
 import { localFavorites } from '../../utils';
 import Image from 'next/image';
 import { currency } from '../../utils';
-import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import CurrencyBitcoinIcon from '@mui/icons-material/CurrencyBitcoin';
 import { capitalizarPrimeraLetraPalabras } from '../../utils/sort'
 
@@ -28,9 +27,13 @@ export const ProductCard: FC<Props> = ({ product }) => {
         console.log(title)
     }
     const productImage = useMemo(() => {
-        return isHovered
-            ? product.images[1]
-            : product.images[0];
+        try {
+            return isHovered
+                ? product.images[1]
+                : product.images[0];
+        } catch (err) {
+            console.log(err)
+        }
 
     }, [isHovered, product.images])
 
@@ -106,7 +109,7 @@ export const ProductCard: FC<Props> = ({ product }) => {
                                 className='fadeIn'
                                 onLoad={() => setIsImageLoaded(true)}>
 
-                                <Image width={500} height={500} alt={product.title} src={productImage} />
+                                <Image width={500} height={500} alt={product.title} src={productImage || ''} />
                             </CardMedia>
 
 
@@ -129,7 +132,7 @@ export const ProductCard: FC<Props> = ({ product }) => {
             <Box sx={{ mt: 1, display: isImageLoaded ? 'block' : 'none' }} className='fadeIn' >
                 <Box display='flex' justifyContent='center'>
 
-                <Typography variant="body2" textAlign={'center'} fontWeight={700} sx={{width:120}}>{capitalizarPrimeraLetraPalabras(`${product.title}`)}</Typography>
+                    <Typography variant="body2" textAlign={'center'} fontWeight={700} sx={{ width: 120 }}>{capitalizarPrimeraLetraPalabras(`${product.title}`)}</Typography>
                 </Box>
                 <Box>
                     <Box display='flex' justifyContent='center' sx={{ mb: 1, mt: 2 }}>

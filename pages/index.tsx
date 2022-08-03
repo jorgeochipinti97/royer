@@ -16,53 +16,13 @@ import { sortPopularity } from '../utils';
 
 
 interface Props {
-  product__: IProduct[]
+  populars_: IProduct[]
 }
 
 
-const HomePage: NextPage<Props> = ({ product__ }) => {
+const HomePage: NextPage<Props> = ({ populars_ }) => {
 
-  useEffect(() => {
-
-    const tshirts: IProduct[] = sortPopularity(product__, 'shirts')
-    const alfajores: IProduct[] = sortPopularity(product__, 'alfajores')
-    const wine: IProduct[] = sortPopularity(product__, 'wine')
-    const mate: IProduct[] = sortPopularity(product__, 'mate')
-    const accessories: IProduct[] = sortPopularity(product__, 'accessories')
-
-    tshirts.sort((a: IProduct, b: IProduct) => {
-
-      if (a.slug.indexOf('argentina_official_') < b.slug.indexOf('argentina_official_')) {
-        return 1
-      } else if (a.slug.indexOf('argentina_official_') > b.slug.indexOf('argentina_official_')) {
-        return -1
-      }
-      return 0
-    })
-
-    const tShirtsMessi = tshirts.sort((a: IProduct, b: IProduct) => {
-
-      if (a.slug.indexOf('messi') < b.slug.indexOf('messi')) {
-        return 1
-      } else if (a.slug.indexOf('messi') > b.slug.indexOf('messi')) {
-        return -1
-      }
-      return 0
-    })
-
-
-    const productos = tShirtsMessi
-      .concat(alfajores)
-      .concat(wine)
-      .concat(mate)
-      .concat(accessories)
-
-    setProducts_(productos)
-
-  }, [product__])
-
-  const { products, isLoading } = useProducts('/products');
-  const [products_, setProducts_] = useState(product__)
+  const { isLoading } = useProducts('/products');
 
   return (
     <ShopLayout title={'Royer-Shop - Home'} pageDescription={'Home'}>
@@ -79,12 +39,14 @@ const HomePage: NextPage<Props> = ({ product__ }) => {
             <>
               <Box display='flex' justifyContent='center'>
                 <Typography variant="h1" sx={{ mb: 2, mt: 5 }}>Most Populars</Typography>
+
               </Box>
-              <Box sx={{ display:{xs:'none', sm:'block',md:'block',lg:'block',xl:'block'} }}>
-                <ProductList products={products_.slice(0,6)} />
+              <Box sx={{ display: { xs: 'none', sm: 'block', md: 'block', lg: 'block', xl: 'block' } }}>
+                <ProductList products={populars_.slice(0, 6)} />
+
               </Box>
-              <Box sx={{ display:{xs:'block', sm:'none',md:'none',lg:'none',xl:'none'} }}>
-                <ProductList products={products_} />
+              <Box sx={{ display: { xs: 'block', sm: 'none', md: 'none', lg: 'none', xl: 'none' } }}>
+                <ProductList products={populars_} />
               </Box>
 
             </>
@@ -108,9 +70,8 @@ export default HomePage
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
 
-  const product__ = await dbProducts.getPopulars()
-
-  if (!product__) {
+  const populars_ = await dbProducts.getPopulars()
+  if (!populars_) {
     return {
       redirect: {
         destination: '/',
@@ -121,7 +82,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   return {
     props: {
-      product__
+      populars_
     },
     // revalidate: 60 * 60 * 24
   }
