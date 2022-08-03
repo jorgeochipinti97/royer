@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import { ShopLayout } from '../../components/layouts';
 import { CartContext } from '../../context';
 import { isValidEmail } from '../../utils/validations';
+import { countries } from '../../utils';
 
 
 type FormData = {
@@ -41,14 +42,8 @@ const getAddressFromCookies = (): FormData => {
 
 
 
-const AddressPage = ({ paises }: any) => {
-    const [countriesSort, setcountriesSort] = useState<String[]>([])
-
-    useEffect(() => {
-        const a = ordenarPaises(paises)
-        setcountriesSort(a)
-    }, [])
-
+const AddressPage = () => {
+    const [countriesSort, setcountriesSort] = useState<String[]>(countries)
     const [isUsa, setIsUsa] = useState(false)
     const router = useRouter();
     const { updateAddress } = useContext(CartContext);
@@ -70,21 +65,7 @@ const AddressPage = ({ paises }: any) => {
         }
     }
 
-    const ordenarPaises = (paises_: string[]) => {
 
-        const paisesLower = paises_.map(e => e.toLocaleLowerCase())
-        paisesLower.sort((a: string, b: string) => {
-            if (a > b) {
-                return 1;
-            }
-            if (a < b) {
-                return -1;
-            }
-
-            return 0;
-        });
-        return paisesLower
-    }
     return (
         <ShopLayout title="Royer Shop - Address" pageDescription="Confirmar dirección del destino">
             <form onSubmit={handleSubmit(onSubmitAddress)}>
@@ -190,13 +171,7 @@ const AddressPage = ({ paises }: any) => {
                                     required: 'This field is required'
                                 })}
                                 error={!!errors.country}
-                                onChange={(e) => {
-                                    if (e.target.value == 'United States') { setIsUsa(true) }
-                                    else {
-                                        setIsUsa(false)
-                                    }
-                                }
-                                }
+                                onChange={(e)=> e.target.value == 'United States' ? setIsUsa(true) : setIsUsa(false)}
                             >
                                 {
                                     countriesSort.map((country: any) => (
@@ -246,29 +221,6 @@ const AddressPage = ({ paises }: any) => {
             </form>
         </ShopLayout>
     )
-}
-
-
-
-export async function getServerSideProps() {
-
-    const res = await fetch(`https://restcountries.com/v3.1/all`)
-    const data = await res.json()
-    const paises: string[] = []
-
-    const countries_ = () => {
-        try {
-
-            data.forEach((e: { name: { common: any; }; }) => {
-                paises.push(e.name.common)
-            });
-        } catch (err) {
-            alert(err)
-        }
-    }
-    countries_()
-
-    return { props: { paises } }
 }
 
 
