@@ -87,17 +87,33 @@ export const getPopulars = async (): Promise<IProduct[]> => {
 
     await db.connect();
     const products = await Product.find({ popular: true }).lean();
+    console.log(products)
     const tshirts: IProduct[] = sortPopularity(products, 'shirts')
     const alfajores: IProduct[] = sortPopularity(products, 'alfajores')
     const wine: IProduct[] = sortPopularity(products, 'wine')
     const mate: IProduct[] = sortPopularity(products, 'mate')
     const accessories: IProduct[] = sortPopularity(products, 'accessories')
+    const purse: IProduct[] = sortPopularity(products, 'purse')
+
+
+
+
+
+    //  Boca Juniors Jersey 22-23 Aero.rdy Adidas Official
+    //   Argentina Official Home Shirt 22 Aero.rdy Messi
+    //    River Plate Home Jersey Shirt 21-22 - Heat.rdy Adidas Official 
+    //   Alfajor Havanna X12
+    //     Wine Dv Catena Cabernet-malbec 750ml Case X 2 
+    //      Leather Lounge Bag 
+    //     Cutlery Set Stainless Steel Blade. El Boyero 
+    //      Mate Imperial Copa Calado De Maestro Platero
+
 
     tshirts.sort((a: IProduct, b: IProduct) => {
 
-        if (a.slug.indexOf('argentina_official_') < b.slug.indexOf('argentina_official_')) {
+        if (a.slug.indexOf('river') < b.slug.indexOf('river')) {
             return 1
-        } else if (a.slug.indexOf('argentina_official_') > b.slug.indexOf('argentina_official_')) {
+        } else if (a.slug.indexOf('river') > b.slug.indexOf('river')) {
             return -1
         }
         return 0
@@ -112,14 +128,24 @@ export const getPopulars = async (): Promise<IProduct[]> => {
         }
         return 0
     })
+    const tShirtBoca = tShirtsMessi.sort((a: IProduct, b: IProduct) => {
+
+        if (a.slug.indexOf('boca') < b.slug.indexOf('boca')) {
+            return 1
+        } else if (a.slug.indexOf('boca') > b.slug.indexOf('boca')) {
+            return -1
+        }
+        return 0
+    })
 
 
-    const productos = tShirtsMessi
+    const productos = tShirtBoca
         .concat(alfajores)
         .concat(wine)
-        .concat(mate)
+        .concat(purse)
         .concat(accessories)
-
+        .concat(mate)
+console.log(productos)
     await db.disconnect();
 
 
