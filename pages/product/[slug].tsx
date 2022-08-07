@@ -70,7 +70,7 @@ const ProductPage: NextPage<Props> = ({ product }) => {
         size: 'Unique'
       }));
     }
-    product.type == 'espadrilles' && setIsNoSize(false) 
+    product.type == 'espadrilles' && setIsNoSize(false)
 
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -258,8 +258,11 @@ const ProductPage: NextPage<Props> = ({ product }) => {
 
 
             {
-              (product.inStock > 0)
+              (product.inStock == 0)
                 ? (
+                  <Chip label="No stock" color="error" variant='outlined' />
+                )
+                : (
                   <Button
                     color="secondary"
                     className='circular-btn'
@@ -272,9 +275,7 @@ const ProductPage: NextPage<Props> = ({ product }) => {
                     }
                   </Button>
                 )
-                : (
-                  <Chip label="No stock" color="error" variant='outlined' />
-                )
+
             }
 
 
