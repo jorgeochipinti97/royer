@@ -17,8 +17,8 @@ export const ProductFilterPage = () => {
     const [typeProduct, setTypeProduct] = useState<string>('')
     const genders_ = ['all', 'fashion']
     const todasCategorias = ['shirts', 'jacket', 'pants', 'mate', 'yerba', 'alfajores', 'wine', 'short', 'socks', 'wallet', 'purse', 'accessories', 'bag', 'espadrilles','footwear']
-    const categoriasRopa = ['shirts', 'jacket', 'pants', 'short', 'socks', 'wallet', 'purse','espadrilles','footwear']
-    const fashion__ = ['wallet', 'purse', 'shirts', 'bag','espadrilles']
+    const categoriasRopa = ['shirts', 'jacket', 'pants', 'short', 'socks', 'wallet', 'purse','espadrilles']
+    const fashion__ = ['wallet', 'purse', 'shirts', 'bag','espadrilles','footwear']
     const categoriasRegional = ['mate', 'yerba', 'alfajores', 'wine']
     const [categories, setCategories] = useState<string[]>(todasCategorias)
     const [select_, setSelect_] = useState<string>('')
