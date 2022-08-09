@@ -40,6 +40,7 @@ export const useProducts = (url: string, config: SWRConfiguration = {}) => {
         const wine: IProduct[] = sortPopularity(products, 'wine')
         const yerba: IProduct[] = sortPopularity(products, 'yerba')
         const espadrilles: IProduct[] = sortPopularity(products, 'espadrilles')
+        const footwear: IProduct[] = sortPopularity(products, 'footwear')
 
         return tShirtsMessi
             .concat(shorts)
@@ -57,6 +58,7 @@ export const useProducts = (url: string, config: SWRConfiguration = {}) => {
             .concat(wine)
             .concat(yerba)
             .concat(espadrilles)
+            .concat(footwear)
     }
     return {
         products: data && sortByType(data) || [],
