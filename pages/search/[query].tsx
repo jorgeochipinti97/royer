@@ -5,11 +5,9 @@ import { ShopLayout } from '../../components/layouts';
 
 import { ProductList } from '../../components/products';
 
-import { dbProducts } from '../../database';
-import { IProduct } from '../../interfaces';
 import { useProducts } from '../../hooks';
 import { useState, useEffect } from 'react';
-import { SearchOutlined } from '@mui/icons-material';
+import { ClearOutlined } from '@mui/icons-material';
 
 
 interface Props {
@@ -26,8 +24,8 @@ const SearchPage: NextPage<Props> = ({ query }) => {
 
 
     useEffect(() => {
-        searchTerm.length < 2 && setProducts(products)
-        const newProducts = products.filter(e => e.slug.includes(searchTerm))
+        searchTerm.length < 0 && setProducts(products)
+        const newProducts = products.filter(e => e.title.includes(searchTerm))
         searchTerm && setProducts(newProducts)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchTerm])
@@ -38,7 +36,8 @@ const SearchPage: NextPage<Props> = ({ query }) => {
 
             <Box display='flex' justifyContent='center'>
                 <Input
-
+                    sx={{ mt: 5 }}
+                    className='fadeIn'
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                     type='text'
@@ -51,7 +50,7 @@ const SearchPage: NextPage<Props> = ({ query }) => {
                                     setProducts(products)
                                 }}
                             >
-                                <SearchOutlined />
+                                <ClearOutlined />
                             </IconButton>
                         </InputAdornment>
                     }
