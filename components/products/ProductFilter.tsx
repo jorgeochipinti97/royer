@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
 import { FullScreenLoading } from '../../components/ui';
 
-import { capitalize, Box, Button, Divider, InputLabel, Select, MenuItem, FormControl } from '@mui/material';
+import { capitalize, Box, Button, Divider, InputLabel, Select, MenuItem, FormControl, IconButton, Input, InputAdornment } from '@mui/material';
 import { useProducts } from '../../hooks';
 import { ProductList } from './ProductList';
 import { IProduct } from '../../interfaces';
 import { sortHigh, sortLow } from '../../utils/sort';
+import { ClearOutlined } from '@mui/icons-material';
 
 
 
@@ -16,13 +17,22 @@ export const ProductFilterPage = () => {
     const [_productsFiltered, setProductsFiltered] = useState<IProduct[]>(products)
     const [typeProduct, setTypeProduct] = useState<string>('')
     const genders_ = ['all', 'fashion']
-    const todasCategorias = ['shirts', 'jacket', 'pants', 'mate', 'yerba', 'alfajores', 'wine', 'short', 'socks', 'wallet', 'purse', 'accessories', 'bag', 'espadrilles','footwear']
-    const categoriasRopa = ['shirts', 'jacket', 'pants', 'short', 'socks', 'wallet', 'purse','espadrilles']
-    const fashion__ = ['wallet', 'purse', 'shirts', 'bag','espadrilles','footwear']
+    const todasCategorias = ['shirts', 'jacket', 'pants', 'mate', 'yerba', 'alfajores', 'wine', 'short', 'socks', 'wallet', 'purse', 'accessories', 'bag', 'espadrilles', 'footwear']
+    const categoriasRopa = ['shirts', 'jacket', 'pants', 'short', 'socks', 'wallet', 'purse', 'espadrilles']
+    const fashion__ = ['wallet', 'purse', 'shirts', 'bag', 'espadrilles', 'footwear']
     const categoriasRegional = ['mate', 'yerba', 'alfajores', 'wine']
     const [categories, setCategories] = useState<string[]>(todasCategorias)
     const [select_, setSelect_] = useState<string>('')
+    const [searchTerm, setSearchTerm] = useState('');
 
+
+
+    useEffect(() => {
+        searchTerm.length < 2 && setProductsFiltered(products)
+        const newProducts = products.filter(e => e.slug.includes(searchTerm))
+        searchTerm && setProductsFiltered(newProducts)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [searchTerm])
     const handle = () => {
         setProductsFiltered(products)
 
@@ -130,20 +140,42 @@ export const ProductFilterPage = () => {
                     <Divider sx={{ my: 1 }} />
                     <Box flex={1} />
                 </Box>
-                <Box>
-                    <FormControl sx={{ m: 3, minWidth: 120 }}>
-                        <InputLabel id="select-label">Sort By</InputLabel>
-                        <Select
-                            labelId="select-label"
-                            id="select"
-                            label="sort by"
-                            value={select_}
-                            onChange={e => handleSelectChange(e.target.value)}>
-                            {/* <MenuItem value={'popularity'}>popularity</MenuItem> */}
-                            <MenuItem value={'low'}>Price: low to high  </MenuItem>
-                            <MenuItem value={'high'}>Price: high to low  </MenuItem>
-                        </Select>
-                    </FormControl>
+                <Box display='flex' justifyContent='space-around'>
+                    <Box>
+                        <FormControl sx={{ m: 3, minWidth: 120 }}>
+                            <InputLabel id="select-label">Sort By</InputLabel>
+                            <Select
+                                labelId="select-label"
+                                id="select"
+                                label="sort by"
+                                value={select_}
+                                onChange={e => handleSelectChange(e.target.value)}>
+                                {/* <MenuItem value={'popularity'}>popularity</MenuItem> */}
+                                <MenuItem value={'low'}>Price: low to high  </MenuItem>
+                                <MenuItem value={'high'}>Price: high to low  </MenuItem>
+                            </Select>
+                        </FormControl>
+                    </Box>
+                    <Box>
+                        <Input
+                            
+                            sx={{ mt:5 }}
+                            className='fadeIn'
+                            autoFocus
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                            type='text'
+                            placeholder="Search..."
+                            endAdornment={
+                                <InputAdornment position="end">
+                                    <IconButton
+                                    >
+                                        <ClearOutlined />
+                                    </IconButton>
+                                </InputAdornment>
+                            }
+                        />
+                    </Box>
                 </Box>
             </Box >
             {
