@@ -28,7 +28,7 @@ export const ProductFilterPage = () => {
     useEffect(() => {
 
         searchTerm.length == 0 && setProductsFiltered(products)
-        const newProducts = _productsFiltered.filter(e => e.slug.includes(searchTerm))
+        const newProducts = _productsFiltered.filter(e => e.name.toLowerCase().includes(searchTerm.toLowerCase()))
         searchTerm && setProductsFiltered(newProducts)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchTerm])
