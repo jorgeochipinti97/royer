@@ -161,6 +161,10 @@ export const ProductFilterPage = () => {
                                 endAdornment={
                                     <InputAdornment position="end">
                                         <IconButton
+                                            onClick={() => {
+                                                setSearchTerm('')
+                                                setProductsFiltered(products)
+                                            }}
                                         >
                                             <ClearOutlined />
                                         </IconButton>
