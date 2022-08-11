@@ -70,7 +70,7 @@ export const Navbar = () => {
 
 
                 {/* Pantallas pantallas grandes */}
-                <Box sx={{ display: asPath.includes('search') ? 'none' : '' }}>
+                <Box sx={{ display: asPath.includes('search') || router.asPath.includes('products') ? 'none' : '' }}>
 
                     {
                         isSearchVisible

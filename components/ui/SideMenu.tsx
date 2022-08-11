@@ -41,7 +41,7 @@ export const SideMenu = () => {
 
                 <List>
 
-                    <ListItem sx={{ display: router.asPath.includes('search') ? 'none' : '' }}>
+                    <ListItem sx={{ display: router.asPath.includes('search') || router.asPath.includes('products')   ? 'none' : '' }}>
                         <Input
                             /*TODO: sacar autofocus */
                             // autoFocus
