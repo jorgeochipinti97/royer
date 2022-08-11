@@ -25,22 +25,15 @@ export const ProductFilterPage = () => {
     const [select_, setSelect_] = useState<string>('')
     const [searchTerm, setSearchTerm] = useState('');
 
-
-
     useEffect(() => {
-        searchTerm.length < 2 && setProductsFiltered(products)
-        const newProducts = products.filter(e => e.slug.includes(searchTerm))
+
+        searchTerm.length == 0 && setProductsFiltered(products)
+        const newProducts = _productsFiltered.filter(e => e.slug.includes(searchTerm))
         searchTerm && setProductsFiltered(newProducts)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchTerm])
-    const handle = () => {
-        setProductsFiltered(products)
 
-    }
 
-    useEffect(() => {
-        handle()
-    }, [])
     const handleSelectChange = (e: string) => {
         setSelect_(e)
         _productsFiltered && e == 'low' && sortLow(_productsFiltered)
@@ -95,94 +88,98 @@ export const ProductFilterPage = () => {
 
     return (
         <>
-
-            <Box>
+            (
+            <>
                 <Box>
-                    <Box display='flex' justifyContent='center'>
-                        <Box>
-                            <Box display='flex' justifyContent='center' sx={{ flexWrap: { xs: 'wrap', sm: 'wrap' } }} >
-                                {genders_.map(e => (
-                                    <Box key={e}>
-                                        <Button color={valueProduct === e ? 'primary' : 'info'}
-                                            onClick={() => handleClickValues(e)}
-                                        >{capitalize(e)}</Button>
+                    <Box>
+                        <Box display='flex' justifyContent='center'>
+                            <Box>
+                                <Box display='flex' justifyContent='center' sx={{ flexWrap: { xs: 'wrap', sm: 'wrap' } }} >
+                                    {genders_.map(e => (
+                                        <Box key={e}>
+                                            <Button color={valueProduct === e ? 'primary' : 'info'}
+                                                onClick={() => handleClickValues(e)}
+                                            >{capitalize(e)}</Button>
+                                        </Box>
+                                    ))}
+                                    <Box >
+                                        <Button color={valueProduct === 'regionales' ? 'primary' : 'info'}
+                                            onClick={() => handleClickValues('regionales')}
+                                        >
+                                            Regionals
+                                        </Button>
                                     </Box>
-                                ))}
-                                <Box >
-                                    <Button color={valueProduct === 'regionales' ? 'primary' : 'info'}
-                                        onClick={() => handleClickValues('regionales')}
-                                    >
-                                        Regionals
-                                    </Button>
-                                </Box>
 
+                                </Box>
                             </Box>
                         </Box>
+                        <Divider sx={{ my: 1 }} />
+                        <Box flex={1} />
+                        <Box
+
+                            className="fadeIn">
+                            <Box display='flex' justifyContent='center' sx={{ flexWrap: { xs: 'wrap', sm: 'wrap' } }}>
+
+                                {
+                                    categories.map(e => (
+                                        // eslint-disable-next-line react/jsx-key
+                                        <Box key={e}>
+                                            <Button onClick={() => handleClickTypes(e)} color={typeProduct === e ? 'primary' : 'info'}>{capitalize(e)}</Button>
+                                        </Box>
+                                    )
+                                    )
+                                }
+                            </Box>
+                        </Box>
+                        <Divider sx={{ my: 1 }} />
+                        <Box flex={1} />
                     </Box>
-                    <Divider sx={{ my: 1 }} />
-                    <Box flex={1} />
-                    <Box
+                    <Box display='flex' justifyContent='space-around'>
+                        <Box>
+                            <FormControl sx={{ m: 3, minWidth: 120 }}>
+                                <InputLabel id="select-label">Sort By</InputLabel>
+                                <Select
+                                    labelId="select-label"
+                                    id="select"
+                                    label="sort by"
+                                    value={select_}
+                                    onChange={e => handleSelectChange(e.target.value)}>
+                                    {/* <MenuItem value={'popularity'}>popularity</MenuItem> */}
+                                    <MenuItem value={'low'}>Price: low to high  </MenuItem>
+                                    <MenuItem value={'high'}>Price: high to low  </MenuItem>
+                                </Select>
+                            </FormControl>
+                        </Box>
+                        <Box>
+                            <Input
 
-                        className="fadeIn">
-                        <Box display='flex' justifyContent='center' sx={{ flexWrap: { xs: 'wrap', sm: 'wrap' } }}>
-
-                            {
-                                categories.map(e => (
-                                    // eslint-disable-next-line react/jsx-key
-                                    <Box key={e}>
-                                        <Button onClick={() => handleClickTypes(e)} color={typeProduct === e ? 'primary' : 'info'}>{capitalize(e)}</Button>
-                                    </Box>
-                                )
-                                )
-                            }
+                                sx={{ mt: 5 }}
+                                className='fadeIn'
+                                autoFocus
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                                type='text'
+                                placeholder="Search..."
+                                endAdornment={
+                                    <InputAdornment position="end">
+                                        <IconButton
+                                        >
+                                            <ClearOutlined />
+                                        </IconButton>
+                                    </InputAdornment>
+                                }
+                            />
                         </Box>
                     </Box>
-                    <Divider sx={{ my: 1 }} />
-                    <Box flex={1} />
-                </Box>
-                <Box display='flex' justifyContent='space-around'>
-                    <Box>
-                        <FormControl sx={{ m: 3, minWidth: 120 }}>
-                            <InputLabel id="select-label">Sort By</InputLabel>
-                            <Select
-                                labelId="select-label"
-                                id="select"
-                                label="sort by"
-                                value={select_}
-                                onChange={e => handleSelectChange(e.target.value)}>
-                                {/* <MenuItem value={'popularity'}>popularity</MenuItem> */}
-                                <MenuItem value={'low'}>Price: low to high  </MenuItem>
-                                <MenuItem value={'high'}>Price: high to low  </MenuItem>
-                            </Select>
-                        </FormControl>
-                    </Box>
-                    <Box>
-                        <Input
-                            
-                            sx={{ mt:5 }}
-                            className='fadeIn'
-                            autoFocus
-                            value={searchTerm}
-                            onChange={(e) => setSearchTerm(e.target.value)}
-                            type='text'
-                            placeholder="Search..."
-                            endAdornment={
-                                <InputAdornment position="end">
-                                    <IconButton
-                                    >
-                                        <ClearOutlined />
-                                    </IconButton>
-                                </InputAdornment>
-                            }
-                        />
-                    </Box>
-                </Box>
-            </Box >
-            {
-                isLoading
-                    ? <FullScreenLoading />
-                    : <ProductList products={_productsFiltered} />
-            }
+                </Box >
+                {
+                    isLoading
+                        ? <FullScreenLoading />
+                        : <ProductList products={_productsFiltered} />
+                }
+            </>
+            )
+
         </>
 
     )
