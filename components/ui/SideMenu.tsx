@@ -41,7 +41,7 @@ export const SideMenu = () => {
 
                 <List>
 
-                    <ListItem>
+                    <ListItem sx={{ display: router.asPath.includes('search') ? 'none' : '' }}>
                         <Input
                             /*TODO: sacar autofocus */
                             // autoFocus
@@ -61,7 +61,7 @@ export const SideMenu = () => {
                             }
                         />
                     </ListItem>
-{/* 
+                    {/* 
                     {
                         isLoggedIn && (
                             <>
