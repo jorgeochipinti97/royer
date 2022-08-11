@@ -9,8 +9,6 @@ import { sortHigh, sortLow } from '../../utils/sort';
 import { ClearOutlined } from '@mui/icons-material';
 
 
-
-
 export const ProductFilterPage = () => {
     const { products, isLoading } = useProducts('/products');
     const [valueProduct, setValueProduct] = useState<string>('all')
@@ -24,8 +22,6 @@ export const ProductFilterPage = () => {
     const [select_, setSelect_] = useState<string>('')
     const [searchTerm, setSearchTerm] = useState('');
 
-
-
     useEffect(() => {
         searchTerm.length == 0 && getProductsFiltered()
         const newProducts = _productsFiltered.filter(e => e.title.toLowerCase().includes(searchTerm.toLowerCase()))
@@ -38,7 +34,6 @@ export const ProductFilterPage = () => {
         filterValues(valueProduct)
         filterTypes(typeProduct)
     }
-
 
     const filterValues = (valueProduct_: string) => {
         valueProduct_ == 'regionales' && setCategories(categoriasRegional)
@@ -70,8 +65,6 @@ export const ProductFilterPage = () => {
             console.log(err)
         }
     }
-
-
 
 
     return (
@@ -158,20 +151,7 @@ export const ProductFilterPage = () => {
                             onChange={(e) => setSearchTerm(e.target.value)}
                             type='text'
                             placeholder="Search..."
-                            endAdornment={
-                                <InputAdornment position="end">
-                                    <IconButton
-
-                                        onClick={() => {
-                                            setSearchTerm('')
-                                            setValueProduct('all')
-                                            setTypeProduct('')
-                                        }}
-                                    >
-                                        <ClearOutlined />
-                                    </IconButton>
-                                </InputAdornment>
-                            }
+                        
                         />
                     </Box>
                 </Box>
