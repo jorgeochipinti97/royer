@@ -152,10 +152,8 @@ export const ProductFilterPage = () => {
                         </Box>
                         <Box>
                             <Input
-
                                 sx={{ mt: 5 }}
                                 className='fadeIn'
-                                autoFocus
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
                                 type='text'
