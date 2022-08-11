@@ -13,8 +13,8 @@ import { ClearOutlined } from '@mui/icons-material';
 
 export const ProductFilterPage = () => {
     const { products, isLoading } = useProducts('/products');
-    const [valueProduct, setValueProduct] = useState<string | undefined>()
-    const [typeProduct, setTypeProduct] = useState<string | undefined>()
+    const [valueProduct, setValueProduct] = useState<string>('all')
+    const [typeProduct, setTypeProduct] = useState<string>('shirts')
     const [_productsFiltered, setProductsFiltered] = useState<IProduct[]>(products)
     const genders_ = ['all', 'fashion']
     const todasCategorias = ['shirts', 'jacket', 'pants', 'mate', 'yerba', 'alfajores', 'wine', 'short', 'socks', 'wallet', 'purse', 'accessories', 'bag', 'espadrilles', 'footwear']
@@ -27,12 +27,18 @@ export const ProductFilterPage = () => {
 
 
     useEffect(() => {
-        searchTerm.length == 0 && setProductsFiltered(products)
+        searchTerm.length == 0 && getProductsFiltered()
         const newProducts = _productsFiltered.filter(e => e.title.toLowerCase().includes(searchTerm.toLowerCase()))
         searchTerm && setProductsFiltered(newProducts)
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchTerm])
+
+    const getProductsFiltered = () => {
+        filterValues(valueProduct)
+        filterTypes(typeProduct)
+    }
+
 
     const filterValues = (valueProduct_: string) => {
         valueProduct_ == 'regionales' && setCategories(categoriasRegional)
