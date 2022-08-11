@@ -88,50 +88,46 @@ export const ProductCard: FC<Props> = ({ product }) => {
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
         >
-            <Card sx={{ m: 4 }}>
+            <Box sx={{ m: 1 }}>
+                {
+                    (product.inStock === 0) && (
+                        <Chip
+                            color="primary"
+                            label="No stock"
+                            sx={{ position: 'absolute', zIndex: 99, top: '10px', left: '10px' }}
+                        />
+                    )
+                }
+
                 <NextLink href={`/product/${product.slug}`} passHref prefetch={false}>
                     <Link>
 
-                        <CardActionArea>
+                        <CardMedia
+                            component='div'
+                            className='fadeIn'
+                            onLoad={() => setIsImageLoaded(true)}>
 
-                            {
-                                (product.inStock === 0) && (
-                                    <Chip
-                                        color="primary"
-                                        label="No stock"
-                                        sx={{ position: 'absolute', zIndex: 99, top: '10px', left: '10px' }}
-                                    />
-                                )
-                            }
+                            <Image width={500} height={500} alt={product.title} src={productImage || ''} />
+                        </CardMedia>
 
-                            <CardMedia
-                                component='div'
-                                className='fadeIn'
-                                onLoad={() => setIsImageLoaded(true)}>
-
-                                <Image width={500} height={500} alt={product.title} src={productImage || ''} />
-                            </CardMedia>
-
-
-                        </CardActionArea>
                     </Link>
                 </NextLink>
-                {isInFavorites ?
-                    <FavoriteIcon
-                        color='error'
-                        onClick={onToggleFavorite}
-                    />
-                    :
-                    <FavoriteBorderIcon
-                        color='error'
-                        onClick={onToggleFavorite} />
-                }
+                            {isInFavorites ?
+                                <FavoriteIcon
+                                    sx={{ position: 'relative', bottom: 40, left: 10, zIndex: 99, }}
+                                    color='error'
+                                    onClick={onToggleFavorite}
+                                />
+                                :
+                                <FavoriteBorderIcon
+                                    sx={{ position: 'relative', bottom: 40, left: 10, zIndex: 99, }}
+                                    color='error'
+                                    onClick={onToggleFavorite} />
+                            }
 
-
-            </Card>
-            <Box sx={{ mt: 1, display: isImageLoaded ? 'block' : 'none' }} className='fadeIn' >
+            </Box>
+            <Box sx={{ display: isImageLoaded ? 'block' : 'none', position:'relative',bottom:30 }} className='fadeIn' >
                 <Box display='flex' justifyContent='center'>
-
                     <Typography variant="body2" textAlign={'center'} fontWeight={700} sx={{ width: 120 }}>{capitalizarPrimeraLetraPalabras(`${product.title}`)}</Typography>
                 </Box>
                 <Box>
