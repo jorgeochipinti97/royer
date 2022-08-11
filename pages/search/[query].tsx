@@ -24,9 +24,10 @@ const SearchPage: NextPage<Props> = ({ query }) => {
 
 
     useEffect(() => {
-        searchTerm.length < 0 && setProducts(products)
-        const newProducts = products.filter(e => e.title.includes(searchTerm))
+        searchTerm.length == 0 && setProducts(products)
+        const newProducts = products.filter(e => e.title.toLowerCase().includes(searchTerm.toLowerCase()))
         searchTerm && setProducts(newProducts)
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchTerm])
 
@@ -82,32 +83,9 @@ const SearchPage: NextPage<Props> = ({ query }) => {
 // You should use getServerSideProps when:
 // - Only if you need to pre-render a page whose data must be fetched at request time
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-
     const { query = '' } = params as { query: string };
-
-    // if (query.length === 0) {
-    //     return {
-    //         redirect: {
-    //             destination: '/',
-    //             permanent: true
-    //         }
-    //     }
-    // }
-
-    // // y no hay productos
-    // let products = await dbProducts.getProductsByTerm(query);
-    // const foundProducts = products.length > 0;
-
-    // // TODO: retornar otros productos
-    // if (!foundProducts) {
-    //     // products = await dbProducts.getAllProducts(); 
-    //     products = await dbProducts.getProductsByTerm('shirt');
-    // }
-
     return {
         props: {
-            // products,
-            // foundProducts,
             query
         }
     }

@@ -13,8 +13,8 @@ import { ClearOutlined } from '@mui/icons-material';
 
 export const ProductFilterPage = () => {
     const { products, isLoading } = useProducts('/products');
-    const [valueProduct, setValueProduct] = useState<string>('all')
-    const [typeProduct, setTypeProduct] = useState<string>('')
+    const [valueProduct, setValueProduct] = useState<string | undefined>()
+    const [typeProduct, setTypeProduct] = useState<string | undefined>()
     const [_productsFiltered, setProductsFiltered] = useState<IProduct[]>(products)
     const genders_ = ['all', 'fashion']
     const todasCategorias = ['shirts', 'jacket', 'pants', 'mate', 'yerba', 'alfajores', 'wine', 'short', 'socks', 'wallet', 'purse', 'accessories', 'bag', 'espadrilles', 'footwear']
@@ -24,6 +24,8 @@ export const ProductFilterPage = () => {
     const [select_, setSelect_] = useState<string>('')
     const [searchTerm, setSearchTerm] = useState('');
 
+
+
     useEffect(() => {
         searchTerm.length == 0 && setProductsFiltered(products)
         const newProducts = _productsFiltered.filter(e => e.title.toLowerCase().includes(searchTerm.toLowerCase()))
@@ -32,30 +34,19 @@ export const ProductFilterPage = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchTerm])
 
+    const filterValues = (valueProduct_: string) => {
+        valueProduct_ == 'regionales' && setCategories(categoriasRegional)
+        valueProduct_ == 'fashion' && setCategories(fashion__)
+        valueProduct_ == 'all' && setCategories(todasCategorias)
+        const newProductsValue = products.filter(e => e.gender == valueProduct_)
+        valueProduct_ != 'all' && setProductsFiltered(newProductsValue)
+    }
 
-    useEffect(() => {
-
-        valueProduct == 'regionales' && setCategories(categoriasRegional)
-        valueProduct == 'fashion' && setCategories(fashion__)
-        valueProduct == 'all' && setCategories(todasCategorias)
-        const newProductsValue = products.filter(e => e.gender == valueProduct)
-        valueProduct == 'all' ? setProductsFiltered(products) : setProductsFiltered(newProductsValue)
-
-
-
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [valueProduct])
-
-
-
-    useEffect(() => {
-        const newProductsValue = products.filter(e => e.gender == valueProduct)
-        const newProductsType = newProductsValue.filter(e => e.type == typeProduct)
-        const newProducts__ = products.filter(e => e.type == typeProduct)
-        valueProduct == 'all' ? setProductsFiltered(newProducts__) : setProductsFiltered(newProductsType)
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [typeProduct])
+    const filterTypes = (typeOfProduct_: string) => {
+        const newProductsValue = products.filter(e => e.gender == valueProduct && e.type == typeOfProduct_)
+        const newProductsValueAll = products.filter(e => e.type == typeOfProduct_)
+        valueProduct == 'all' ? setProductsFiltered(newProductsValueAll) : setProductsFiltered(newProductsValue)
+    }
 
 
     const handleSelectChange = (e: string) => {
@@ -77,8 +68,6 @@ export const ProductFilterPage = () => {
 
 
 
-
-
     return (
         <>
 
@@ -92,7 +81,8 @@ export const ProductFilterPage = () => {
                                     <Box key={e}>
                                         <Button color={valueProduct === e ? 'primary' : 'info'}
                                             onClick={() => {
-                                                e =='all' && filterAll()
+                                                e == 'all' && filterAll()
+                                                filterValues(e)
                                                 setValueProduct(e)
                                             }}
                                         >{capitalize(e)}</Button>
@@ -100,7 +90,10 @@ export const ProductFilterPage = () => {
                                 ))}
                                 <Box >
                                     <Button color={valueProduct === 'regionales' ? 'primary' : 'info'}
-                                        onClick={() => setValueProduct('regionales')}
+                                        onClick={() => {
+                                            setValueProduct('regionales')
+                                            filterValues('regionales')
+                                        }}
                                     >
                                         Regionals
                                     </Button>
@@ -120,7 +113,12 @@ export const ProductFilterPage = () => {
                                 categories.map(e => (
                                     // eslint-disable-next-line react/jsx-key
                                     <Box key={e}>
-                                        <Button onClick={() => setTypeProduct(e)} color={typeProduct === e ? 'primary' : 'info'}>{capitalize(e)}</Button>
+                                        <Button onClick={() => {
+                                            filterTypes(e)
+                                            setTypeProduct(e)
+                                        }
+
+                                        } color={typeProduct === e ? 'primary' : 'info'}>{capitalize(e)}</Button>
                                     </Box>
                                 )
                                 )
@@ -157,7 +155,7 @@ export const ProductFilterPage = () => {
                             endAdornment={
                                 <InputAdornment position="end">
                                     <IconButton
-                                    
+
                                         onClick={() => {
                                             setSearchTerm('')
                                             setValueProduct('all')
@@ -176,7 +174,7 @@ export const ProductFilterPage = () => {
             {
                 isLoading
                     ? <FullScreenLoading />
-                    : <ProductList products={products} />
+                    : <ProductList products={_productsFiltered} />
             }
 
 
