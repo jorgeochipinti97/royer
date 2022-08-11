@@ -29,7 +29,7 @@ const SearchPage: NextPage<Props> = ({ query }) => {
         searchTerm.length < 2 && setProducts(products)
         const newProducts = products.filter(e => e.slug.includes(searchTerm))
         searchTerm && setProducts(newProducts)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchTerm])
 
     return (
@@ -45,7 +45,12 @@ const SearchPage: NextPage<Props> = ({ query }) => {
                     placeholder="Search..."
                     endAdornment={
                         <InputAdornment position="end">
-                            <IconButton>
+                            <IconButton
+                                onClick={() => {
+                                    setSearchTerm('')
+                                    setProducts(products)
+                                }}
+                            >
                                 <SearchOutlined />
                             </IconButton>
                         </InputAdornment>
