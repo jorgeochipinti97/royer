@@ -59,7 +59,7 @@ export const ProductFilterPage = () => {
     const filterAll = () => {
         try {
             setTypeProduct('shirts')
-            const tshirts = filterTypes(products)
+            const tshirts = filterTypes('shirts')
             setCategories(todasCategorias)
             setProductsFiltered(tshirts)
         } catch (err) {
