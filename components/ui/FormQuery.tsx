@@ -4,11 +4,11 @@ import { tesloApi } from "../../api"
 import { isValidEmail } from "../../utils/validations"
 
 
-interface Props{
-    product_:string
+interface Props {
+    product_: string
 }
 
-const FormQuery:FC<Props> = ({ product_ }) => {
+const FormQuery: FC<Props> = ({ product_ }) => {
 
     const [email_, setEmail_] = useState<string>('')
     const [name_, setName_] = useState<string>('')
@@ -30,23 +30,25 @@ const FormQuery:FC<Props> = ({ product_ }) => {
 
     return (
         <Box >
-            <Box sx={{ mt: 5 }} display='flex' justifyContent='center'>
-                <Typography variant='h6'>Any questions ? Contact us!</Typography>
-            </Box>
-            <Box display='flex' justifyContent='center'>
-                <Box display='flex' justifyContent='space-around' flexDirection='column' >
-                    <TextField label="name" variant="filled" sx={{ m: 1, width:250 }} onChange={e => setName_(e.target.value)}  />
-                    <TextField label="email" variant="filled" sx={{ m: 1, width:250 }} onChange={e => setEmail_(e.target.value)} />
+            <div data-aos="zoom-in-down">
+                <Box sx={{ mt: 5 }} display='flex' justifyContent='center'>
+                    <Typography variant='h6'>Any questions ? Contact us!</Typography>
                 </Box>
-            </Box>
+                <Box display='flex' justifyContent='center'>
+                    <Box display='flex' justifyContent='space-around' flexDirection='column' >
+                        <TextField label="name" variant="filled" sx={{ m: 1, width: 250 }} onChange={e => setName_(e.target.value)} />
+                        <TextField label="email" variant="filled" sx={{ m: 1, width: 250 }} onChange={e => setEmail_(e.target.value)} />
+                    </Box>
+                </Box>
                 <Box display='flex' justifyContent='center' sx={{ mt: 3 }}>
                     <TextField label="question" variant="filled" multiline rows={4} sx={{ width: 300 }} onChange={e => setQuery_(e.target.value)} />
                 </Box>
-            <Box display='flex' justifyContent='center' sx={{ mt: 2 }}>
-                <Button color='secondary' size='large'
-                    onClick={() => handleClickQuery(name_, email_, query_, product_)}
-                >Send</Button>
-            </Box>
+                <Box display='flex' justifyContent='center' sx={{ mt: 2 }}>
+                    <Button color='secondary' size='large'
+                        onClick={() => handleClickQuery(name_, email_, query_, product_)}
+                    >Send</Button>
+                </Box>
+            </div>
         </Box>
     )
 }

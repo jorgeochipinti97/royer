@@ -59,7 +59,9 @@ export const ProductFilterPage = () => {
     const filterAll = () => {
         try {
             setTypeProduct('shirts')
-             filterTypes('shirts')
+            filterTypes('shirts')
+            const newProductsValueAll = products.filter(e => e.type == 'shirts')
+            setProductsFiltered(newProductsValueAll)
             setCategories(todasCategorias)
         } catch (err) {
             console.log(err)
