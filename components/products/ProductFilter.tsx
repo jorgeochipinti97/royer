@@ -137,7 +137,6 @@ export const ProductFilterPage = () => {
                                 label="sort by"
                                 value={select_}
                                 onChange={e => handleSelectChange(e.target.value)}>
-                                {/* <MenuItem value={'popularity'}>popularity</MenuItem> */}
                                 <MenuItem value={'low'}>Price: low to high  </MenuItem>
                                 <MenuItem value={'high'}>Price: high to low  </MenuItem>
                             </Select>

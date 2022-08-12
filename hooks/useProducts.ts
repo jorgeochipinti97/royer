@@ -3,18 +3,15 @@ import { IProduct } from '../interfaces';
 import { sortPopularity, sortProductsByTerm, sendLast } from '../utils';
 
 
-// const fetcher = (...args: [key: string]) => fetch(...args).then(res => res.json());
 
 export const useProducts = (url: string, config: SWRConfiguration = {}) => {
-
-    // const { data, error } = useSWR<IProduct[]>(`/api${ url }`, fetcher, config );
     const { data, error } = useSWR<IProduct[]>(`/api${url}`, config);
     const sortByType = (products: IProduct[]) => {
         const tshirts: IProduct[] = sortPopularity(products, 'shirts')
         const tShirtsBoca = sortProductsByTerm(tshirts, 'boca')
         const tShirtsRiver = sortProductsByTerm(tShirtsBoca, 'river')
         const tShirtBoca = sortProductsByTerm(tShirtsRiver, 'boca_juniors_jersey_22-23_aero.rdy_adidas_official')
-        const tShirtRiver = sortProductsByTerm(tShirtBoca, 'river_plate_home_jersey_shirt_21-22_-_aero.rdy_adidas_official')
+        const tShirtRiver = sortProductsByTerm(tShirtBoca, 'river_plate_home_t-shirt_2023')
         const tshirtArgentinaVieja = sortProductsByTerm(tShirtRiver, 'argentina_national_team_shirt_2021_-_aeroready')
         const tshirtArgentina = sortProductsByTerm(tshirtArgentinaVieja, 'argentina_official')
         const tShirtsMessi = sortProductsByTerm(tshirtArgentina, 'messi')
