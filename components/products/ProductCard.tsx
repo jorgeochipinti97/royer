@@ -82,87 +82,90 @@ export const ProductCard: FC<Props> = ({ product }) => {
 
 
     return (
+
         <Grid item
             xs={6}
             sm={4}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
         >
-            <Box sx={{ m: 1 }}>
-                {
-                    (product.inStock === 0) && (
-                        <Chip
-                            color="primary"
-                            label="No stock"
-                            sx={{ position: 'absolute', zIndex: 99, top: '10px', left: '10px' }}
+            <div data-aos="flip-left">
+                <Box sx={{ m: 1 }}>
+                    {
+                        (product.inStock === 0) && (
+                            <Chip
+                                color="primary"
+                                label="No stock"
+                                sx={{ position: 'absolute', zIndex: 99, top: '10px', left: '10px' }}
+                            />
+                        )
+                    }
+
+                    <NextLink href={`/product/${product.slug}`} passHref prefetch={false}>
+                        <Link>
+
+                            <CardMedia
+                                component='div'
+                                className='fadeIn'
+                                onLoad={() => setIsImageLoaded(true)}>
+
+                                <Image width={500} height={500} alt={product.title} src={productImage || ''} />
+                            </CardMedia>
+
+                        </Link>
+                    </NextLink>
+                    {isInFavorites ?
+                        <FavoriteIcon
+                            sx={{ position: 'relative', bottom: 40, left: 10, zIndex: 99, }}
+                            color='error'
+                            onClick={onToggleFavorite}
                         />
-                    )
-                }
-
-                <NextLink href={`/product/${product.slug}`} passHref prefetch={false}>
-                    <Link>
-
-                        <CardMedia
-                            component='div'
-                            className='fadeIn'
-                            onLoad={() => setIsImageLoaded(true)}>
-
-                            <Image width={500} height={500} alt={product.title} src={productImage || ''} />
-                        </CardMedia>
-
-                    </Link>
-                </NextLink>
-                            {isInFavorites ?
-                                <FavoriteIcon
-                                    sx={{ position: 'relative', bottom: 40, left: 10, zIndex: 99, }}
-                                    color='error'
-                                    onClick={onToggleFavorite}
-                                />
-                                :
-                                <FavoriteBorderIcon
-                                    sx={{ position: 'relative', bottom: 40, left: 10, zIndex: 99, }}
-                                    color='error'
-                                    onClick={onToggleFavorite} />
-                            }
-
-            </Box>
-            <Box sx={{ display: isImageLoaded ? 'block' : 'none', position:'relative',bottom:30 }} className='fadeIn' >
-                <Box display='flex' justifyContent='center'>
-                    <Typography variant="body2" textAlign={'center'} fontWeight={700} sx={{ width: 120 }}>{capitalizarPrimeraLetraPalabras(`${product.title}`)}</Typography>
-                </Box>
-                <Box>
-                    <Box display='flex' justifyContent='center' sx={{ mb: 1, mt: 2 }}>
-                        <NextLink href={`/product/${product.slug}`} passHref prefetch={false}>
-                            <Link>
-                                <Button
-                                    color="primary"
-                                    sx={{ width: '130px' }}>
-                                    <Typography variant="body2" textAlign={'center'} fontWeight={700}>
-                                        USD:{`${currency.formattwo(product.price)}`}
-                                    </Typography>
-                                </Button>
-                            </Link>
-                        </NextLink>
-                    </Box>
-                    <Box display='flex' justifyContent='center' sx={{ mb: 1 }}>
-                        <NextLink href={`/product/${product.slug}`} passHref prefetch={false}>
-                            <Link>
-                                <Button
-                                    color="success"
-                                    startIcon={<CurrencyBitcoinIcon />}
-                                    sx={{ width: '130px', pt: 1, pb: 1 }}>
-                                    <Typography variant="body2" textAlign={'center'} fontWeight={700} >
-                                        Crypto:{`${currency.formattwo(discountPrice)}`}
-                                    </Typography>
-                                </Button>
-                            </Link>
-                        </NextLink>
-                    </Box>
+                        :
+                        <FavoriteBorderIcon
+                            sx={{ position: 'relative', bottom: 40, left: 10, zIndex: 99, }}
+                            color='error'
+                            onClick={onToggleFavorite} />
+                    }
 
                 </Box>
-            </Box>
+                <Box sx={{ display: isImageLoaded ? 'block' : 'none', position: 'relative', bottom: 30 }} className='fadeIn' >
+                    <Box display='flex' justifyContent='center'>
+                        <Typography variant="body2" textAlign={'center'} fontWeight={700} sx={{ width: 120 }}>{capitalizarPrimeraLetraPalabras(`${product.title}`)}</Typography>
+                    </Box>
+                    <Box>
+                        <Box display='flex' justifyContent='center' sx={{ mb: 1, mt: 2 }}>
+                            <NextLink href={`/product/${product.slug}`} passHref prefetch={false}>
+                                <Link>
+                                    <Button
+                                        color="primary"
+                                        sx={{ width: '130px' }}>
+                                        <Typography variant="body2" textAlign={'center'} fontWeight={700}>
+                                            USD:{`${currency.formattwo(product.price)}`}
+                                        </Typography>
+                                    </Button>
+                                </Link>
+                            </NextLink>
+                        </Box>
+                        <Box display='flex' justifyContent='center' sx={{ mb: 1 }}>
+                            <NextLink href={`/product/${product.slug}`} passHref prefetch={false}>
+                                <Link>
+                                    <Button
+                                        color="success"
+                                        startIcon={<CurrencyBitcoinIcon />}
+                                        sx={{ width: '130px', pt: 1, pb: 1 }}>
+                                        <Typography variant="body2" textAlign={'center'} fontWeight={700} >
+                                            Crypto:{`${currency.formattwo(discountPrice)}`}
+                                        </Typography>
+                                    </Button>
+                                </Link>
+                            </NextLink>
+                        </Box>
 
-            <Divider sx={{ my: 2 }} />
+                    </Box>
+                </Box>
+
+                <Divider sx={{ my: 2 }} />
+            </div>
         </Grid>
     )
 }
