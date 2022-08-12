@@ -58,7 +58,7 @@ export const ProductFilterPage = () => {
 
     const filterAll = () => {
         try {
-            setTypeProduct('shirt')
+            setTypeProduct('shirts')
             setCategories(todasCategorias)
             setProductsFiltered(products)
         } catch (err) {
