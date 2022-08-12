@@ -59,8 +59,9 @@ export const ProductFilterPage = () => {
     const filterAll = () => {
         try {
             setTypeProduct('shirts')
+            const tshirts = filterTypes(products)
             setCategories(todasCategorias)
-            setProductsFiltered(products)
+            setProductsFiltered(tshirts)
         } catch (err) {
             console.log(err)
         }
@@ -150,7 +151,7 @@ export const ProductFilterPage = () => {
                             onChange={(e) => setSearchTerm(e.target.value)}
                             type='text'
                             placeholder="Search..."
-                        
+
                         />
                     </Box>
                 </Box>
