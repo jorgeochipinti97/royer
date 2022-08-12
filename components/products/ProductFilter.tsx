@@ -7,7 +7,6 @@ import { ProductList } from './ProductList';
 import { IProduct } from '../../interfaces';
 import { sortHigh, sortLow } from '../../utils/sort';
 import { ClearOutlined } from '@mui/icons-material';
-import { IProduct } from '../../interfaces/products';
 
 
 export const ProductFilterPage = () => {
