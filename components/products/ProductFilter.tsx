@@ -184,36 +184,39 @@ export const ProductFilterPage = () => {
                     :
                     <>
                         {/* <Grid container spacing={1}> */}
-                        <InfiniteScroll
-                            dataLength={currentsProducts.length}
-                            next={getMoreProducts}
-                            style={{
-                                display: 'grid',
-                                gridTemplateColumns: 'auto auto',
-                                justifyContent:'space-around'
-                            }}
-                            hasMore={true}
-                            loader={<span></span>}>
+         
+                            <InfiniteScroll
+                                dataLength={currentsProducts.length}
+                                next={getMoreProducts}
+                                style={{
+                                    display: 'grid',
+                                    gridTemplateColumns: 'auto auto',
+                                    justifyContent: 'space-around',
+                                    overflow:'hidden'
+                                }}
+                                hasMore={true}
+                                loader={<span></span>}
+
+                            >
+
+                                {
+                                    currentsProducts.map(product => (
 
 
-                            {
-                                currentsProducts.map(product => (
+                                        <ProductCard
+                                            key={product.slug}
+                                            product={product}
+                                        />
 
+                                    ))
+                                }
+                                {
+                                    asPath == '/'
+                                        ? null
+                                        : <ClickHere />
+                                }
 
-                                    <ProductCard
-                                        key={product.slug}
-                                        product={product}
-                                    />
-
-                                ))
-                            }
-                            {
-                                asPath == '/'
-                                    ? null
-                                    : <ClickHere />
-                            }
-
-                        </InfiniteScroll>
+                            </InfiniteScroll>
                         {/* </Grid> */}
                     </>
             }
