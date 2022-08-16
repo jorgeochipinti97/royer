@@ -3,14 +3,18 @@ import { FullScreenLoading } from '../../components/ui';
 
 import { capitalize, Box, Button, Divider, InputLabel, Select, MenuItem, FormControl, IconButton, Input, InputAdornment } from '@mui/material';
 import { useProducts } from '../../hooks';
-import { ProductList } from './ProductList';
 import { IProduct } from '../../interfaces';
 import { sortHigh, sortLow } from '../../utils/sort';
 import { ClearOutlined } from '@mui/icons-material';
-
+import { ProductCard } from '.'
+import { ClickHere } from './Clickhere';
+import { useRouter } from 'next/router';
+import { Grid } from '@mui/material';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 export const ProductFilterPage = () => {
-    const { products, isLoading } = useProducts('/products');
+    const { products, isLoading } = useProducts('/products')
+    const { asPath } = useRouter()
     const [valueProduct, setValueProduct] = useState<string>('all')
     const [typeProduct, setTypeProduct] = useState<string>('shirts')
     const [_productsFiltered, setProductsFiltered] = useState<IProduct[]>(products)
@@ -22,6 +26,8 @@ export const ProductFilterPage = () => {
     const [select_, setSelect_] = useState<string>('')
     const [searchTerm, setSearchTerm] = useState('');
 
+    const [currentsProducts, setCurrentProducts] = useState<IProduct[]>(_productsFiltered.slice(0, 15) || [])
+    const [currentPage, setCurrentPage] = useState(1)
     useEffect(() => {
         searchTerm.length == 0 && getProductsFiltered()
         const newProducts = _productsFiltered.filter(e => e.title.toLowerCase().includes(searchTerm.toLowerCase()))
@@ -35,18 +41,26 @@ export const ProductFilterPage = () => {
         filterTypes(typeProduct)
     }
 
+    useEffect(() => {
+        setCurrentProducts(_productsFiltered.slice(0, currentPage * 15))
+    }, [_productsFiltered, currentPage])
+
+
+
     const filterValues = (valueProduct_: string) => {
         valueProduct_ == 'regionales' && setCategories(categoriasRegional)
         valueProduct_ == 'fashion' && setCategories(fashion__)
         valueProduct_ == 'all' && setCategories(todasCategorias)
         const newProductsValue = products.filter(e => e.gender == valueProduct_)
         valueProduct_ != 'all' && setProductsFiltered(newProductsValue)
+        setCurrentPage(1)
     }
 
     const filterTypes = (typeOfProduct_: string) => {
         const newProductsValue = products.filter(e => e.gender == valueProduct && e.type == typeOfProduct_)
         const newProductsValueAll = products.filter(e => e.type == typeOfProduct_)
         valueProduct == 'all' ? setProductsFiltered(newProductsValueAll) : setProductsFiltered(newProductsValue)
+        setCurrentPage(1)
     }
 
 
@@ -66,6 +80,12 @@ export const ProductFilterPage = () => {
         } catch (err) {
             console.log(err)
         }
+    }
+
+
+    const getMoreProducts = () => {
+        setCurrentPage(currentPage + 1)
+        console.log(currentPage)
     }
 
 
@@ -161,7 +181,41 @@ export const ProductFilterPage = () => {
             {
                 isLoading
                     ? <FullScreenLoading />
-                    : <ProductList products={_productsFiltered} />
+                    :
+                    <>
+                        {/* <Grid container spacing={1}> */}
+                        <InfiniteScroll
+                            dataLength={currentsProducts.length}
+                            next={getMoreProducts}
+                            style={{
+                                display: 'grid',
+                                gridTemplateColumns: 'auto auto',
+                                justifyContent:'space-around'
+                            }}
+                            hasMore={true}
+                            loader={<span></span>}>
+
+
+                            {
+                                currentsProducts.map(product => (
+
+
+                                    <ProductCard
+                                        key={product.slug}
+                                        product={product}
+                                    />
+
+                                ))
+                            }
+                            {
+                                asPath == '/'
+                                    ? null
+                                    : <ClickHere />
+                            }
+
+                        </InfiniteScroll>
+                        {/* </Grid> */}
+                    </>
             }
 
 
