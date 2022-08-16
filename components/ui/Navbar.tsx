@@ -6,12 +6,14 @@ import { AppBar, Badge, Box, Button, IconButton, Input, InputAdornment, Link, To
 import { ClearOutlined, SearchOutlined, ShoppingCartOutlined } from '@mui/icons-material';
 
 import { CartContext, UiContext } from '../../context';
+import { useProducts } from '../../hooks';
 
 export const Navbar = () => {
 
     const { asPath, push } = useRouter();
     const { toggleSideMenu } = useContext(UiContext);
     const { numberOfItems } = useContext(CartContext);
+    const { isLoading } = useProducts('/products');
 
     const [searchTerm, setSearchTerm] = useState('');
     const [isSearchVisible, setIsSearchVisible] = useState(false);
@@ -35,36 +37,39 @@ export const Navbar = () => {
 
                 <Box flex={1} />
 
-                <Box sx={{ display: isSearchVisible ? 'none' : { xs: 'none', sm: 'block' } }}
-                    className="fadeIn">
-                    <NextLink href='/' passHref>
-                        <Link>
-                            <Button color={asPath === '/' ? 'primary' : 'info'}>Home</Button>
-                        </Link>
-                    </NextLink>
-                    <NextLink href='/products' passHref>
-                        <Link>
-                            <Button color={asPath === '/products' ? 'primary' : 'info'}>Products</Button>
-                        </Link>
-                    </NextLink>
-                    <NextLink href='/find' passHref>
-                        <Link>
-                            <Button color={asPath === '/find' ? 'primary' : 'info'}>Find My Order</Button>
-                        </Link>
-                    </NextLink>
-                    <NextLink href='/contact' passHref>
-                        <Link>
-                            <Button color={asPath === '/contact' ? 'primary' : 'info'}>Contact Us</Button>
-                        </Link>
-                    </NextLink>
-                    <NextLink href='/faqs' passHref>
-                        <Link>
-                            <Button color={asPath === '/faqs' ? 'primary' : 'info'}>FAQS</Button>
-                        </Link>
-                    </NextLink>
-                </Box>
+                {
+                    !isLoading
+                    && <Box sx={{ display: isSearchVisible ? 'none' : { xs: 'none', sm: 'block' } }}
+                        className="fadeIn">
+                        <NextLink href='/' passHref>
+                            <Link>
+                                <Button color={asPath === '/' ? 'primary' : 'info'}>Home</Button>
+                            </Link>
+                        </NextLink>
+                        <NextLink href='/products' passHref>
+                            <Link>
+                                <Button color={asPath === '/products' ? 'primary' : 'info'}>Products</Button>
+                            </Link>
+                        </NextLink>
+                        <NextLink href='/find' passHref>
+                            <Link>
+                                <Button color={asPath === '/find' ? 'primary' : 'info'}>Find My Order</Button>
+                            </Link>
+                        </NextLink>
+                        <NextLink href='/contact' passHref>
+                            <Link>
+                                <Button color={asPath === '/contact' ? 'primary' : 'info'}>Contact Us</Button>
+                            </Link>
+                        </NextLink>
+                        <NextLink href='/faqs' passHref>
+                            <Link>
+                                <Button color={asPath === '/faqs' ? 'primary' : 'info'}>FAQS</Button>
+                            </Link>
+                        </NextLink>
+                    </Box>
 
 
+                }
                 <Box flex={1} />
 
 
