@@ -12,6 +12,9 @@ import { useRouter } from 'next/router';
 import { Grid } from '@mui/material';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
+
+
+
 export const ProductFilterPage = () => {
     const { products, isLoading } = useProducts('/products')
     const { asPath } = useRouter()
@@ -184,39 +187,40 @@ export const ProductFilterPage = () => {
                     :
                     <>
                         {/* <Grid container spacing={1}> */}
-         
-                            <InfiniteScroll
-                                dataLength={currentsProducts.length}
-                                next={getMoreProducts}
-                                style={{
-                                    display: 'grid',
-                                    gridTemplateColumns: 'auto auto',
-                                    justifyContent: 'space-around',
-                                    overflow:'hidden'
-                                }}
-                                hasMore={true}
-                                loader={<span></span>}
 
-                            >
+                        <InfiniteScroll
+                            dataLength={currentsProducts.length}
+                            next={getMoreProducts}
+                            style={{
+                                display: 'grid',
+                                gridTemplateColumns: window && window.innerWidth > 600 ? 'auto auto auto' : 'auto auto',
+                                justifyContent: 'space-around',
+                                overflow: 'hidden',
 
-                                {
-                                    currentsProducts.map(product => (
+                            }}
+                            hasMore={true}
+                            loader={<span></span>}
+
+                        >
+
+                            {
+                                currentsProducts.map(product => (
 
 
-                                        <ProductCard
-                                            key={product.slug}
-                                            product={product}
-                                        />
+                                    <ProductCard
+                                        key={product.slug}
+                                        product={product}
+                                    />
 
-                                    ))
-                                }
-                                {
-                                    asPath == '/'
-                                        ? null
-                                        : <ClickHere />
-                                }
+                                ))
+                            }
+                            {
+                                asPath == '/'
+                                    ? null
+                                    : <ClickHere />
+                            }
 
-                            </InfiniteScroll>
+                        </InfiniteScroll>
                         {/* </Grid> */}
                     </>
             }
