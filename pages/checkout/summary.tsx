@@ -43,7 +43,7 @@ const SummaryPage = () => {
             return;
         }
 
-        router.replace(`/orders/${message}`);
+        router.push(`/orders/${message}`);
 
     }
     return (
