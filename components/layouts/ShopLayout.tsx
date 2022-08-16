@@ -18,6 +18,7 @@ export const ShopLayout: FC<Props> = ({children, title, pageDescription, imageFu
                 <title>{title}</title>
 
                 <meta name="description" content={pageDescription} />
+                <meta property="og:image" content="https://res.cloudinary.com/djk4q3tys/image/upload/v1649880523/rgxxqk3chzfrtaqq2j9d.png" />
 
 
                 <meta name="og:title" content={title} />

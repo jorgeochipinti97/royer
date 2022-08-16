@@ -5,11 +5,9 @@ import { capitalize, Box, Button, Divider, InputLabel, Select, MenuItem, FormCon
 import { useProducts } from '../../hooks';
 import { IProduct } from '../../interfaces';
 import { sortHigh, sortLow } from '../../utils/sort';
-import { ClearOutlined } from '@mui/icons-material';
 import { ProductCard } from '.'
 import { ClickHere } from './Clickhere';
 import { useRouter } from 'next/router';
-import { Grid } from '@mui/material';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 
@@ -28,9 +26,10 @@ export const ProductFilterPage = () => {
     const [categories, setCategories] = useState<string[]>(todasCategorias)
     const [select_, setSelect_] = useState<string>('')
     const [searchTerm, setSearchTerm] = useState('');
-
     const [currentsProducts, setCurrentProducts] = useState<IProduct[]>(_productsFiltered.slice(0, 15) || [])
     const [currentPage, setCurrentPage] = useState(1)
+
+    
     useEffect(() => {
         searchTerm.length == 0 && getProductsFiltered()
         const newProducts = _productsFiltered.filter(e => e.title.toLowerCase().includes(searchTerm.toLowerCase()))
