@@ -11,16 +11,18 @@ import ConnectWithoutContactIcon from '@mui/icons-material/ConnectWithoutContact
 import QuizIcon from '@mui/icons-material/Quiz';
 import ContentPasteSearchSharpIcon from '@mui/icons-material/ContentPasteSearchSharp';
 import NotListedLocationSharpIcon from '@mui/icons-material/NotListedLocationSharp';
+import Cookie from 'js-cookie';
 export const SideMenu = () => {
 
     const router = useRouter();
     const { isMenuOpen, toggleSideMenu } = useContext(UiContext);
     const { user, isLoggedIn, logout } = useContext(AuthContext);
+    // TODO: HACER QUE LA BUSQUEDA SEA POR LOCALSTORAGE Y NO POR QUERY
     const [searchTerm, setSearchTerm] = useState('');
 
     const onSearchTerm = () => {
         if (searchTerm.trim().length === 0) return;
-        navigateTo(`/search/${searchTerm}`);
+        navigateTo('/search');
     }
 
 
@@ -41,12 +43,10 @@ export const SideMenu = () => {
 
                 <List>
 
-                    <ListItem sx={{ display: router.asPath.includes('search') || router.asPath.includes('products')   ? 'none' : '' }}>
-                        <Input
-                            /*TODO: sacar autofocus */
-                            // autoFocus
+                    <ListItem sx={{ display: router.asPath.includes('search') || router.asPath.includes('products') ? 'none' : '' }}>
+                        {/* <Input
                             value={searchTerm}
-                            onChange={(e) => setSearchTerm(e.target.value)}
+                            onChange={(e) => Cookie.set('searchTerm', e.target.value)}
                             onKeyPress={(e) => e.key === 'Enter' ? onSearchTerm() : null}
                             type='text'
                             placeholder="Search..."
@@ -59,8 +59,9 @@ export const SideMenu = () => {
                                     </IconButton>
                                 </InputAdornment>
                             }
-                        />
+                        /> */}
                     </ListItem>
+
                     {/* 
                     {
                         isLoggedIn && (
@@ -212,6 +213,6 @@ export const SideMenu = () => {
                     }
                 </List>
             </Box>
-        </Drawer>
+        </Drawer >
     )
 }

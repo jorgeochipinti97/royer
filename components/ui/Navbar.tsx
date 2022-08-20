@@ -7,6 +7,7 @@ import { ClearOutlined, SearchOutlined, ShoppingCartOutlined } from '@mui/icons-
 
 import { CartContext, UiContext } from '../../context';
 import { useProducts } from '../../hooks';
+import Cookie from 'js-cookie';
 
 export const Navbar = () => {
 
@@ -20,7 +21,7 @@ export const Navbar = () => {
 
     const onSearchTerm = () => {
         if (searchTerm.trim().length === 0) return;
-        push(`/search/${searchTerm}`);
+        push('/search');
     }
 
 
@@ -77,7 +78,7 @@ export const Navbar = () => {
                 {/* Pantallas pantallas grandes */}
                 <Box sx={{ display: asPath.includes('search') || asPath.includes('products') ? 'none' : '' }}>
 
-                    {
+                    {/* {
                         isSearchVisible
                             ? (
                                 <Input
@@ -85,7 +86,7 @@ export const Navbar = () => {
                                     className='fadeIn'
                                     autoFocus
                                     value={searchTerm}
-                                    onChange={(e) => setSearchTerm(e.target.value)}
+                                    onChange={(e) => Cookie.set('searchTerm', e.target.value)}
                                     onKeyPress={(e) => e.key === 'Enter' ? onSearchTerm() : null}
                                     type='text'
                                     placeholder="Search..."
@@ -110,7 +111,7 @@ export const Navbar = () => {
                                     <SearchOutlined />
                                 </IconButton>
                             )
-                    }
+                    } */}
 
                 </Box>
 
