@@ -4,7 +4,7 @@ import { sortPopularity, sortProductsByTerm, sendLast } from '../utils';
 
 
 
-export const useProducts = (url: string, config: SWRConfiguration = {}) => {
+export const useCodes = (url: string, config: SWRConfiguration = {}) => {
     const { data, error } = useSWR<IProduct[]>(`/api${url}`, config);
 
     return {
