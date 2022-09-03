@@ -8,6 +8,7 @@ interface ContextProps {
     cart: ICartProduct[];
     numberOfItems: number;
     total: number;
+    discountCode?:string;
 
 
     shippingAddress?: ShippingAddress,

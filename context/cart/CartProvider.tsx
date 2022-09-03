@@ -1,4 +1,4 @@
-import { FC, useEffect, useReducer } from 'react';
+import { FC, useEffect, useReducer, useState } from 'react';
 import Cookie from 'js-cookie';
 import axios from 'axios';
 
@@ -6,6 +6,8 @@ import axios from 'axios';
 import { ICartProduct, IOrder, ShippingAddress } from '../../interfaces';
 import { CartContext, cartReducer } from './';
 import { tesloApi } from '../../api';
+import useSWR from 'swr';
+import { IDiscount } from '../../interfaces/discountCodes';
 
 export interface CartState {
     isLoaded: boolean;
@@ -31,54 +33,64 @@ const CART_INITIAL_STATE: CartState = {
 }
 
 
-export const CartProvider:FC = ({ children }) => {
+export const CartProvider: FC = ({ children }) => {
 
-    const [state, dispatch] = useReducer( cartReducer , CART_INITIAL_STATE );
+    const [state, dispatch] = useReducer(cartReducer, CART_INITIAL_STATE);
+    const [discountPrice_, setDiscountPrice] = useState(state.total)
+    const [discountCode_, setDiscountCode_] = useState('')
+    const { data, error } = useSWR<IDiscount[]>('/api/discount');
 
     // Efecto
     useEffect(() => {
         try {
-            const cookieProducts = Cookie.get('cart') ? JSON.parse( Cookie.get('cart')! ): []
+            const cookieProducts = Cookie.get('cart') ? JSON.parse(Cookie.get('cart')!) : []
             dispatch({ type: '[Cart] - LoadCart from cookies | storage', payload: cookieProducts });
         } catch (error) {
             dispatch({ type: '[Cart] - LoadCart from cookies | storage', payload: [] });
         }
     }, []);
 
+    const getDiscountPrice = (code_: string) => {
+        const precioFinal = state.total
+
+    }
 
     useEffect(() => {
 
-        if ( Cookie.get('firstName')){
+        if (Cookie.get('firstName')) {
             const shippingAddress = {
-                firstName : Cookie.get('firstName') || '',
-                lastName  : Cookie.get('lastName') || '',
-                address   : Cookie.get('address') || '',
-                address2  : Cookie.get('address2') || '',
-                zip       : Cookie.get('zip') || '',
-                city      : Cookie.get('city') || '',
-                country   : Cookie.get('country') || '',
-                phone     : Cookie.get('phone') || '',
-                email     : Cookie.get('email') || '',
-                taxId     : Cookie.get('taxId') || '',
+                firstName: Cookie.get('firstName') || '',
+                lastName: Cookie.get('lastName') || '',
+                address: Cookie.get('address') || '',
+                address2: Cookie.get('address2') || '',
+                zip: Cookie.get('zip') || '',
+                city: Cookie.get('city') || '',
+                country: Cookie.get('country') || '',
+                phone: Cookie.get('phone') || '',
+                email: Cookie.get('email') || '',
+                taxId: Cookie.get('taxId') || '',
             }
-            
-            dispatch({ type:'[Cart] - LoadAddress from Cookies', payload: shippingAddress })
+
+            dispatch({ type: '[Cart] - LoadAddress from Cookies', payload: shippingAddress })
         }
+
+        Cookie.get('discountCode') && setDiscountCode_(Cookie.get('discountCode') || '')
+        Cookie.get('discountCode') && getDiscountPrice(Cookie.get('discountCode') || '')
     }, [])
-    
 
 
-    
+
+
     useEffect(() => {
-      Cookie.set('cart', JSON.stringify( state.cart ));
+        Cookie.set('cart', JSON.stringify(state.cart));
     }, [state.cart]);
 
 
     useEffect(() => {
-        
-        const numberOfItems = state.cart.reduce( ( prev, current ) => current.quantity + prev , 0 );
-        const subTotal = state.cart.reduce( ( prev, current ) => (current.price * current.quantity) + prev, 0 );
-    
+
+        const numberOfItems = state.cart.reduce((prev, current) => current.quantity + prev, 0);
+        const subTotal = state.cart.reduce((prev, current) => (current.price * current.quantity) + prev, 0);
+
         const orderSummary = {
             numberOfItems,
             subTotal,
@@ -90,7 +102,7 @@ export const CartProvider:FC = ({ children }) => {
 
 
 
-    const addProductToCart = ( product: ICartProduct ) => {
+    const addProductToCart = (product: ICartProduct) => {
         //! Nivel 1
         // dispatch({ type: '[Cart] - Add Product', payload: product });
 
@@ -99,16 +111,16 @@ export const CartProvider:FC = ({ children }) => {
         // dispatch({ type: '[Cart] - Add Product', payload: [...productsInCart, product] })
 
         //! Nivel Final
-        const productInCart = state.cart.some( p => p._id === product._id );
-        if ( !productInCart ) return dispatch({ type: '[Cart] - Update products in cart', payload: [...state.cart, product ] })
+        const productInCart = state.cart.some(p => p._id === product._id);
+        if (!productInCart) return dispatch({ type: '[Cart] - Update products in cart', payload: [...state.cart, product] })
 
-        const productInCartButDifferentSize = state.cart.some( p => p._id === product._id && p.size === product.size );
-        if ( !productInCartButDifferentSize ) return dispatch({ type: '[Cart] - Update products in cart', payload: [...state.cart, product ] })
+        const productInCartButDifferentSize = state.cart.some(p => p._id === product._id && p.size === product.size);
+        if (!productInCartButDifferentSize) return dispatch({ type: '[Cart] - Update products in cart', payload: [...state.cart, product] })
 
         // Acumular
-        const updatedProducts = state.cart.map( p => {
-            if ( p._id !== product._id ) return p;
-            if ( p.size !== product.size ) return p;
+        const updatedProducts = state.cart.map(p => {
+            if (p._id !== product._id) return p;
+            if (p.size !== product.size) return p;
 
             // Actualizar la cantidad
             p.quantity += product.quantity;
@@ -119,38 +131,48 @@ export const CartProvider:FC = ({ children }) => {
 
     }
 
-    const updateCartQuantity = ( product: ICartProduct ) => {
+    const updateCartQuantity = (product: ICartProduct) => {
         dispatch({ type: '[Cart] - Change cart quantity', payload: product });
     }
 
-    const removeCartProduct = ( product: ICartProduct ) => {
+    const removeCartProduct = (product: ICartProduct) => {
         dispatch({ type: '[Cart] - Remove product in cart', payload: product });
     }
 
-    const updateAddress = ( address: ShippingAddress ) => {
-        Cookie.set('firstName',address.firstName);
-        Cookie.set('lastName',address.lastName);
-        Cookie.set('address',address.address);
-        Cookie.set('address2',address.address2 || '');
-        Cookie.set('zip',address.zip);
-        Cookie.set('city',address.city);
-        Cookie.set('country',address.country);
-        Cookie.set('phone',address.phone);
-        Cookie.set('email',address.email);
-        Cookie.set('taxid',address.taxId);
+    const updateAddress = (address: ShippingAddress) => {
+        Cookie.set('firstName', address.firstName);
+        Cookie.set('lastName', address.lastName);
+        Cookie.set('address', address.address);
+        Cookie.set('address2', address.address2 || '');
+        Cookie.set('zip', address.zip);
+        Cookie.set('city', address.city);
+        Cookie.set('country', address.country);
+        Cookie.set('phone', address.phone);
+        Cookie.set('email', address.email);
+        Cookie.set('taxid', address.taxId);
 
         dispatch({ type: '[Cart] - Update Address', payload: address });
     }
 
 
-    const createOrder = async():Promise<{ hasError: boolean; message: string; }> => {
+    const createOrder = async (): Promise<{ hasError: boolean; message: string; }> => {
 
-        if ( !state.shippingAddress ) {
+        if (!state.shippingAddress) {
             throw new Error('No hay dirección de entrega');
         }
 
+        let discountPrice___ = state.total
+        console.log(data)
+        data != undefined && data.map(e => {
+            const porcentaje = e.percentage * state.total
+            const porcentajeFinal = porcentaje / 100
+            const finalAmount = state.total - porcentajeFinal
+            discountPrice___ = finalAmount
+        })
+
+
         const body: IOrder = {
-            orderItems: state.cart.map( p => ({
+            orderItems: state.cart.map(p => ({
                 ...p,
                 size: p.size!
             })),
@@ -160,12 +182,13 @@ export const CartProvider:FC = ({ children }) => {
             tax: state.tax,
             total: state.total,
             isPaid: false,
-            transactionId:'null',
+            transactionId: 'null',
+            discountCode: discountCode_,
+            discountPrice: discountPrice___
         }
 
-
         try {
-            
+
             const { data } = await tesloApi.post<IOrder>('/orders', body);
 
             dispatch({ type: '[Cart] - Order complete' });
@@ -177,7 +200,7 @@ export const CartProvider:FC = ({ children }) => {
 
 
         } catch (error) {
-            if ( axios.isAxiosError(error) ) {
+            if (axios.isAxiosError(error)) {
                 return {
                     hasError: true,
                     message: error.response?.data.message
@@ -185,7 +208,7 @@ export const CartProvider:FC = ({ children }) => {
             }
             return {
                 hasError: true,
-                message : 'Error no controlado, hable con el administrador'
+                message: 'Error no controlado, hable con el administrador'
             }
         }
 
@@ -205,7 +228,7 @@ export const CartProvider:FC = ({ children }) => {
             // Orders
             createOrder,
         }}>
-            { children }
+            {children}
         </CartContext.Provider>
     )
 };

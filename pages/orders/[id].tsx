@@ -37,7 +37,7 @@ const OrderPage: NextPage<Props> = ({ order }) => {
     const [isWestern, setIsWestern] = useState(false)
     const [isAirtm, setIsAirtm] = useState(false)
     const [isPaying, setIsPaying] = useState(false);
-    const [discountPrice, setDiscountPrice] = useState<number>(order.total)
+    const [criptoPrice, setCriptoPrice] = useState<number>(order.total)
     const [hash_, setHash_] = useState('')
     const [isDisable, setisDisable] = useState<boolean>(false)
     const crypto = ['https://res.cloudinary.com/djk4q3tys/image/upload/v1649803353/vdcqamydvmx70cksuubo.png', 'https://res.cloudinary.com/djk4q3tys/image/upload/v1649803353/ixqoo5kldhyiy57kuhcr.png', 'https://res.cloudinary.com/djk4q3tys/image/upload/v1649803353/vahsohmh1mozb9tpfbpz.png', 'https://res.cloudinary.com/djk4q3tys/image/upload/v1649803352/zkbtzcdmjqfmtad7ypxw.png', 'https://res.cloudinary.com/djk4q3tys/image/upload/v1649803352/benu5ggpqtwdo7pn4axj.png']
@@ -50,7 +50,7 @@ const OrderPage: NextPage<Props> = ({ order }) => {
     }
     useEffect(() => {
         const a = handlePrice(order.total, 10)
-        setDiscountPrice(a)
+        setCriptoPrice(a)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
@@ -101,7 +101,7 @@ const OrderPage: NextPage<Props> = ({ order }) => {
             if (order._id != undefined) {
                 const order_: IOrderCrypto = {
                     _idOrder: order._id,
-                    total: discountPrice,
+                    total: criptoPrice,
                     isPaid: false,
                     isSend: false,
                 }
@@ -199,22 +199,19 @@ const OrderPage: NextPage<Props> = ({ order }) => {
                             <Box display='flex' justifyContent='space-between'>
                                 <Typography variant='subtitle1'>Shipping details:</Typography>
                             </Box>
-
-
                             <Typography>{shippingAddress.firstName} {shippingAddress.lastName}</Typography>
                             <Typography>{shippingAddress.address} {shippingAddress.address2 ? `, ${shippingAddress.address2}` : ''}</Typography>
                             <Typography>{shippingAddress.city}, {shippingAddress.zip}</Typography>
                             <Typography>{shippingAddress.country}</Typography>
                             <Typography>{shippingAddress.phone}</Typography>
                             <Typography>{shippingAddress.taxId}</Typography>
-
                             <Divider sx={{ my: 1 }} />
-
-
                             <OrderSummary
                                 orderValues={{
                                     numberOfItems: order.numberOfItems,
                                     total: order.total,
+                                    codigoDeDescuento: order.discountCode,
+                                    precioFinal: order.discountPrice
                                 }}
                             />
 
@@ -251,7 +248,7 @@ const OrderPage: NextPage<Props> = ({ order }) => {
                                                             purchase_units: [
                                                                 {
                                                                     amount: {
-                                                                        value: `${order.total}`,
+                                                                        value: order.discountPrice > 3 ? `${order.discountPrice}` : `${order.total}`,
                                                                     },
                                                                 },
                                                             ],
@@ -360,7 +357,7 @@ const OrderPage: NextPage<Props> = ({ order }) => {
                                                         <Typography variant="subtitle1">Total:</Typography>
                                                     </Grid>
                                                     <Grid item xs={6} sx={{ mt: 2 }} display='flex' justifyContent='end'>
-                                                        <Typography variant="subtitle1">{currency.format(discountPrice)}</Typography>
+                                                        <Typography variant="subtitle1">{currency.format(criptoPrice)}</Typography>
                                                     </Grid>
                                                 </Grid>
 

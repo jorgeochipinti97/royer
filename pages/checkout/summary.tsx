@@ -13,7 +13,6 @@ const SummaryPage = () => {
     const router = useRouter();
     const [isPosting, setIsPosting] = useState(false)
     const [errorMessage, setErrorMessage] = useState('')
-
     const { shippingAddress, numberOfItems, createOrder } = useContext(CartContext);
 
 
