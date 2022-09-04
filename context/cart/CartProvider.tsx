@@ -8,6 +8,7 @@ import { CartContext, cartReducer } from './';
 import { tesloApi } from '../../api';
 import useSWR from 'swr';
 import { IDiscount } from '../../interfaces/discountCodes';
+import Cookies from 'js-cookie';
 
 export interface CartState {
     isLoaded: boolean;
@@ -36,7 +37,6 @@ const CART_INITIAL_STATE: CartState = {
 export const CartProvider: FC = ({ children }) => {
 
     const [state, dispatch] = useReducer(cartReducer, CART_INITIAL_STATE);
-    const [discountPrice_, setDiscountPrice] = useState(state.total)
     const [discountCode_, setDiscountCode_] = useState('')
     const { data, error } = useSWR<IDiscount[]>('/api/discount');
 
@@ -50,10 +50,7 @@ export const CartProvider: FC = ({ children }) => {
         }
     }, []);
 
-    const getDiscountPrice = (code_: string) => {
-        const precioFinal = state.total
 
-    }
 
     useEffect(() => {
 
@@ -74,8 +71,8 @@ export const CartProvider: FC = ({ children }) => {
             dispatch({ type: '[Cart] - LoadAddress from Cookies', payload: shippingAddress })
         }
 
-        Cookie.get('discountCode') && setDiscountCode_(Cookie.get('discountCode') || '')
-        Cookie.get('discountCode') && getDiscountPrice(Cookie.get('discountCode') || '')
+        setDiscountCode_(Cookies.get('discountCode') || 'asd') 
+        console.log(Cookies.get('discountCode'))
     }, [])
 
 
@@ -162,14 +159,17 @@ export const CartProvider: FC = ({ children }) => {
         }
 
         let discountPrice___ = state.total
-        console.log(data)
-        data != undefined && data.map(e => {
+        console
+        
+        data  && (  Cookies.get('discountCode')?.length  || '' )> 3 ? data.map(e => {
             const porcentaje = e.percentage * state.total
             const porcentajeFinal = porcentaje / 100
             const finalAmount = state.total - porcentajeFinal
             discountPrice___ = finalAmount
         })
+            : null
 
+            console.log(Cookie.get('discountCode'))
 
         const body: IOrder = {
             orderItems: state.cart.map(p => ({
@@ -183,13 +183,13 @@ export const CartProvider: FC = ({ children }) => {
             total: state.total,
             isPaid: false,
             transactionId: 'null',
-            discountCode: discountCode_,
+            discountCode: Cookies.get('discountCode') || '',
             discountPrice: discountPrice___
         }
-
+        
         try {
-
             const { data } = await tesloApi.post<IOrder>('/orders', body);
+            console.log(data)
 
             dispatch({ type: '[Cart] - Order complete' });
 

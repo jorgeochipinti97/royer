@@ -15,6 +15,7 @@ import Image from 'next/image';
 import { currency } from '../../utils';
 import { isValidObjectId } from 'mongoose';
 import register from '../auth/register';
+import Cookies from 'js-cookie';
 
 
 export type OrderResponseBody = {
@@ -51,6 +52,8 @@ const OrderPage: NextPage<Props> = ({ order }) => {
     useEffect(() => {
         const a = handlePrice(order.total, 10)
         setCriptoPrice(a)
+
+        Cookies.remove('discountCode')
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
@@ -248,7 +251,7 @@ const OrderPage: NextPage<Props> = ({ order }) => {
                                                             purchase_units: [
                                                                 {
                                                                     amount: {
-                                                                        value: order.discountPrice > 3 ? `${order.discountPrice}` : `${order.total}`,
+                                                                        value: order.discountCode.length > 3 ? `${order.discountPrice}` : `${order.total}`,
                                                                     },
                                                                 },
                                                             ],

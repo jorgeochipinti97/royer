@@ -12,8 +12,8 @@ interface Props {
     orderValues?: {
         numberOfItems: number;
         total: number;
-        codigoDeDescuento?: string
-        precioFinal?: number
+        codigoDeDescuento: string
+        precioFinal: number
     }
 }
 
@@ -87,17 +87,17 @@ export const OrderSummary: FC<Props> = ({ orderValues }) => {
                     <Typography variant="h6" sx={{ textDecoration: isDiscount || orderValues && orderValues.codigoDeDescuento!.length > 3 ? 'line-through' : '' }}>{currency.format(summaryValues.total)}</Typography>
                 </Grid>
                 {
-                    router.asPath.indexOf('/orders') > -1 || isDiscount ?
+                    (orderValues && orderValues.codigoDeDescuento.length > 3) || isDiscount ?
                         <>
                             <Grid item xs={6} sx={{ mt: 2 }} display='flex' justifyContent='start'>
-                                <Typography variant="subtitle1">{`Discount-Code: ${router.asPath.indexOf('/summary')  > -1 ? code.toUpperCase() : orderValues && orderValues.codigoDeDescuento?.toUpperCase() || '' } `} </Typography>
+                                <Typography variant="subtitle1">{`Discount-Code: ${router.asPath.indexOf('/summary') > -1 ? code.toUpperCase() : orderValues && orderValues.codigoDeDescuento?.toUpperCase() || ''} `} </Typography>
                             </Grid>
                             <Grid item xs={6} sx={{ mt: 2 }} display='flex' justifyContent='end'>
-                                <Typography variant="h6">{ router.asPath.indexOf('/summary') > -1  ? currency.format(discountPrice_)  : orderValues && currency.format(orderValues.precioFinal || summaryValues.total)}</Typography>
+                                <Typography variant="h6">{router.asPath.indexOf('/summary') > -1 ? currency.format(discountPrice_) : orderValues && currency.format(orderValues.precioFinal || summaryValues.total)}</Typography>
                             </Grid>
                         </>
-                        : null
-                }
+                        : null}
+
             </Grid>
         </>
     )
