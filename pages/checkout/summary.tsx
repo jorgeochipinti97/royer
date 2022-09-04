@@ -33,21 +33,14 @@ const SummaryPage = () => {
 
     const onCreateOrder = async () => {
         setIsPosting(true);
-
         const { hasError, message } = await createOrder();
-
-        if (hasError) {
-            setIsPosting(false);
-            setErrorMessage(message);
-            return;
-        }
-
-        router.push(`/orders/${message}`);
-
+        !hasError && router.push(`/orders/${message}`);
+        hasError && setIsPosting(false);
+        hasError && setErrorMessage(message);
     }
     return (
         <ShopLayout title='Resumen de orden' pageDescription={'Resumen de la orden'}>
-            <Box display='flex' justifyContent='center' sx={{mb:3}}>
+            <Box display='flex' justifyContent='center' sx={{ mb: 3 }}>
                 <Typography variant='h1' component='h1'>Order summary</Typography>
             </Box>
 

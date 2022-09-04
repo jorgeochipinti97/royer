@@ -159,7 +159,6 @@ export const CartProvider: FC = ({ children }) => {
         }
 
         let discountPrice___ = state.total
-        console
         
         data  && (  Cookies.get('discountCode')?.length  || '' )> 3 ? data.map(e => {
             const porcentaje = e.percentage * state.total
@@ -189,8 +188,6 @@ export const CartProvider: FC = ({ children }) => {
         
         try {
             const { data } = await tesloApi.post<IOrder>('/orders', body);
-            console.log(data)
-
             dispatch({ type: '[Cart] - Order complete' });
 
             return {
