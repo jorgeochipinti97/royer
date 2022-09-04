@@ -12,16 +12,16 @@ import useSWR from 'swr';
 const Discount: NextPage = () => {
   const [name, setName] = useState('')
   const [percentage, setPercentage] = useState(0)
-  const { data, error } = useSWR<IDiscount[]>('/api/admin/discount');
+  const { data, error } = useSWR<IDiscount[]>('/api/discount');
   const codes = data && data
   const onSubmit = async (_name: string, _percentage: number) => {
 
     try {
       const { data } = await tesloApi({
-        url: '/admin/discount',
+        url: '/discount',
         method: 'POST',
         data: {
-          name: _name,
+          name: _name.toUpperCase(),
           percentage: _percentage
         }
       });
@@ -35,7 +35,7 @@ const Discount: NextPage = () => {
 
     try {
       const { data } = await tesloApi({
-        url: '/admin/discount',
+        url: '/discount',
         method: 'DELETE',
         data: code_
       });
@@ -45,6 +45,7 @@ const Discount: NextPage = () => {
     }
 
   }
+
 
 
   return (

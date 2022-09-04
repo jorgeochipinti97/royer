@@ -34,10 +34,10 @@ export const OrderSummary: FC<Props> = ({ orderValues }) => {
             const porcentaje = e.percentage * summaryValues.total
             const porcentajeFinal = porcentaje / 100
             const finalAmount = summaryValues.total - porcentajeFinal
-            e.name == code_ && setPercentage(e.percentage)
-            e.name == code_ && setDiscountPrice_(finalAmount)
-            e.name == code_ && setIsDiscount(true)
-            e.name == code_ && Cookie.set('discountCode', e.name)
+            e.name.toUpperCase() == code_.toUpperCase() && setPercentage(e.percentage)
+            e.name.toUpperCase() == code_.toUpperCase() && setDiscountPrice_(finalAmount)
+            e.name.toUpperCase() == code_.toUpperCase() && setIsDiscount(true)
+            e.name.toUpperCase() == code_.toUpperCase() && Cookie.set('discountCode', e.name.toUpperCase())
         })
     }
     return (
