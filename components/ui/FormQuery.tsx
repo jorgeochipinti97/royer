@@ -39,7 +39,7 @@ const FormQuery: FC<Props> = ({ product_ }) => {
 
             });
 
-            alert('mensaje enviado')
+            alert('Message sent')
         } catch (err) {
             alert('please write a correct email please')
             console.log(err)
