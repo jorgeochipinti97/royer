@@ -31,11 +31,6 @@ export default function handler(req: NextApiRequest, res: NextApiResponse<Data>)
 
 
 const saveFile = async( file: formidable.File ): Promise<string> => {
-
-    // const data = fs.readFileSync( file.filepath );
-    // fs.writeFileSync(`./public/${ file.originalFilename }`, data);
-    // fs.unlinkSync( file.filepath ); // elimina
-    // return;
     const { secure_url } = await cloudinary.uploader.upload( file.filepath );
     return secure_url;
 

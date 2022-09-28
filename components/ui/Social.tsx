@@ -1,7 +1,6 @@
 import React from 'react'
 import NextLink from 'next/link';
 import InstagramIcon from '@mui/icons-material/Instagram';
-import TwitterIcon from '@mui/icons-material/Twitter';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import MailIcon from '@mui/icons-material/Mail';
 import { Box, Button, Divider, Link, TextField, Typography } from '@mui/material';
@@ -22,7 +21,6 @@ const Social: FC<Props> = ({ sizeFont }) => {
             <NextLink href='https://walink.co/40c03f' passHref>
                 <Link>
                     <Button> <WhatsAppIcon sx={{ fontSize: sizeFont }} /></Button>
-
                 </Link>
             </NextLink>
             <NextLink href="mailto:info@royer.store" passHref>
