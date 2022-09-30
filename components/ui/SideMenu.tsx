@@ -42,26 +42,6 @@ export const SideMenu = () => {
             <Box sx={{ width: 250, paddingTop: 5 }}>
 
                 <List>
-
-                    <ListItem sx={{ display: router.asPath.includes('search') || router.asPath.includes('products') ? 'none' : '' }}>
-                        {/* <Input
-                            value={searchTerm}
-                            onChange={(e) => Cookie.set('searchTerm', e.target.value)}
-                            onKeyPress={(e) => e.key === 'Enter' ? onSearchTerm() : null}
-                            type='text'
-                            placeholder="Search..."
-                            endAdornment={
-                                <InputAdornment position="end">
-                                    <IconButton
-                                        onClick={onSearchTerm}
-                                    >
-                                        <SearchOutlined />
-                                    </IconButton>
-                                </InputAdornment>
-                            }
-                        /> */}
-                    </ListItem>
-
                     
                     {
                         isLoggedIn && (
