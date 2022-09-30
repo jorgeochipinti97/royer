@@ -260,7 +260,7 @@ const ProductPage: NextPage<Props> = ({ product }) => {
             {
               (product.inStock == 0)
                 ? (
-                  <Chip label="No stock" color="error" variant='outlined' />
+                  <Chip label="Consult please " color="error" variant='outlined' />
                 )
                 : (
                   <Button
