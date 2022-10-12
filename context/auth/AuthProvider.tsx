@@ -33,9 +33,9 @@ export const AuthProvider:FC = ({ children }) => {
         }
     },[status, data])
 
-    // useEffect(() => {
-    //     checkToken();
-    // }, [])
+    useEffect(() => {
+        checkToken();
+    }, [])
 
     const checkToken = async() => {
 

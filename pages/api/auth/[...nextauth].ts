@@ -7,8 +7,6 @@ export default NextAuth({
   // Configure one or more authentication providers
   providers: [
     
-    // ...add more providers here
-
     Credentials({
       name: 'Custom Login',
       credentials: {
@@ -17,13 +15,11 @@ export default NextAuth({
       },
       async authorize(credentials) {
         console.log({credentials})
-        // return { name: 'Juan', correo: 'juan@google.com', role: 'admin' };
 
         return await dbUsers.checkUserEmailPassword( credentials!.email, credentials!.password );
 
       }
     }),
-
 
 
   ],
@@ -46,7 +42,7 @@ export default NextAuth({
   callbacks: {
 
     async jwt({ token, account, user }) {
-      // console.log({ token, account, user });
+      console.log({ token, account, user });
 
       if ( account ) {
         token.accessToken = account.access_token;
