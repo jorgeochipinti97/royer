@@ -1,6 +1,6 @@
 
 import CopyrightIcon from '@mui/icons-material/Copyright';
-import { Box, Divider, Link, Typography } from '@mui/material';
+import { Box, Button, Divider, Link, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 
@@ -24,9 +24,11 @@ export const Footer = () => {
                 }
                 <NextLink href='/Terms'>
                     <Link>
-                        <Box display='flex' justifyContent='center' sx={{ mt: 3 }} >
-                            <Typography component='h5' sx={{textDecoration:'underline black'}}>Terms Of Service</Typography>
-                        </Box>
+                        <Button>
+                            <Box display='flex' justifyContent='center' sx={{ mt: 3 }} >
+                                <Typography component='h5' sx={{ textDecoration: 'underline black' }}>Terms Of Service</Typography>
+                            </Box>
+                        </Button>
                     </Link>
                 </NextLink>
                 <Box display='flex' justifyContent='center' sx={{ mt: 3 }} >
@@ -37,7 +39,7 @@ export const Footer = () => {
                     <Typography component='h5' fontWeight={650}> Development by Jorge Ochipinti</Typography>
                 </Box>
             </Box>
-        </footer>
+        </footer >
     )
 }
 
