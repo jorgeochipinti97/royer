@@ -22,15 +22,17 @@ export const Footer = () => {
                             <Social sizeFont={25} />
                         </Box>
                 }
-                <NextLink href='/Terms'>
-                    <Link>
-                        <Box display='flex' justifyContent='center' sx={{ mt: 3 }} >
-                            <Button>
-                                <Typography component='h5' sx={{ textDecoration: 'underline black' }}>Terms Of Service</Typography>
-                            </Button>
-                        </Box>
-                    </Link>
-                </NextLink>
+                <Box display='flex' justifyContent='center' sx={{ mt: 3 }} >
+                    <NextLink href='/Terms'>
+                        <Link>
+                            <Box display='flex' justifyContent='center' sx={{ mt: 3 }} >
+                                <Button>
+                                    <Typography component='h5' sx={{ textDecoration: 'underline black' }}>Terms Of Service</Typography>
+                                </Button>
+                            </Box>
+                        </Link>
+                    </NextLink>
+                </Box>
                 <Box display='flex' justifyContent='center' sx={{ mt: 3 }} >
                     <Typography component='h5'> <CopyrightIcon sx={{ fontSize: 14 }} />   all rights reserved. Royer</Typography>
                 </Box>
