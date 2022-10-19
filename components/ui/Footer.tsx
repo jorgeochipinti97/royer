@@ -6,7 +6,7 @@ import { useState } from 'react';
 
 import Social from './Social';
 import CodeIcon from '@mui/icons-material/Code';
-import Link from 'next/link';
+import NextLink from 'next/link';
 export const Footer = () => {
     const { asPath } = useRouter()
     return (
@@ -22,11 +22,13 @@ export const Footer = () => {
                             <Social sizeFont={25} />
                         </Box>
                 }
-                <Link href='/Terms'>
-                    <Box display='flex' justifyContent='center' sx={{ mt: 3 }} >
-                        <Typography component='h5'><CopyrightIcon sx={{ fontSize: 14 }} />  Terms Of Service</Typography>
-                    </Box>
-                </Link>
+                <NextLink href='/Terms'>
+                    <Link>
+                        <Box display='flex' justifyContent='center' sx={{ mt: 3 }} >
+                            <Typography component='h5'><CopyrightIcon sx={{ fontSize: 14 }} />  Terms Of Service</Typography>
+                        </Box>
+                    </Link>
+                </NextLink>
                 <Box display='flex' justifyContent='center' sx={{ mt: 3 }} >
                     <Typography component='h5'> all rights reserved. Royer</Typography>
                 </Box>
