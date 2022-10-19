@@ -27,6 +27,13 @@ const index = () => {
                     <Box>
 
                         <div data-aos="fade-up-left">
+                            <AccordionFaqs pregunta="Are the items refundable?" respuesta='Due to different customs regulation in each country, there are no refunds.' />
+                            <Divider sx={{ my: 1, m: 2 }} />
+                        </div>
+                    </Box>
+                    <Box>
+
+                        <div data-aos="fade-up-left">
                             <AccordionFaqs pregunta="How long does it take for my order to arrive?" respuesta='Your order can take between 5 and 14 days depending on the country you are in.' />
                             <Divider sx={{ my: 1, m: 2 }} />
                         </div>
