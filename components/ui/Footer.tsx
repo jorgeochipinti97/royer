@@ -25,7 +25,7 @@ export const Footer = () => {
                 <Box display='flex' justifyContent='center' sx={{ mt: 3 }} >
                     <NextLink href='/Terms'>
                         <Link>
-                            <Box display='flex' justifyContent='center' sx={{ mt: 3 }} >
+                            <Box display='flex' justifyContent='center' >
                                 <Button>
                                     <Typography component='h5' sx={{ textDecoration: 'underline black' }}>Terms Of Service</Typography>
                                 </Button>
