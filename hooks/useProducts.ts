@@ -42,6 +42,7 @@ export const useProducts = (url: string, config: SWRConfiguration = {}) => {
         const espadrilles: IProduct[] = sortPopularity(products, 'espadrilles')
         const footwear: IProduct[] = sortPopularity(products, 'footwear')
 
+        
         return tShirtsMessi
             .concat(shorts)
             .concat(hoodies)
