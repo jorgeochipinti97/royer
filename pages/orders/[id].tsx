@@ -274,7 +274,7 @@ const OrderPage: NextPage<Props> = ({ order }) => {
                                                             Western Union
                                                         </Typography>
                                                     </Button>
-
+ 
                                                 </Box>
                                                 <Box display='flex' justifyContent='center' sx={{ display: !isWestern ? 'none' : 'block' }}>
                                                     <Box display='flex' flexDirection='column'>
