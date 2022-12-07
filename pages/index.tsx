@@ -84,6 +84,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     props: {
       populars_
     },
-    revalidate: 3600
+    revalidate: 3600 
   }
 }
