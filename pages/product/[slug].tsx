@@ -108,7 +108,7 @@ const ProductPage: NextPage<Props> = ({ product }) => {
       ...currentProduct,
       size
     }));
-  } 
+  }
 
   const onUpdateQuantity = (quantity: number) => {
     setTempCartProduct(currentProduct => ({
