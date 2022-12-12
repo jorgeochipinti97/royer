@@ -360,7 +360,7 @@ const OrderPage: NextPage<Props> = ({ order }) => {
                                                         <Typography variant="subtitle1">Total:</Typography>
                                                     </Grid>
                                                     <Grid item xs={6} sx={{ mt: 2 }} display='flex' justifyContent='end'>
-                                                        <Typography variant="subtitle1">{currency.format(criptoPrice)}</Typography>
+                                                        <Typography variant="subtitle1">{currency.format(order.numberOfItems >= 3 ? order.total : criptoPrice)}</Typography>
                                                     </Grid>
                                                 </Grid>
 
