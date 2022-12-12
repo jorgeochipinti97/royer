@@ -122,7 +122,7 @@ export const OrderSummary: FC<Props> = ({ orderValues }) => {
           >
             {" "}
             {currency.format(
-              router.asPath.includes("cart") || router.asPath.includes('summary') && summaryValues.numberOfItems >= 3
+              router.asPath.includes("cart")  && summaryValues.numberOfItems >= 3 || router.asPath.includes('summary') && summaryValues.numberOfItems >= 3
                 ? getPercentaje()
                 : summaryValues.total
             )}{" "}
