@@ -25,7 +25,7 @@ const productSchema = new Schema({
         },
         default: 'shirts'
     },
-    talles: [{
+    talles: [{ 
         size: { type: String },
         stock: { type: Number }
     }]
