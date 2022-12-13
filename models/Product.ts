@@ -40,7 +40,7 @@ const productSchema = new Schema({
     },
     popular: {
 
-        type: Boolean,
+        type: Boolean, 
         default: false,
 
     },
