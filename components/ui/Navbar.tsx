@@ -170,9 +170,9 @@ export const Navbar = () => {
             </Box>
           </Link>
         </NextLink>
-                <Typography variant="subtitle1" sx={{ textAlign: "center",color:'black' }}>
+                {/* <Typography variant="subtitle1" sx={{ textAlign: "center",color:'black' }}>
                   {numberOfItems >= 3 && "10% OFF"}
-                </Typography>
+                </Typography> */}
 
         <Button onClick={toggleSideMenu}>Menu</Button>
       </Toolbar>
