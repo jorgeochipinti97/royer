@@ -199,7 +199,7 @@ export const CartProvider: FC = ({ children }) => {
       numberOfItems: state.numberOfItems,
       subTotal: state.subTotal,
       tax: state.tax,
-      total: state.numberOfItems >= 3 ? finalAmount : state.total,
+      total: state.total,
       isPaid: false,
       transactionId: "null",
       discountCode: Cookies.get("discountCode") || "",
