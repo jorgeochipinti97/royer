@@ -20,11 +20,16 @@ const productSchema = new Schema({
     type: {
         type: String,
         enum: {
-            values: ['shirts', 't-shirt', 'football shirt', 'jacket', 'pants', 'hoodies', 'hats', 'mate', 'yerba', 'alfajores', 'wine', 'short', 'socks', 'wallet', 'purse', 'accessories', 'bag','espadrilles','footwear'],
+            values: ['shirts', 't-shirt', 'football shirt', 'jacket', 'pants', 'hoodies', 'hats', 'mate', 'yerba', 'alfajores', 'wine', 'short', 'socks', 'wallet', 'purse', 'accessories', 'bag', 'espadrilles', 'footwear'],
             message: '{VALUE} no es un tipo válido'
         },
         default: 'shirts'
     },
+    talles: [{
+        size: { type: String },
+        stock: { type: Number }
+    }]
+    ,
     gender: {
         type: String,
         enum: {

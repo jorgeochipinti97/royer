@@ -1,4 +1,4 @@
-import { ISize } from './';
+import { ISize, ITallas } from './';
 
 export interface ICartProduct {
     _id: string;
