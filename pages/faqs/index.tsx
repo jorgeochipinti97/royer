@@ -36,7 +36,7 @@ const index = () => {
                         <Box>
 
                             <div data-aos="fade-up-right">
-                                <AccordionFaqs pregunta="How long does it take for my order to arrive?" respuesta='Your order can take between 5 and 14 days depending on the country you are in.' />
+                                <AccordionFaqs pregunta="How long does it take for my order to arrive?" respuesta='Your order can take between 10 and 21 days depending on the country you are in.' />
                                 <Divider sx={{ my: 1, m: 2 }} />
                             </div>
                         </Box>
