@@ -74,13 +74,13 @@ export const OrderSummary: FC<Props> = ({ orderValues }) => {
         </Box>
       )} */}
       <Grid container>
-        {summaryValues.numberOfItems >= 3 && (
+        {/* {summaryValues.numberOfItems >= 3 && (
           <Grid item xs={12} >
             <Typography variant='h5' textAlign='center'>
             3 Products -  10% OFF
             </Typography>
           </Grid>
-        )}
+        )} */}
         <Grid item xs={6}>
           <Typography>Nº Products</Typography>
         </Grid>
@@ -122,10 +122,7 @@ export const OrderSummary: FC<Props> = ({ orderValues }) => {
           >
             {" "}
             {currency.format(
-              router.asPath.includes("cart")  && summaryValues.numberOfItems >= 3 || router.asPath.includes('summary') && summaryValues.numberOfItems >= 3
-                ? getPercentaje()
-                : summaryValues.total
-            )}{" "}
+           summaryValues.total)}{" "}
           </Typography>
         </Grid>
         {(orderValues && orderValues.codigoDeDescuento.length > 3) ||
