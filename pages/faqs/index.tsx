@@ -54,7 +54,7 @@ const index = () => {
                                 <AccordionFaqs pregunta="Can I change the delivery address of my package?" respuesta='Unfortunately, the address cannot be changed once the shipment has been dispatched.' />
                                 <Divider sx={{ my: 1, m: 2 }} />
                             </div>
-                        </Box>
+                        </Box> 
                         <Box>
 
                             <div data-aos="fade-up-left">
