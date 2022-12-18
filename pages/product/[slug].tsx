@@ -256,7 +256,7 @@ const ProductPage: NextPage<Props> = ({ product }) => {
               </Modal>
             </Box>
 
-
+ 
             {
               (product.inStock == 0)
                 ? (

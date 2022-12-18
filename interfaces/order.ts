@@ -12,7 +12,7 @@ export interface IOrder {
     subTotal: number;
     tax: number;
     total: number;
-
+    status?: string
     isPaid: boolean;
     paidAt?: string;
 
