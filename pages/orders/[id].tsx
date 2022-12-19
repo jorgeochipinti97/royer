@@ -135,7 +135,8 @@ const OrderPage: NextPage<Props> = ({ order }) => {
     return (
         <ShopLayout title='Order Resume' pageDescription={'Order Resume'}>
             <Typography variant='subtitle1' >Orden: {order._id}</Typography>
-            {order.transactionId != 'null' &&
+            {order.transactionId != 'null' || !order.transactionId.toLowerCase().includes('refund') 
+            &&
 
                 <Typography variant='subtitle1' >Transaction ID: {order.transactionId}</Typography>
             }
@@ -151,19 +152,11 @@ const OrderPage: NextPage<Props> = ({ order }) => {
                             color="success"
                             icon={<CreditScoreOutlined />}
                         />
-                        <Box display='flex' justifyContent='center'>
-
-                            <Box sx={{ mb: 5, border: '1px dashed grey' }}>
-                                <Typography align="center" variant='subtitle1' sx={{ m: 1 }}>
-                                    You will be receiving an email soon with the steps to follow your shipment
-                                </Typography>
-                            </Box>
-                        </Box>
                     </>
                 )
             }
             {
-                !order.isPaid && order.transactionId == 'null' && (
+                !order.isPaid && (
                     (
                         <Chip
                             sx={{ my: 2 }}

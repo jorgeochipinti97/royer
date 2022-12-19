@@ -1,167 +1,180 @@
-import { useState, useContext, useEffect } from 'react';
-import { NextPage, GetServerSideProps, GetStaticPaths, GetStaticProps } from 'next';
-import { useRouter } from 'next/router';
+import { useState, useContext, useEffect } from "react";
+import {
+  NextPage,
+  GetServerSideProps,
+  GetStaticPaths,
+  GetStaticProps,
+} from "next";
+import { useRouter } from "next/router";
 
-import { Box, Button, Card, CardMedia, Chip, Divider, Grid, Link, Modal, TextField, Typography } from '@mui/material';
+import {
+  Box,
+  Button,
+  Card,
+  CardMedia,
+  Chip,
+  Divider,
+  Grid,
+  Link,
+  MenuItem,
+  Modal,
+  Select,
+  TextField,
+  Typography,
+} from "@mui/material";
 
-import { CartContext } from '../../context/cart/CartContext';
+import { CartContext } from "../../context/cart/CartContext";
 
-import { ShopLayout } from '../../components/layouts';
-import { ProductSlideshow, SizeSelector } from '../../components/products';
-import { ItemCounter } from '../../components/ui/ItemCounter';
-import { localFavorites } from '../../utils';
+import { ShopLayout } from "../../components/layouts";
+import { ProductSlideshow, SizeSelector } from "../../components/products";
+import { ItemCounter } from "../../components/ui/ItemCounter";
+import { localFavorites } from "../../utils";
 
-import { dbProducts } from '../../database';
-import { IProduct, ICartProduct, ISize } from '../../interfaces';
-import { capitalizarPrimeraLetraPalabras, currency } from '../../utils';
-import NextLink from 'next/link';
+import { dbProducts } from "../../database";
+import { IProduct, ICartProduct, ISize } from "../../interfaces";
+import { capitalizarPrimeraLetraPalabras, currency } from "../../utils";
+import NextLink from "next/link";
 
-import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
-import CurrencyBitcoinIcon from '@mui/icons-material/CurrencyBitcoin';
-import { tesloApi } from '../../api';
-import { isValidEmail } from '../../utils/validations';
-import FormQuery from '../../components/ui/FormQuery';
-import Image from 'next/image';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
+import CurrencyBitcoinIcon from "@mui/icons-material/CurrencyBitcoin";
+import { tesloApi } from "../../api";
+import { isValidEmail } from "../../utils/validations";
+import FormQuery from "../../components/ui/FormQuery";
+import Image from "next/image";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
-import FavoriteIcon from '@mui/icons-material/Favorite';
-
-
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import { players } from "../../utils/players";
 
 interface Props {
-  product: IProduct
+  product: IProduct;
 }
 
 const ProductPage: NextPage<Props> = ({ product }) => {
-  const [isNoSize, setIsNoSize] = useState<boolean>()
-  const [discountPrice, setDiscountPrice] = useState<number>(product.price)
-  const [title_, setTitle] = useState<string>('')
-  const [isOpen, setIsOpen] = useState<boolean>(false)
-  const [isInFavorites, setIsInFavorites] = useState<Boolean>()
-
+  const [isNoSize, setIsNoSize] = useState<boolean>();
+  const [discountPrice, setDiscountPrice] = useState<number>(product.price);
+  const [title_, setTitle] = useState<string>("");
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isInFavorites, setIsInFavorites] = useState<Boolean>();
+  const [playerSelect, SetPlayerSelect] = useState("");
 
   useEffect(() => {
-    let favorites: IProduct[] = JSON.parse(localStorage.getItem('favorites') || '[]')
-    let a
+    let favorites: IProduct[] = JSON.parse(
+      localStorage.getItem("favorites") || "[]"
+    );
+    let a;
     const isLiked = () => {
-      favorites.forEach(e => {
+      favorites.forEach((e) => {
         if (e._id == product._id) {
           a = true;
         } else {
-          a = false
+          a = false;
         }
-      })
-    }
-    isLiked()
+      });
+    };
+    isLiked();
 
     if (a && a != undefined) {
-      setIsInFavorites(true)
+      setIsInFavorites(true);
     } else {
-      setIsInFavorites(false)
+      setIsInFavorites(false);
     }
-
-  }, [])
+  }, []);
 
   useEffect(() => {
-    if (product.type != 'espadrilles' && product.gender === 'regionales' || product.gender === 'fashion') {
-      setIsNoSize(true)
-      setTempCartProduct(currentProduct => ({
+    if (
+      (product.type != "espadrilles" && product.gender === "regionales") ||
+      product.gender === "fashion"
+    ) {
+      setIsNoSize(true);
+      setTempCartProduct((currentProduct) => ({
         ...currentProduct,
-        size: 'Unique'
+        size: "Unique",
       }));
     }
-    product.type == 'espadrilles' && setIsNoSize(false)
-
+    product.type == "espadrilles" && setIsNoSize(false);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isNoSize])
+  }, [isNoSize]);
   const router = useRouter();
-  const { addProductToCart } = useContext(CartContext)
+  const { addProductToCart } = useContext(CartContext);
   /*   TODO ::  HACER REFACTORIZACION DEL HANDLE PRICE */
   const handlePrice = (precio: number, descuento: number) => {
     const porcentajePrecioConDescuento = 100 - descuento;
     const precioConDescuento = (precio * porcentajePrecioConDescuento) / 100;
 
     return precioConDescuento;
-  }
+  };
 
   useEffect(() => {
-    setTitle(product.slug)
-    const a = handlePrice(product.price, 10)
-    setDiscountPrice(a)
+    setTitle(product.slug);
+    const a = handlePrice(product.price, 10);
+    setDiscountPrice(a);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, []);
 
   const [tempCartProduct, setTempCartProduct] = useState<ICartProduct>({
     _id: product._id,
     image: product.images[0],
     price: product.price,
     size: undefined,
+    personalization:playerSelect,
     slug: product.slug,
     title: product.title,
     gender: product.gender,
     quantity: 1,
-  })
+  });
 
   const selectedSize = (size: ISize) => {
-    setTempCartProduct(currentProduct => ({
+    setTempCartProduct((currentProduct) => ({
       ...currentProduct,
-      size
+      size,
     }));
-  }
+  };
 
   const onUpdateQuantity = (quantity: number) => {
-    setTempCartProduct(currentProduct => ({
+    setTempCartProduct((currentProduct) => ({
       ...currentProduct,
-      quantity
+      quantity,
     }));
-  }
-
+  };
 
   const onAddProduct = () => {
-
-    if (!tempCartProduct.size) { return; }
+    if (!tempCartProduct.size) {
+      return;
+    }
 
     addProductToCart(tempCartProduct);
-    router.push('/cart');
-
-  }
-
+    router.push("/cart");
+  };
 
   const onToggleFavorite = () => {
-    localFavorites.toggleFavorite(product)
-    setIsInFavorites(!isInFavorites)
-  }
+    localFavorites.toggleFavorite(product);
+    setIsInFavorites(!isInFavorites);
+  };
 
   return (
     <ShopLayout title={product.title} pageDescription={product.description}>
-      <Box sx={{ mb: 2 }} display='flex' justifyContent={'space-between'}>
+      <Box sx={{ mb: 2 }} display="flex" justifyContent={"space-between"}>
         <Box sx={{ m: 2 }}>
-          <NextLink href='/products' passHref>
+          <NextLink href="/products" passHref>
             <Link>
-              <Button color='secondary'>Back</Button>
+              <Button color="secondary">Back</Button>
             </Link>
           </NextLink>
         </Box>
 
         <Box sx={{ m: 2 }}>
-          {isInFavorites ?
-            <FavoriteIcon
-              color='error'
-              onClick={onToggleFavorite}
-            />
-            :
-            <FavoriteBorderIcon
-              color='error'
-              onClick={onToggleFavorite} />
-          }
+          {isInFavorites ? (
+            <FavoriteIcon color="error" onClick={onToggleFavorite} />
+          ) : (
+            <FavoriteBorderIcon color="error" onClick={onToggleFavorite} />
+          )}
         </Box>
       </Box>
 
       <Grid container spacing={3}>
-
         <Grid item xs={12} sm={7}>
-
           <ProductSlideshow
             images={product.images}
             seconds={7000}
@@ -171,23 +184,23 @@ const ProductPage: NextPage<Props> = ({ product }) => {
         </Grid>
 
         <Grid item xs={12} sm={5}>
-          <Box display='flex' flexDirection='column'>
-
+          <Box display="flex" flexDirection="column">
             {/* titulos */}
-            <Box display='flex' justifyContent='center'>
-
-              <Typography variant='h1' textAlign={'center'} sx={{ width: 300 }}>{capitalizarPrimeraLetraPalabras(product.title)}</Typography>
+            <Box display="flex" justifyContent="center">
+              <Typography variant="h1" textAlign={"center"} sx={{ width: 300 }}>
+                {capitalizarPrimeraLetraPalabras(product.title)}
+              </Typography>
             </Box>
 
-            <Box display='flex' justifyContent='space-around' sx={{ m: 3 }}>
+            <Box display="flex" justifyContent="space-around" sx={{ m: 3 }}>
               <NextLink href={`#`} passHref prefetch={false}>
                 <Link>
                   <Button
                     color="primary"
                     onClick={() => console.log()}
-
-                    sx={{ width: '163px', m: 2, pt: 1, pb: 1 }}>
-                    <Typography variant='button'>
+                    sx={{ width: "163px", m: 2, pt: 1, pb: 1 }}
+                  >
+                    <Typography variant="button">
                       USD: {`${currency.formattwo(product.price)}`}
                     </Typography>
                   </Button>
@@ -199,9 +212,9 @@ const ProductPage: NextPage<Props> = ({ product }) => {
                     color="success"
                     onClick={() => console.log()}
                     startIcon={<CurrencyBitcoinIcon />}
-                    sx={{ width: '163px', pt: 1, pb: 1, m: 2 }}
+                    sx={{ width: "163px", pt: 1, pb: 1, m: 2 }}
                   >
-                    <Typography fontWeight={700} variant='button' >
+                    <Typography fontWeight={700} variant="button">
                       Crypto: {`${currency.formattwo(discountPrice)}`}
                     </Typography>
                   </Button>
@@ -209,13 +222,28 @@ const ProductPage: NextPage<Props> = ({ product }) => {
               </NextLink>
             </Box>
             <Divider sx={{ my: 1 }} />
-            <Box display='flex' justifyContent='center'>
+            <Box display="flex" justifyContent="center">
               <Chip label="Free Shipping!" color="success" variant="outlined" />
             </Box>
-            <Box sx={{ my: 2, }}>
-              <Typography variant='subtitle2' sx={{ m: 2 }}>Quantity</Typography>
-              <Box sx={{ mb: 2 }}>
 
+            {/* {router.asPath.includes(
+              "argentina_official_home_shirt_22_aero.rdy_messi"
+            ) && (
+              <Select 
+              onChange={(e) => SetPlayerSelect(e.target.value)}
+              value={playerSelect}
+              >
+                {players.map((e) => (
+                  <MenuItem value={e.name} key={e.name}>{e.name} - {e.number}</MenuItem> 
+                ))}
+              </Select>
+            )} */}
+
+            <Box sx={{ my: 2 }}>
+              <Typography variant="subtitle2" sx={{ m: 2 }}>
+                Quantity
+              </Typography>
+              <Box sx={{ mb: 2 }}>
                 <ItemCounter
                   currentValue={tempCartProduct.quantity}
                   updatedQuantity={onUpdateQuantity}
@@ -223,123 +251,120 @@ const ProductPage: NextPage<Props> = ({ product }) => {
                 />
               </Box>
 
-
-              {!isNoSize ?
+              {!isNoSize ? (
                 <SizeSelector
                   sizes={product.sizes}
                   selectedSize={tempCartProduct.size}
                   onSelectedSize={selectedSize}
-                /> : null
-              }
+                />
+              ) : null}
             </Box>
             <Box>
-              <Button onClick={() => setIsOpen(true)} color='primary' sx={{ m: 3 }}>Size Guide</Button>
+              <Button
+                onClick={() => setIsOpen(true)}
+                color="primary"
+                sx={{ m: 3 }}
+              >
+                Size Guide
+              </Button>
               <Modal
                 open={isOpen}
                 onClose={() => setIsOpen(false)}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
               >
-                <Box display='flex' justifyContent='center' >
-
+                <Box display="flex" justifyContent="center">
                   <Card>
-                    <Box display='flex' justifyContent='center' >
-                      <Button onClick={() => setIsOpen(false)} sx={{ m: 3 }} color='primary'>Close</Button>
+                    <Box display="flex" justifyContent="center">
+                      <Button
+                        onClick={() => setIsOpen(false)}
+                        sx={{ m: 3 }}
+                        color="primary"
+                      >
+                        Close
+                      </Button>
                     </Box>
-                    <CardMedia
-                      component='div'
-                      className='fadeIn'>
-                      <Image src={product.type != 'espadrilles' ? 'https://res.cloudinary.com/djk4q3tys/image/upload/v1650890012/lzr8ottm36ivarjng6xx.jpg' : 'https://res.cloudinary.com/djk4q3tys/image/upload/v1659495626/crugli9fcbf80ff1jxts.jpg'} alt='size' width={700} height={700} />
+                    <CardMedia component="div" className="fadeIn">
+                      <Image
+                        src={
+                          product.type != "espadrilles"
+                            ? "https://res.cloudinary.com/djk4q3tys/image/upload/v1650890012/lzr8ottm36ivarjng6xx.jpg"
+                            : "https://res.cloudinary.com/djk4q3tys/image/upload/v1659495626/crugli9fcbf80ff1jxts.jpg"
+                        }
+                        alt="size"
+                        width={700}
+                        height={700}
+                      />
                     </CardMedia>
                   </Card>
                 </Box>
               </Modal>
             </Box>
 
- 
-            {
-              (product.inStock == 0)
-                ? (
-                  <Chip label="Consult please " color="error" variant='outlined' />
-                )
-                : (
-                  <Button
-                    color="secondary"
-                    className='circular-btn'
-                    onClick={onAddProduct}
-                  >
-                    {
-                      tempCartProduct.size
-                        ? 'Add to cart'
-                        : 'Select Size'
-                    }
-                  </Button>
-                )
-
-            }
-
+            {product.inStock == 0 ? (
+              <Chip label="Consult please " color="error" variant="outlined" />
+            ) : (
+              <Button
+                color="secondary"
+                className="circular-btn"
+                onClick={onAddProduct}
+              >
+                {tempCartProduct.size ? "Add to cart" : "Select Size"}
+              </Button>
+            )}
 
             {/* Descripción */}
-            <Box sx={{ mt: 3 }} display='flex' justifyContent='center'>
-              <Typography variant='subtitle2'>Description</Typography>
+            <Box sx={{ mt: 3 }} display="flex" justifyContent="center">
+              <Typography variant="subtitle2">Description</Typography>
             </Box>
 
-            <Box sx={{ mt: 3 }} display='flex' justifyContent='center'>
-              <Typography variant='body2' align="justify" sx={{ width: 300 }}>{product.description}</Typography>
+            <Box sx={{ mt: 3 }} display="flex" justifyContent="center">
+              <Typography variant="body2" align="justify" sx={{ width: 300 }}>
+                {product.description}
+              </Typography>
             </Box>
-
           </Box>
           <Box>
             <FormQuery product_={product.title} />
           </Box>
         </Grid>
-
-
       </Grid>
-
     </ShopLayout>
-  )
-}
-
+  );
+};
 
 export const getStaticPaths: GetStaticPaths = async (ctx) => {
-
   const productSlugs = await dbProducts.getAllProductSlugs();
-
 
   return {
     paths: productSlugs.map(({ slug }) => ({
       params: {
-        slug
-      }
+        slug,
+      },
     })),
-    fallback: 'blocking'
-  }
-}
-
+    fallback: "blocking",
+  };
+};
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-
-  const { slug = '' } = params as { slug: string };
+  const { slug = "" } = params as { slug: string };
   const product = await dbProducts.getProductBySlug(slug);
 
   if (!product) {
     return {
       redirect: {
-        destination: '/',
-        permanent: false
-      }
-    }
+        destination: "/",
+        permanent: false,
+      },
+    };
   }
 
   return {
     props: {
-      product
+      product,
     },
-    revalidate: 600
-  }
-}
+    revalidate: 600,
+  };
+};
 
-
-
-export default ProductPage
+export default ProductPage;

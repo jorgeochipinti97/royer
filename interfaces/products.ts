@@ -15,6 +15,7 @@ export interface IProduct {
     tags: string[];
     title: string;
     type: IType;
+    personalization?:string
     talles?: ITallas[]
     gender: 'men' | 'women' | 'kid' | 'unisex' | 'regionales' | 'fashion';
     popular: boolean;
