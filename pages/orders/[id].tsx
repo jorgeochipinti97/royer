@@ -170,7 +170,7 @@ const OrderPage: NextPage<Props> = ({ order }) => {
             }
 
 
-            {
+            {/* {
                 order.transactionId != 'null' && (
                     <Box display='flex' justifyContent='center'>
 
@@ -181,7 +181,7 @@ const OrderPage: NextPage<Props> = ({ order }) => {
                         </Box>
                     </Box>
                 )
-            }
+            } */}
             <Grid container className='fadeIn'>
                 <Grid item xs={12} sm={7}>
                     <CartList products={order.orderItems} />
@@ -214,7 +214,7 @@ const OrderPage: NextPage<Props> = ({ order }) => {
                             <Box sx={{ mt: 3 }} display="flex" flexDirection='column'>
                                 {/* TODO */}
 
-                                {
+                                {/* {
 
                                     order.isPaid
                                     && (
@@ -231,7 +231,7 @@ const OrderPage: NextPage<Props> = ({ order }) => {
                                             </Typography>
                                         </>
 
-                                    )}
+                                    )} */}
                                 {
                                     order.isPaid || order.transactionId != 'null'
                                         ? null
