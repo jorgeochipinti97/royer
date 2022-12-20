@@ -43,7 +43,7 @@ export const SideMenu = () => {
 
                 <List>
                     
-                    {
+                    {/* {
                         isLoggedIn && (
                             <>
                                 <ListItem button>
@@ -56,11 +56,11 @@ export const SideMenu = () => {
                                 </ListItem>
                             </>
                         )
-                    }
+                    } */}
 
 
 
-
+{/* 
                     {
                         isLoggedIn
                             ? (
@@ -82,7 +82,7 @@ export const SideMenu = () => {
                                     <ListItemText primary={'Login'} />
                                 </ListItem>
                             )
-                    }
+                    } */}
                     <ListItem
                         button
                         sx={{ display: { xs: '', sm: 'none' } }}
