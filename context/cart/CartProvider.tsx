@@ -194,6 +194,7 @@ export const CartProvider: FC = ({ children }) => {
       orderItems: state.cart.map((p) => ({
         ...p,
         size: p.size!,
+        personalization:p.personalization
       })),
       shippingAddress: state.shippingAddress,
       numberOfItems: state.numberOfItems,

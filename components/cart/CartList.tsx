@@ -62,10 +62,10 @@ export const CartList: FC<Props> = ({ editable = false, products }) => {
                   Size: <strong>{product.size}</strong>
                 </Typography>
               )}
-              {product.personalization && (
+              {product.personalization && product.personalization.length > 3 && (
                 <>
                   <Typography variant="body1">
-                    {product.personalization}
+                    custom: {product.personalization}
                   </Typography>
                 </>
               )}

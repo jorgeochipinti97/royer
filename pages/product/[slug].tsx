@@ -118,12 +118,16 @@ const ProductPage: NextPage<Props> = ({ product }) => {
     image: product.images[0],
     price: product.price,
     size: undefined,
-    personalization:playerSelect,
+    personalization: playerSelect,
     slug: product.slug,
     title: product.title,
     gender: product.gender,
     quantity: 1,
   });
+
+  useEffect(() => {
+    console.log(playerSelect);
+  }, [playerSelect]);
 
   const selectedSize = (size: ISize) => {
     setTempCartProduct((currentProduct) => ({
@@ -131,7 +135,13 @@ const ProductPage: NextPage<Props> = ({ product }) => {
       size,
     }));
   };
-
+  const onSelectPlayer = (player_: string) => {
+    SetPlayerSelect(player_);
+    setTempCartProduct((currentProduct) => ({
+      ...currentProduct,
+      personalization: player_,
+    }));
+  };
   const onUpdateQuantity = (quantity: number) => {
     setTempCartProduct((currentProduct) => ({
       ...currentProduct,
@@ -226,18 +236,24 @@ const ProductPage: NextPage<Props> = ({ product }) => {
               <Chip label="Free Shipping!" color="success" variant="outlined" />
             </Box>
 
-            {/* {router.asPath.includes(
+            {router.asPath.includes(
               "argentina_official_home_shirt_22_aero.rdy_messi"
-            ) && (
-              <Select 
-              onChange={(e) => SetPlayerSelect(e.target.value)}
-              value={playerSelect}
-              >
-                {players.map((e) => (
-                  <MenuItem value={e.name} key={e.name}>{e.name} - {e.number}</MenuItem> 
-                ))}
-              </Select>
-            )} */}
+            ) ||
+              (router.asPath.includes(
+                "argentina_official_home_custom_shirt_22_heat.rdy"
+              ) && (
+                <Select
+                sx={{my:3}}
+                  onChange={(e) => onSelectPlayer(e.target.value)}
+                  value={playerSelect}
+                >
+                  {players.map((e) => (
+                    <MenuItem value={e.name} key={e.name}>
+                      {e.name} - {e.number}
+                    </MenuItem>
+                  ))}
+                </Select>
+              ))}
 
             <Box sx={{ my: 2 }}>
               <Typography variant="subtitle2" sx={{ m: 2 }}>
