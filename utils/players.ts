@@ -1,8 +1,6 @@
 export const players =
 
-    [{
-        number: 1, name: 'Franco Armani'
-    },
+    [
     {
         number: 2, name: 'Juan Foyth'
     },
@@ -34,9 +32,6 @@ export const players =
         number: 11, name: 'Ángel Di María'
     },
     {
-        number: 12, name: 'Gerónimo Rulli'
-    },
-    {
         number: 13, name: 'Cristian Romero'
     },
     {
@@ -46,7 +41,7 @@ export const players =
         number: 15, name: 'Nicolás González'
     },
     {
-        number: 16, name: 'Thiago'
+        number: 16, name: 'Thiago Almada'
     },
     {
         number: 17, name: 'Alejandro Gómez'
@@ -65,9 +60,6 @@ export const players =
     },
     {
         number: 22, name: 'Lautaro Martínez'
-    },
-    {
-        number: 23, name: 'Emiliano Martínez'
     },
     {
         number: 24, name: 'Enzo Fernández'
