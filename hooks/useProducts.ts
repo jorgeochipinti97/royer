@@ -22,7 +22,7 @@ export const useProducts = (url: string, config: SWRConfiguration = {}) => {
         const tshirtPrematch = sortProductsByTerm(tshirtArgentinaVieja_, 'argentina_prematch_jersey')
         const tshirtArgentina = sortProductsByTerm(tshirtPrematch, 'argentina_official')
         const tshirtArgentinaNueva = sortProductsByTerm(tshirtArgentina, 'argentina_alternative')
-        const tShirtsMessi = sortProductsByTerm(tshirtArgentinaNueva, 'argentina_official_home_shirt_22_aero.rdy_messi')
+        const tShirtsMessi = sortProductsByTerm(tshirtArgentinaNueva, 'argentina_official_home_custom_shirt_22_aero.rdy')
         const shorts: IProduct[] = sortPopularity(products, 'short')
         const hoodies: IProduct[] = sortPopularity(products, 'hoodies')
         const jacket: IProduct[] = sortPopularity(products, 'jacket')

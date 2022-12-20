@@ -236,12 +236,11 @@ const ProductPage: NextPage<Props> = ({ product }) => {
               <Chip label="Free Shipping!" color="success" variant="outlined" />
             </Box>
 
-            {router.asPath.includes(
-              "argentina_official_home_shirt_22_aero.rdy_messi"
-            ) ||
-              (router.asPath.includes(
-                "argentina_official_home_custom_shirt_22_heat.rdy"
-              ) && (
+            {
+            router.asPath.includes( "argentina_official_home_custom_shirt_22_aero.rdy") 
+            ||
+            router.asPath.includes("argentina_official_home_custom_shirt_22_heat.rdy") 
+              && (
                 <Select
                 sx={{my:3}}
                   onChange={(e) => onSelectPlayer(e.target.value)}
@@ -253,7 +252,7 @@ const ProductPage: NextPage<Props> = ({ product }) => {
                     </MenuItem>
                   ))}
                 </Select>
-              ))}
+              )}
 
             <Box sx={{ my: 2 }}>
               <Typography variant="subtitle2" sx={{ m: 2 }}>
