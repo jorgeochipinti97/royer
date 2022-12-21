@@ -42,6 +42,13 @@ const index = () => {
                         </Box>
                         <Box>
 
+                            <div data-aos="fade-up-right">
+                                <AccordionFaqs pregunta="Can I cancel my order?" respuesta='Yes, cancellations can only take place within 24 hours of the purchase.' />
+                                <Divider sx={{ my: 1, m: 2 }} />
+                            </div>
+                        </Box>
+                        <Box>
+
                             <div data-aos="fade-up-left">
 
                                 <AccordionFaqs pregunta="What are the means of payment?" respuesta='We accept payments through Paypal and remember that by paying with cryptocurrencies you have a 10% discount on all purchases.' />
