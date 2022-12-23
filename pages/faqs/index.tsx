@@ -43,7 +43,7 @@ const index = () => {
                         <Box>
 
                             <div data-aos="fade-up-right">
-                                <AccordionFaqs pregunta="Can I cancel my order?" respuesta='Yes, cancellations can only take place within 24 hours of the purchase.' />
+                                <AccordionFaqs pregunta="Can I cancel my order?" respuesta='Yes, cancellations can only take place within 24 hours of the purchase. A fee of 15% of the purchase should be paid.' />
                                 <Divider sx={{ my: 1, m: 2 }} />
                             </div>
                         </Box>
