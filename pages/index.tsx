@@ -27,7 +27,7 @@ const HomePage: NextPage<Props> = ({ populars_ }) => {
   return (
     <ShopLayout title={'Royer-Shop - Home'} pageDescription={'Home'}>
       <ProductSlideshow
-        images={['https://res.cloudinary.com/djk4q3tys/image/upload/v1671629116/bwgauczcvhizfnehrizp.jpg','https://res.cloudinary.com/djk4q3tys/image/upload/v1671629081/sa0wva9eyoxdxvmgoqp8.jpg','https://res.cloudinary.com/djk4q3tys/image/upload/v1671629081/bj5aky8g3gz7lkhzjyhi.webp', 'https://res.cloudinary.com/djk4q3tys/image/upload/v1650356226/hay8ghoiyq5miglpdxlm.jpg','https://res.cloudinary.com/djk4q3tys/image/upload/v1670998312/ne77motg2em6s2dhb2m1.png', 'https://res.cloudinary.com/djk4q3tys/image/upload/v1653643368/wwgc8tdtwvc7nq9x7ytw.jpg']}
+        images={['https://res.cloudinary.com/djk4q3tys/image/upload/v1673023366/vzehcwbf7emuim7yytkx.png','https://res.cloudinary.com/djk4q3tys/image/upload/v1671629116/bwgauczcvhizfnehrizp.jpg','https://res.cloudinary.com/djk4q3tys/image/upload/v1671629081/sa0wva9eyoxdxvmgoqp8.jpg','https://res.cloudinary.com/djk4q3tys/image/upload/v1671629081/bj5aky8g3gz7lkhzjyhi.webp', 'https://res.cloudinary.com/djk4q3tys/image/upload/v1650356226/hay8ghoiyq5miglpdxlm.jpg','https://res.cloudinary.com/djk4q3tys/image/upload/v1670998312/ne77motg2em6s2dhb2m1.png', 'https://res.cloudinary.com/djk4q3tys/image/upload/v1653643368/wwgc8tdtwvc7nq9x7ytw.jpg']}
         seconds={3000}
         height={1000}
         width={1800}
