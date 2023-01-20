@@ -30,6 +30,7 @@ export const useProducts = (url: string, config: SWRConfiguration = {}) => {
         const tShirtsMessi = sortProductsByTerm(tshirtArgentinaNueva, 'argentina_official_home_custom_shirt_22_aero.rdy')
         const tshirtQatar = sortProductsByTerm(tShirtsMessi, 'argentina_home_shirt_messi_+_set_patch_qatar22')
         const tshirtChamp = sortProductsByTerm(tshirtQatar, 'argentina_official_home_+_champion_patch_shirt_22_aero.rdy')
+        const tshirtThreeStars = sortProductsByTerm(tshirtChamp, 'argentina_home_shirt_3_star_2022')
         const shorts: IProduct[] = sortPopularity(products, 'short')
         const hoodies: IProduct[] = sortPopularity(products, 'hoodies')
         const jacket: IProduct[] = sortPopularity(products, 'jacket')
@@ -55,7 +56,7 @@ export const useProducts = (url: string, config: SWRConfiguration = {}) => {
         const espadrilles: IProduct[] = sortPopularity(products, 'espadrilles')
         const footwear: IProduct[] = sortPopularity(products, 'footwear')
  
-        return tshirtChamp
+        return tshirtThreeStars
             .concat(shorts)
             .concat(hoodies)
             .concat(jacket)
