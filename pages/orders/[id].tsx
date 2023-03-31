@@ -235,7 +235,7 @@ const OrderPage: NextPage<Props> = ({ order }) => {
                     </Typography>
                   </>
                 )}
-                {order.isPaid || order.transactionId != "null" ? null : (
+                {!order.isPaid && (
                   <>
                   <CheckoutComponent amount={order.total} order={order}/>
                     <Divider sx={{ my: 1 }} />
