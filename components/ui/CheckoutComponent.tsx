@@ -70,7 +70,7 @@ export const CheckoutComponent = ({ amount, order }: Props) => {
             result.paymentIntent?.id,
         });
 
-        updateOrder_.status == 200 && router.push(`/orders/${order._id}`);
+        updateOrder_.status == 200 && router.push(`/`);
       }
     } catch (err: any) {
       console.log(err);
