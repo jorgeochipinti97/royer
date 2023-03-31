@@ -17,7 +17,6 @@ import {
   CreditCardOffOutlined,
   CreditScoreOutlined,
 } from "@mui/icons-material";
-import { PayPalButtons } from "@paypal/react-paypal-js";
 import { useRouter } from "next/router";
 
 import { ShopLayout } from "../../components/layouts/ShopLayout";
@@ -28,9 +27,8 @@ import { useEffect, useState } from "react";
 import { tesloApi } from "../../api";
 import Image from "next/image";
 import { currency } from "../../utils";
-import { isValidObjectId } from "mongoose";
-import register from "../auth/register";
 import Cookies from "js-cookie";
+import { CheckoutComponent } from '../../components/ui/CheckoutComponent';
 
 export type OrderResponseBody = {
   id: string;
@@ -239,27 +237,7 @@ const OrderPage: NextPage<Props> = ({ order }) => {
                 )}
                 {order.isPaid || order.transactionId != "null" ? null : (
                   <>
-                    <PayPalButtons
-                      createOrder={(data, actions) => {
-                        return actions.order.create({
-                          purchase_units: [
-                            {
-                              amount: {
-                                value:
-                                  order.discountCode.length > 3
-                                    ? `${order.discountPrice}`
-                                    : `${order.total}`,
-                              },
-                            },
-                          ],
-                        });
-                      }}
-                      onApprove={(data, actions) => {
-                        return actions.order!.capture().then((details) => {
-                          onOrderCompleted(details);
-                        });
-                      }}
-                    />
+                  <CheckoutComponent amount={order.total} order={order}/>
                     <Divider sx={{ my: 1 }} />
                     <Box display="flex" justifyContent="center">
                       <Button

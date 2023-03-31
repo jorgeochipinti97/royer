@@ -135,7 +135,7 @@ export const ProductFilterPage = () => {
                             {
                                 categories.map(e => (
                                     // eslint-disable-next-line react/jsx-key
-                                    <Box key={e}>
+                                    <Box key={e}  color={typeProduct === e ? 'primary' : 'info'}>
                                         <Button onClick={() => {
                                             filterTypes(e)
                                             setTypeProduct(e)

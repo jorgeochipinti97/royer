@@ -7,3 +7,4 @@ export * from './SideMenu';
 export * from './Footer'
 export * from './FormQuery'
 export * from './AccordionFaqs'
+export * from './CheckoutComponent'
