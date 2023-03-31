@@ -28,13 +28,12 @@ export const CheckoutComponent = ({ amount, order }: Props) => {
 
   const createPayment = async () => {
     try {
-      setIsPaying(true)
+      setIsPaying(true);
       const res = await axios.post("/api/intent", {
         amount: amount * 100,
         description: `pago de ${amount} en royer`,
       });
       const data = res.data;
-      console.log(data.client_secret);
       confirmPayment(data.client_secret);
     } catch (error: any) {
       console.error(error);
@@ -61,15 +60,19 @@ export const CheckoutComponent = ({ amount, order }: Props) => {
           }
         );
 
+        result.error && alert(result.error!.message);
+        result.error && router.push(`/orders/${order._id}`);
         const updateOrder_ = await axios.put("/api/orders", {
           ...order,
-          isPaid: true,
-          transactionId: result.paymentIntent?.id,
+          isPaid: result.paymentIntent?.status == "succeeded" && true,
+          transactionId:
+            result.paymentIntent?.status == "succeeded" &&
+            result.paymentIntent?.id,
         });
 
         updateOrder_.status == 200 && router.push(`/orders/${order._id}`);
       }
-    } catch (err) {
+    } catch (err: any) {
       console.log(err);
     }
   };
