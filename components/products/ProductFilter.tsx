@@ -19,7 +19,7 @@ export const ProductFilterPage = () => {
     const [valueProduct, setValueProduct] = useState<string>('all')
     const [typeProduct, setTypeProduct] = useState<string>('shirts')
     const [_productsFiltered, setProductsFiltered] = useState<IProduct[]>(products)
-    const genders_ = ['all', 'fashion']
+    const genders_ = ['all']
     const todasCategorias = ['shirts', 'jacket', 'pants', 'mate', 'yerba', 'alfajores', 'wine', 'short', 'socks', 'wallet', 'purse', 'accessories', 'bag', 'espadrilles', 'footwear']
     const fashion__ = ['wallet', 'purse', 'bag', 'espadrilles', 'footwear']
     const categoriasRegional = ['mate', 'yerba', 'alfajores', 'wine']
@@ -29,7 +29,7 @@ export const ProductFilterPage = () => {
     const [currentsProducts, setCurrentProducts] = useState<IProduct[]>(_productsFiltered.slice(0, 15) || [])
     const [currentPage, setCurrentPage] = useState(1)
 
-    
+
     useEffect(() => {
         searchTerm.length == 0 && getProductsFiltered()
         const newProducts = _productsFiltered.filter(e => e.title.toLowerCase().includes(searchTerm.toLowerCase()))
@@ -89,35 +89,30 @@ export const ProductFilterPage = () => {
         setCurrentPage(currentPage + 1)
         console.log(currentPage)
     }
-
-
     return (
         <>
-
-
             <Box>
                 <Box>
                     <Box display='flex' justifyContent='center'>
                         <Box>
                             <Box display='flex' justifyContent='center' sx={{ flexWrap: { xs: 'wrap', sm: 'wrap' } }} >
-                                {genders_.map(e => (
-                                    <Box key={e}>
-                                        <Button color={valueProduct === e ? 'primary' : 'info'}
-                                            onClick={() => {
-                                                e == 'all' && filterAll()
-                                                filterValues(e)
-                                                setValueProduct(e)
-                                            }}
-                                        >{capitalize(e)}</Button>
-                                    </Box>
-                                ))}
+                                {/* {genders_.map(e => ( */}
+                                <Box >
+                                    <Button color={valueProduct === 'all' ? 'primary' : 'info'}
+                                        onClick={() => {
+                                            filterAll()
+                                            filterValues('all')
+                                            setValueProduct('all')
+                                        }}
+                                    >{capitalize('Football')}</Button>
+                                </Box>
+                                {/* ))} */}
                                 <Box >
                                     <Button color={valueProduct === 'regionales' ? 'primary' : 'info'}
                                         onClick={() => {
                                             setValueProduct('regionales')
                                             filterValues('regionales')
-                                        }}
-                                    >
+                                        }}                          >
                                         Regionals
                                     </Button>
                                 </Box>
@@ -128,24 +123,18 @@ export const ProductFilterPage = () => {
                     <Divider sx={{ my: 1 }} />
                     <Box flex={1} />
                     <Box
-
                         className="fadeIn">
                         <Box display='flex' justifyContent='center' sx={{ flexWrap: { xs: 'wrap', sm: 'wrap' } }}>
-
                             {
                                 categories.map(e => (
                                     // eslint-disable-next-line react/jsx-key
-                                    <Box key={e}  color={typeProduct === e ? 'primary' : 'info'}>
+                                    <Box key={e} color={typeProduct === e ? 'primary' : 'info'}>
                                         <Button onClick={() => {
                                             filterTypes(e)
                                             setTypeProduct(e)
                                         }
-
                                         } color={typeProduct === e ? 'primary' : 'info'}>{capitalize(e)}</Button>
-                                    </Box>
-                                )
-                                )
-                            }
+                                    </Box>))}
                         </Box>
                     </Box>
                     <Divider sx={{ my: 1 }} />
