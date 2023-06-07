@@ -32,7 +32,7 @@ const HomePage: NextPage<Props> = ({ populars_ }) => {
         height={1000} 
         width={1800}
       /> */}
-      {
+      { 
         isLoading
           ? <FullScreenLoading />
           : (
