@@ -14,7 +14,7 @@ import { dbProducts } from '../database';
 import { sortPopularity } from '../utils';
 
 
-
+ 
 interface Props {
   populars_: IProduct[]
 }
